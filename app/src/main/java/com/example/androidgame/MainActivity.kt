@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
     fun move(){
         //val intent = Intent(this,res2::class.java)
         //startActivity(intent)
+        binding.result.text="到達!!"
     }
 
     fun masu_checker(num:Int){
