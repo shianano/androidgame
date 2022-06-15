@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SubActivity"
+    tools:deviceIds="wear">
+
+    <FrameLayout
+        android:id="@+id/tabFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/suteButton"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:background="#FB0000"
+        android:text="ステータス"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/aitemButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabFrame" />
+
+    <Button
+        android:id="@+id/aitemButton"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="#FB0000"
+        android:text="アイテム"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/settingButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/suteButton"
+        app:layout_constraintTop_toTopOf="@+id/suteButton" />
+
+    <Button
+        android:id="@+id/settingButton"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:background="#FB0000"
+        android:text="設定"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/soubiButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/aitemButton"
+        app:layout_constraintTop_toTopOf="@+id/aitemButton" />
+
+    <Button
+        android:id="@+id/soubiButton"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:background="#FB0000"
+        android:text="装備"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/batuButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/settingButton"
+        app:layout_constraintTop_toTopOf="@+id/settingButton" />
+
+    <Button
+        android:id="@+id/batuButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#FB0000"
+        android:text="✖"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/soubiButton"
+        app:layout_constraintTop_toTopOf="@+id/soubiButton" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aitemButton">
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
