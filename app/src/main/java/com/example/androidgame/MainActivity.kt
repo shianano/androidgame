@@ -87,11 +87,13 @@ class MainActivity : AppCompatActivity() {
             set_enemy(no)
         }
         else if(masu[num][1]==2){
-            //戦闘
+            //アイテムゲット
             binding.result.text = "アイテムゲット！！"
+            binding.enemyImage.setImageResource(R.drawable.po)
         }
         else{
             binding.result.text = "なし！！"
+            binding.enemyImage.setImageResource(R.drawable.notevent3)
         }
     }
 
@@ -114,6 +116,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //enemy_atack
+    fun enemy_daisu(){
+
+    }
 
     //
     fun create_array(){
