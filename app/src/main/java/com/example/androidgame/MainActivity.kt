@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.daisu.setOnClickListener { daisu_start() }
+        binding.usepo.setOnClickListener { use_portion() }
         setContentView(binding.root)
     }
     //
@@ -72,11 +73,14 @@ class MainActivity : AppCompatActivity() {
             status()
             ch++
         }
-        devil_daisu = (Math.random()*6).toInt()+1
-        //val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        all_masu = all_masu + devil_daisu
+        if (type==0){
+            devil_daisu = 1//(Math.random()*6).toInt()+1
+            //val pref = PreferenceManager.getDefaultSharedPreferences(this)
+            all_masu = all_masu + devil_daisu
+        }
         if(all_masu >= 30 && type == 0){
-            move()
+            binding.enemyImage.setImageResource(R.drawable.clear)
+            binding.masucount.text="0"
         }
         else if(type==0){
             binding.masucount.text = (30-all_masu).toString()
@@ -99,10 +103,15 @@ class MainActivity : AppCompatActivity() {
         binding.def.text = def.toString()
     }
 
+    //移動
     fun move(){
         //val intent = Intent(this,res2::class.java)
         //startActivity(intent)
         binding.result.text="到達!!"
+    }
+    fun game_over(){
+        val intent = Intent(this,Gameover::class.java)
+        Gameover(intent)
     }
 
     fun masu_checker(num:Int){
@@ -153,6 +162,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //potion use
+    fun use_portion(){
+        if (po>0){
+            var ing_hp = Integer.parseInt(binding.hp.text.toString())
+            ing_hp = ing_hp + 20
+            binding.hp.text = ing_hp.toString()
+            binding.result.text = ""
+            binding.meResult.text = "20回復した"
+            po--
+            binding.portionNum.text = po.toString()
+        }
+        else if (po==0){
+            binding.portionNum.text = po.toString()
+        }
+    }
+
 
     //buttle
     fun btl(){
@@ -167,14 +192,20 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             enemy_daisu()
-            var result_hp = hp-human_daisu
+            var result_hp = hp-human_daisu*enemy_atk
             hp = result_hp
-            var text = "相手："+ result_human_hp.toString()
+            var text = "相手："+ ((devil_daisu*atk)).toString() + "ダメージ"
             binding.hpnum.text = result_human_hp.toString()
             binding.result.text = text
-            text = "自分：" + result_hp.toString()
-            binding.hp.text = result_hp.toString()
-            binding.meResult.text = text
+            text = "自分：" + ((human_daisu*enemy_atk)).toString() + "ダメージ"
+            //
+            if (result_hp>0){
+                binding.hp.text = result_hp.toString()
+                binding.meResult.text = text
+            }
+            else{
+                game_over()
+            }
         }
         round++
     }
@@ -218,22 +249,27 @@ class MainActivity : AppCompatActivity() {
         //masu
         var height = 0
         var weight = 0
-        var enemy = 1
+        var enemy = 0
+        var re_daisu = 4
         //
         while(height<max_height){
             weight = 0
             while (weight<max_weight){
                 masu[height][weight] = weight+1
                 weight++
-                val type = (Math.random()*3).toInt()
-                masu[height][weight] = type
+                val m_type = (Math.random()*3).toInt()
+                masu[height][weight] = m_type
                 weight++
-                if (type == 1 && enemy<5){
+                if (m_type == 1 && enemy<5){
                     masu[height][weight] = enemy
                     enemy++
                 }
-                else{
-                    masu[height][weight] = 0
+                else if(m_type == 1 && enemy>=5){
+                    while (re_daisu==2||re_daisu==0){
+                        val re_m_type = (Math.random()*3).toInt()
+                        re_daisu =re_m_type
+                    }
+                    masu[height][weight-1] = re_daisu
                 }
                 enemy++
                 weight++
@@ -253,11 +289,11 @@ class MainActivity : AppCompatActivity() {
         human[3][1] = 70
         human[4][1] = 60
         //atk
-        human[0][2] = 50
-        human[1][2] = 30
-        human[2][2] = 30
-        human[3][2] = 20
-        human[4][2] = 20
+        human[0][2] = 2
+        human[1][2] = 3
+        human[2][2] = 3
+        human[3][2] = 4
+        human[4][2] = 3
         //def
         human[0][3] = 10
         human[1][3] = 9
