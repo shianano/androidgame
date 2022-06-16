@@ -4,12 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.View
 import com.example.androidgame.databinding.ActivityMainBinding
 //import androidx.preference
 
 class MainActivity : AppCompatActivity() {
     //定義
     private lateinit var binding:ActivityMainBinding
+
+    //自分ステータス
+    var hp = 100
+    var atk = 5
+    var def = 20
+    var po = 0
 
     //マス定義
     var max_height = 30
@@ -27,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     //人間名定義
     //var human_name = arrayOf("ファグラ","トートリ","アゲイン","エクレー","オフェリア")
     //var human_image = arrayOf("R.drawable.image1","R.drawable.image2","R.drawable.image3","R.drawable.image4","R.drawable.image5")
+    //人間と戦闘時ステータスを入れて戦闘
 
     //技(ult) ultの番号・ヒール系,攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
     var ult_height = 3
@@ -40,34 +48,55 @@ class MainActivity : AppCompatActivity() {
     var masu_num = 0
     var all_masu = 0
     //
+    var ch = 0
+    var type = 0
+    var human_daisu = 0
+    var devil_daisu = 0
+    var round = 0
+    var enemy_no = 0
+    var enemy_hp = 0
+    var enemy_atk = 0
+    var enemy_def = 0
+    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        create_array()
-        start_status()
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.daisu.setOnClickListener { daisu_start() }
         setContentView(binding.root)
     }
     //
     //
-    //
     fun daisu_start(){
-        val rnd_num = (Math.random()*6).toInt()+1
+        if (ch==0){
+            create_array()
+            status()
+            ch++
+        }
+        devil_daisu = (Math.random()*6).toInt()+1
         //val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        all_masu = all_masu + rnd_num
-        if(all_masu>=30){
+        all_masu = all_masu + devil_daisu
+        if(all_masu >= 30 && type == 0){
             move()
         }
-        else{
+        else if(type==0){
             binding.masucount.text = (30-all_masu).toString()
             masu_checker(all_masu)
         }
+        else if (type==1){
+            btl()
+        }
     }
 
-    fun start_status(){
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor = pref.edit()
-        editor.putInt("HP",100).putInt("ATK",20).putInt("ult",0)
+    fun status(){
+        //val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        //val editor = pref.edit()
+        //editor.putInt("HP",100).putInt("ATK",20).putInt("ult",0).putInt("po",0)
+        //binding.hp.text = pref.getInt("HP",0).toString()
+        //binding.atk.text = pref.getInt("ATK",0).toString()
+        //binding.def.text = pref.getInt("DEF",0).toString()
+        binding.hp.text = hp.toString()
+        binding.atk.text = atk.toString()
+        binding.def.text = def.toString()
     }
 
     fun move(){
@@ -83,13 +112,20 @@ class MainActivity : AppCompatActivity() {
         if(masu[num][1]==1){
             //戦闘
             binding.result.text = "戦闘！！"
-            var no = masu[num][2]
-            set_enemy(no)
+            binding.no.text = masu[num][2].toString()
+            enemy_no = Integer.parseInt(binding.no.text.toString())
+            set_enemy(enemy_no)
+            open_enemy_status(enemy_no)
+            type = 1
         }
         else if(masu[num][1]==2){
             //アイテムゲット
             binding.result.text = "アイテムゲット！！"
             binding.enemyImage.setImageResource(R.drawable.po)
+            po = po + 1
+            //po_num = po_num + pref.getInt("po",0)
+            //editor.putInt("po",po_num)
+            binding.portionNum.text = po.toString()
         }
         else{
             binding.result.text = "なし！！"
@@ -98,7 +134,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     //img_set
-    fun set_enemy(no:Int?){
+    fun set_enemy(no:Int){
+        enemy_no = no
         if (no==0){
             binding.enemyImage.setImageResource(R.drawable.image1)
         }
@@ -116,9 +153,64 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    //buttle
+    fun btl(){
+        var human_hp = binding.hpnum.text
+        var result_human_hp = Integer.parseInt(human_hp.toString()) - (atk*devil_daisu)
+        if(result_human_hp<=0){
+            binding.result.text = "倒した！"
+            binding.meResult.text = ""
+            binding.enemyImage.setImageResource(R.drawable.taosita)
+            invisible_enemy_status()
+            type = 0
+        }
+        else{
+            enemy_daisu()
+            var result_hp = hp-human_daisu
+            hp = result_hp
+            var text = "相手："+ result_human_hp.toString()
+            binding.hpnum.text = result_human_hp.toString()
+            binding.result.text = text
+            text = "自分：" + result_hp.toString()
+            binding.hp.text = result_hp.toString()
+            binding.meResult.text = text
+        }
+        round++
+    }
+
     //enemy_atack
     fun enemy_daisu(){
+        human_daisu = (Math.random()*6).toInt()+1
+    }
+    //enemy_status_open
+    fun open_enemy_status(no:Int){
+        binding.hptext.setVisibility(View.VISIBLE)
+        binding.hpnum.setVisibility(View.VISIBLE)
+        binding.atktext.setVisibility(View.VISIBLE)
+        binding.atknum.setVisibility(View.VISIBLE)
+        binding.deftext.setVisibility(View.VISIBLE)
+        binding.defnum.setVisibility(View.VISIBLE)
+        set_enemy_status(no)
+    }
+    //enemy_status_invisible
+    fun invisible_enemy_status(){
+        binding.hptext.setVisibility(View.INVISIBLE)
+        binding.hpnum.setVisibility(View.INVISIBLE)
+        binding.atktext.setVisibility(View.INVISIBLE)
+        binding.atknum.setVisibility(View.INVISIBLE)
+        binding.deftext.setVisibility(View.INVISIBLE)
+        binding.defnum.setVisibility(View.INVISIBLE)
+    }
 
+    //enemy_status_set
+    fun set_enemy_status(no:Int){
+        binding.hpnum.text=human[no][1].toString()
+        binding.atknum.text=human[no][2].toString()
+        binding.defnum.text=human[no][3].toString()
+        enemy_hp = Integer.parseInt(binding.hpnum.text.toString())
+        enemy_atk = Integer.parseInt(binding.atknum.text.toString())
+        enemy_def = Integer.parseInt(binding.defnum.text.toString())
     }
 
     //
@@ -126,6 +218,7 @@ class MainActivity : AppCompatActivity() {
         //masu
         var height = 0
         var weight = 0
+        var enemy = 1
         //
         while(height<max_height){
             weight = 0
@@ -135,13 +228,14 @@ class MainActivity : AppCompatActivity() {
                 val type = (Math.random()*3).toInt()
                 masu[height][weight] = type
                 weight++
-                if (type==1){
-                    val enemy = (Math.random()*human_type_height).toInt()
+                if (type == 1 && enemy<5){
                     masu[height][weight] = enemy
+                    enemy++
                 }
                 else{
-                    masu[height][weight] = 99
+                    masu[height][weight] = 0
                 }
+                enemy++
                 weight++
             }
             height++
@@ -152,36 +246,36 @@ class MainActivity : AppCompatActivity() {
             human[height][0] = height+1
             height++
         }
-        //atk
+        //hp
         human[0][1] = 100
-        human[1][1] = 100
-        human[2][1] = 100
-        human[3][1] = 100
-        human[4][1] = 100
+        human[1][1] = 90
+        human[2][1] = 80
+        human[3][1] = 70
+        human[4][1] = 60
+        //atk
+        human[0][2] = 50
+        human[1][2] = 30
+        human[2][2] = 30
+        human[3][2] = 20
+        human[4][2] = 20
         //def
-        human[0][2] = 100
-        human[1][2] = 100
-        human[2][2] = 100
-        human[3][2] = 100
-        human[4][2] = 100
-        //mp
         human[0][3] = 10
-        human[1][3] = 10
-        human[2][3] = 10
-        human[3][3] = 10
-        human[4][3] = 10
-        //ult
+        human[1][3] = 9
+        human[2][3] = 8
+        human[3][3] = 7
+        human[4][3] = 6
+        //mp
         human[0][4] = 1
         human[1][4] = 1
         human[2][4] = 1
         human[3][4] = 1
         human[4][4] = 1
-        //exp
-        human[0][5] = 20
-        human[1][5] = 20
-        human[2][5] = 20
-        human[3][5] = 20
-        human[4][5] = 20
+        //ult
+        human[0][5] = 1
+        human[1][5] = 1
+        human[2][5] = 1
+        human[3][5] = 1
+        human[4][5] = 1
 
         //ult
 
