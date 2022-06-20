@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity() {
         binding.result.text="到達!!"
     }
     fun game_over(){
-        //val intent = Intent(this, Gameover::class.java)
-        //startActivity(intent)
+        val intent = Intent(this, Gameover::class.java)
+        startActivity(intent)
         //setContentView(R.layout.activity_gameover)
     }
 

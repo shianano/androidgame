@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.androidgame.databinding.ActivityGameoverBinding
-import com.example.androidgame.databinding.ActivityStartBinding
 
 class Gameover : AppCompatActivity() {
     lateinit var binding:ActivityGameoverBinding
@@ -16,7 +15,7 @@ class Gameover : AppCompatActivity() {
     }
 
     fun start_menu(){
-        val intent = Intent(this,StartActivity::class.java)
-        StartActivity(intent)
+        val intent = Intent(this,StaActivity::class.java)
+        startActivity(intent)
     }
 }
