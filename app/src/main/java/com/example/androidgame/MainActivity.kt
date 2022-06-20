@@ -105,8 +105,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //
-
+    //初回ステータス保存
     fun status(){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         pref.edit{
@@ -124,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
     }
+    //2回目以降（途中で止めたデータ）
 
     //移動
     fun move(){
@@ -136,8 +136,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun menu_change(){
-        val intent = Intent(this,SubActivity::class.java)
-        startActivity(intent)
+        //val intent = Intent(this,SubActivity::class.java)
+        //startActivity(intent)
+        setContentView(R.layout.activity_sub)
     }
 
     fun masu_checker(num:Int){
