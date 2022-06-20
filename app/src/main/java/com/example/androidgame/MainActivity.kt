@@ -137,6 +137,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun menu_change(){
         val intent = Intent(this,SubActivity::class.java)
+        startActivity(intent)
     }
 
     fun masu_checker(num:Int){
