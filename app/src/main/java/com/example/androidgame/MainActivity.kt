@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     fun game_over(){
         //val intent = Intent(this, Gameover::class.java)
         //startActivity(intent)
-        setContentView(R.layout.activity_gameover)
+        //setContentView(R.layout.activity_gameover)
     }
 
     fun masu_checker(num:Int){
