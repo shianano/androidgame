@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.daisu.setOnClickListener { daisu_start() }
         binding.usepo.setOnClickListener { use_portion() }
-        binding.menu.setOnClickListener {  }
+        binding.menu.setOnClickListener { menu_change() }
 
         //save chack
         val init = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
