@@ -1,10 +1,13 @@
 package com.example.androidgame
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
+import androidx.core.app.AppLaunchChecker
+import androidx.core.content.edit
 import com.example.androidgame.databinding.ActivityMainBinding
 //import androidx.preference
 
@@ -13,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
 
     //自分ステータス
-    var hp = 100
-    var atk = 5
-    var def = 20
+    var hp = 0
+    var atk = 0
+    var def = 0
     var po = 0
 
     //マス定義
@@ -63,6 +66,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.daisu.setOnClickListener { daisu_start() }
         binding.usepo.setOnClickListener { use_portion() }
+        binding.menu.setOnClickListener {  }
+
+        //save chack
+        val init = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
+        if (init==true){
+            status()
+        }
+        else{
+
+        }
+
         setContentView(binding.root)
     }
     //
@@ -91,13 +105,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //
+
     fun status(){
-        //val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        //val editor = pref.edit()
-        //editor.putInt("HP",100).putInt("ATK",20).putInt("ult",0).putInt("po",0)
-        //binding.hp.text = pref.getInt("HP",0).toString()
-        //binding.atk.text = pref.getInt("ATK",0).toString()
-        //binding.def.text = pref.getInt("DEF",0).toString()
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        pref.edit{
+            putInt("pl_hp",100)
+            putInt("pl_atk",8)
+            putInt("pl_def",20)
+            putInt("pl_mp",20)
+            putInt("pl_po",0)
+        }
+        hp=pref.getInt("pl_hp",0)
+        atk=pref.getInt("pl_atk",0)
+        def=pref.getInt("pl_def",0)
+        po=pref.getInt("pl_po",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
@@ -112,13 +134,12 @@ class MainActivity : AppCompatActivity() {
     fun game_over(){
         val intent = Intent(this, Gameover::class.java)
         startActivity(intent)
-        //setContentView(R.layout.activity_gameover)
+    }
+    fun menu_change(){
+        val intent = Intent(this,SubActivity::class.java)
     }
 
     fun masu_checker(num:Int){
-        //val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        //val editor = pref.edit()
-        //editor.putInt("num",num)
         if(masu[num][1]==1){
             //戦闘
             binding.result.text = "戦闘！！"
@@ -133,8 +154,6 @@ class MainActivity : AppCompatActivity() {
             binding.result.text = "アイテムゲット！！"
             binding.enemyImage.setImageResource(R.drawable.po)
             po = po + 1
-            //po_num = po_num + pref.getInt("po",0)
-            //editor.putInt("po",po_num)
             binding.portionNum.text = po.toString()
         }
         else{
@@ -215,6 +234,7 @@ class MainActivity : AppCompatActivity() {
     fun enemy_daisu(){
         human_daisu = (Math.random()*6).toInt()+1
     }
+
     //enemy_status_open
     fun open_enemy_status(no:Int){
         binding.hptext.setVisibility(View.VISIBLE)
