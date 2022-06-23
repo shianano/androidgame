@@ -109,7 +109,7 @@
         android:text="回復薬:"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/image3" />
 
@@ -130,10 +130,10 @@
         android:layout_height="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image3"
-        app:layout_constraintVertical_bias="0.084"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/saikoro_145" />
 
     <Button
@@ -332,11 +332,11 @@
         android:id="@+id/no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="260dp"
         android:text="0"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintHorizontal_bias="0.987"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
@@ -354,12 +354,41 @@
         android:id="@+id/save"
         android:layout_width="94dp"
         android:layout_height="48dp"
+        android:layout_marginTop="2dp"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.009" />
+
+    <TextView
+        android:id="@+id/mptext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="249dp"
+        android:layout_marginEnd="137dp"
+        android:text="mp:"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/enemyImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.841" />
+        app:layout_constraintVertical_bias="0.958" />
+
+    <TextView
+        android:id="@+id/mpnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="252dp"
+        android:text="5"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/mptext"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

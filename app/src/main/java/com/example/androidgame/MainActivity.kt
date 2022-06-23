@@ -2,20 +2,31 @@ package com.example.androidgame
 
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.AudioAttributes.CONTENT_TYPE_SPEECH
+import android.media.SoundPool
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.AppLaunchChecker
 import androidx.core.content.edit
+import androidx.media.AudioAttributesCompat.CONTENT_TYPE_SPEECH
 import com.example.androidgame.databinding.ActivityMainBinding
 import org.json.JSONArray
+import java.util.jar.Attributes
 
 //import androidx.preference
 
 class MainActivity : AppCompatActivity() {
     //定義
     private lateinit var binding:ActivityMainBinding
+
+    //サウンド
+    lateinit var soundPool: SoundPool
+    var atk_sound = 0
+    var daisu_sound = 0
+    var dark_bgm = 0
 
     //自分ステータス
     var hp = 0
@@ -25,30 +36,31 @@ class MainActivity : AppCompatActivity() {
 
     //マス定義
     var max_height = 30
-    var max_weight = 3
-    var masu = Array(max_height){
-        arrayOfNulls<Int>(max_weight)
-    }
+    //test input
+    var masu_event = IntArray(max_height)
+    var masu_result_num = IntArray(max_height)
 
     //人間ステータス定義
-    var human_type_height = 6
-    var human_type_weight = 6
-    var human = Array(human_type_weight){
-        arrayOfNulls<Int>(human_type_height)
-    }
+    //var human_type_height = 6
+    //var human_type_weight = 6
+    //test input
+    val human_hp: Array<Int> = arrayOf(100,90,80,70,60)
+    val human_atk: Array<Int> = arrayOf(5,5,5,5,5)
+    val human_def: Array<Int> = arrayOf(10,9,8,7,6)
+    val human_mp: Array<Int> = arrayOf(5,5,5,5,5)
+    val human_ult: Array<String> = arrayOf("1","1","1","1","1")
+    //set
+    var human_ult_set: Array<Int> = arrayOf()
+
     //人間名定義
-    //var human_name = arrayOf("ファグラ","トートリ","アゲイン","エクレー","オフェリア")
-    //var human_image = arrayOf("R.drawable.image1","R.drawable.image2","R.drawable.image3","R.drawable.image4","R.drawable.image5")
+    val human_name = arrayOf("ファグラ","トートリ","アゲイン","エクレー","オフェリア")
     //人間と戦闘時ステータスを入れて戦闘
 
-    //技(ult) ultの番号・ヒール系,攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
-    var ult_height = 3
-    var ult_weight = 3
-    var ult = Array(ult_weight){
-        arrayOfNulls<Int>(ult_height)
-    }
-    //技名
-    var ult_name = arrayOf("ヒール", "暗黒斬り")
+    //技(ult) ultの番号・[0]ヒール系,[1]攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
+    val ult_type: Array<Int> = arrayOf(0,1)
+    val ult_result_num: Array<Int> = arrayOf(20,15)
+    val ult_use_mp: Array<Int> = arrayOf(5,5)
+    val ult_name: Array<String> = arrayOf("ヒール", "暗黒斬り")
     //
     var masu_num = 0
     var all_masu = 0
@@ -61,25 +73,52 @@ class MainActivity : AppCompatActivity() {
     var enemy_hp = 0
     var enemy_atk = 0
     var enemy_def = 0
+    var enemy_mp = 0
+    var soud_ch = 0
     //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.daisu.setOnClickListener { daisu_start() }
+        //
+        soundPool = SoundPool.Builder().run {
+            val audioAttributes = AudioAttributes.Builder().run {
+                setUsage(AudioAttributes.USAGE_GAME)
+                build()
+            }
+            setMaxStreams(2)
+            setAudioAttributes(audioAttributes)
+            build()
+        }
+        atk_sound = soundPool.load(this,R.raw.sordattack2,1)
+        daisu_sound = soundPool.load(this,R.raw.daisu,2)
+        dark_bgm = soundPool.load(this,R.raw.deathworld,0)
+        //
+        binding.daisu.setOnClickListener {
+            if (type==1){
+                if(soud_ch==0){
+                    soundPool.play(dark_bgm,1.0f,100f,0,-1,1.0f)
+                    soud_ch = 1
+                }
+                soundPool.play(atk_sound,1.0f,100f,0,0,1.0f)
+            }
+            else if(type==0){
+                soundPool.play(daisu_sound,1.0f,100f,0,0,1.0f)
+            }
+            daisu_start()
+        }
         binding.usepo.setOnClickListener { use_portion() }
         binding.menu.setOnClickListener { menu_change() }
         binding.save.setOnClickListener { save() }
-        //
         create_array()
         //save chack
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         if (pref.getInt("pl_check",0)==0){
             status()
-            System.out.println("ok")
+            System.out.println("data_set")
         }
         else{
             load_status()
-            System.out.println("no")
+            System.out.println("load_data")
         }
 
         setContentView(binding.root)
@@ -92,12 +131,15 @@ class MainActivity : AppCompatActivity() {
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
+        else{
+            devil_daisu = (Math.random()*6).toInt()+1
+        }
         if(all_masu >= 30 && type == 0){
             binding.enemyImage.setImageResource(R.drawable.clear)
             binding.masucount.text="0"
         }
         else if(type==0){
-            binding.masucount.text = (30-all_masu).toString()
+            binding.masucount.text = (Integer.parseInt(binding.masucount.text.toString())-devil_daisu).toString()
             masu_checker(all_masu)
         }
         else if (type==1){
@@ -135,11 +177,11 @@ class MainActivity : AppCompatActivity() {
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
-        masu_num=pref.getInt("pl_masu",0)
+        all_masu=pref.getInt("pl_masu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
-        binding.masucount.text = (30-masu_num).toString()
+        binding.masucount.text = (30-all_masu).toString()
     }
     //save
     fun save(){
@@ -164,8 +206,9 @@ class MainActivity : AppCompatActivity() {
     }
     //ゲームオーバー移動
     fun game_over(){
-        val intent = Intent(this, Gameover::class.java)
-        startActivity(intent)
+        //val intent = Intent(this, Gameover::class.java)
+        //startActivity(intent)
+        binding.result.text = "gameover"
     }
     //メニュー移動
     fun menu_change(){
@@ -175,20 +218,20 @@ class MainActivity : AppCompatActivity() {
     }
     //マス確認
     fun masu_checker(num: Int){
-        if(masu[num][1]==1){
+        if(masu_event[num]==1){
             //戦闘
             binding.result.text = "戦闘！！"
-            binding.no.text = masu[num][2].toString()
+            binding.no.text = masu_result_num[num].toString()
             enemy_no = Integer.parseInt(binding.no.text.toString())
             set_enemy(enemy_no)
             open_enemy_status(enemy_no)
             type = 1
         }
-        else if(masu[num][1]==2){
+        else if(masu_event[num]==2){
             //アイテムゲット
             binding.result.text = "アイテムゲット！！"
             binding.enemyImage.setImageResource(R.drawable.po)
-            po = po + 1
+            po = po + masu_result_num[num]
             binding.portionNum.text = po.toString()
         }
         else{
@@ -220,6 +263,9 @@ class MainActivity : AppCompatActivity() {
         if (po>0){
             var ing_hp = Integer.parseInt(binding.hp.text.toString())
             ing_hp = ing_hp + 20
+            if(ing_hp>100){
+                ing_hp = 100
+            }
             binding.hp.text = ing_hp.toString()
             binding.result.text = ""
             binding.meResult.text = "20回復した"
@@ -238,12 +284,17 @@ class MainActivity : AppCompatActivity() {
         var human_def = Integer.parseInt(binding.defnum.text.toString())
         var me_atk_dmg = 0
         var human_atk_dmg = 0
-        me_atk_dmg = human_def - (atk*devil_daisu)
+        var text = ""
+        var text2 = ""
+        me_atk_dmg = (atk*devil_daisu) - human_def
+        System.out.println(me_atk_dmg)
         if (me_atk_dmg<=0){
             me_atk_dmg = 0
         }
         var result_human_hp = human_hp - me_atk_dmg
         if(result_human_hp<=0){
+            soud_ch = 0
+            soundPool.stop(dark_bgm)
             binding.result.text = "倒した！"
             binding.meResult.text = ""
             binding.enemyImage.setImageResource(R.drawable.taosita)
@@ -251,20 +302,72 @@ class MainActivity : AppCompatActivity() {
             type = 0
         }
         else{
+            binding.hpnum.text = result_human_hp.toString()
             enemy_daisu()
-            human_atk_dmg = def - human_daisu*human_atk
-            if (human_atk_dmg<=0){
-                human_atk_dmg = 0
+            var ult_check = (Math.random()*100).toInt()
+            if(ult_check<=80){
+                var use_ult = (Math.random()*human_ult_set.size).toInt()
+                System.out.println(human_ult_set.size)
+                //攻撃スキル
+                if(ult_type[human_ult_set[use_ult]]==1){
+                    if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]){
+                        enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                        binding.mpnum.text = enemy_mp.toString()
+                        human_atk_dmg = human_daisu*ult_result_num[human_ult_set[use_ult]] - def
+                        if (human_atk_dmg <= 0) {
+                            human_atk_dmg = 0
+                        }
+                        hp = hp - human_atk_dmg
+                        text2 = "相手の" + ult_name[human_ult_set[use_ult]] + me_atk_dmg + "ダメージ"
+                        text = "相手："+ human_atk_dmg + "ダメージ"
+                    }
+                    else{
+                        human_atk_dmg = human_daisu * human_atk - def
+                        if (human_atk_dmg <= 0) {
+                            human_atk_dmg = 0
+                        }
+                        hp = hp - human_atk_dmg
+                        text2 = "自分：" + human_atk_dmg + "ダメージ"
+                        text = "相手："+ me_atk_dmg + "ダメージ"
+                    }
+                }
+                //回復スキル
+                else if(ult_type[human_ult_set[use_ult]]==0){
+                    if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]) {
+                        enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                        binding.mpnum.text = enemy_mp.toString()
+                        human_hp = human_hp + ult_result_num[human_ult_set[use_ult]]
+                        binding.hpnum.text = human_hp.toString()
+                        var heal = ult_result_num[human_ult_set[use_ult]]
+                        text2 = "相手の" + ult_name[human_ult_set[use_ult]] + ":" + heal + "回復"
+                        text = "相手："+ me_atk_dmg + "ダメージ"
+                    }
+                    else{
+                        human_atk_dmg = human_daisu * human_atk - def
+                        if (human_atk_dmg <= 0) {
+                            human_atk_dmg = 0
+                        }
+                        hp = hp - human_atk_dmg
+                        text2 = "自分：" + human_atk_dmg + "ダメージ"
+                        text = "相手："+ me_atk_dmg + "ダメージ"
+                    }
+                }
             }
-            hp = hp - human_atk_dmg
-            var text = "相手："+ me_atk_dmg + "ダメージ"
-            binding.hpnum.text = human_hp.toString()
-            binding.result.text = text
-            text = "自分：" + human_atk_dmg + "ダメージ"
-            //
+            else {
+                human_atk_dmg = human_daisu * human_atk - def
+                if (human_atk_dmg <= 0) {
+                    human_atk_dmg = 0
+                }
+                hp = hp - human_atk_dmg
+                text = "相手："+ me_atk_dmg + "ダメージ"
+                binding.hpnum.text = result_human_hp.toString()
+                text2 = "自分：" + human_atk_dmg + "ダメージ"
+                //
+            }
             if (hp>0){
                 binding.hp.text = hp.toString()
-                binding.meResult.text = text
+                binding.meResult.text = text2
+                binding.result.text = text
             }
             else{
                 game_over()
@@ -284,6 +387,8 @@ class MainActivity : AppCompatActivity() {
         binding.atknum.setVisibility(View.VISIBLE)
         binding.deftext.setVisibility(View.VISIBLE)
         binding.defnum.setVisibility(View.VISIBLE)
+        binding.mptext.setVisibility(View.VISIBLE)
+        binding.mpnum.setVisibility(View.VISIBLE)
         set_enemy_status(no)
     }
     //相手のステータスを非表示
@@ -294,101 +399,57 @@ class MainActivity : AppCompatActivity() {
         binding.atknum.setVisibility(View.INVISIBLE)
         binding.deftext.setVisibility(View.INVISIBLE)
         binding.defnum.setVisibility(View.INVISIBLE)
+        binding.mptext.setVisibility(View.INVISIBLE)
+        binding.mpnum.setVisibility(View.INVISIBLE)
     }
     //相手のステータスの数値を表示
     fun set_enemy_status(no: Int){
-        binding.hpnum.text=human[no][1].toString()
-        binding.atknum.text=human[no][2].toString()
-        binding.defnum.text=human[no][3].toString()
+        binding.hpnum.text=human_hp[no].toString()
+        binding.atknum.text=human_atk[no].toString()
+        binding.defnum.text=human_def[no].toString()
+        binding.mpnum.text=human_mp[no].toString()
         enemy_hp = Integer.parseInt(binding.hpnum.text.toString())
         enemy_atk = Integer.parseInt(binding.atknum.text.toString())
         enemy_def = Integer.parseInt(binding.defnum.text.toString())
+        enemy_mp = Integer.parseInt(binding.mpnum.text.toString())
+        var i = human_ult[no]
+        human_ult_set = i.split(",").map(String::toInt).toTypedArray()
+        System.out.println(human_ult_set[0])
     }
     //マス、相手のステータス、技などを作る
-    fun create_array(){
+    fun create_array() {
         //masu
         var height = 0
         var weight = 0
         var enemy = 0
         var re_daisu = 4
         //
-        while(height<max_height){
-            weight = 0
-            while (weight<max_weight){
-                //マス番号1-30　masu[][0]
-                masu[height][weight] = weight+1
-                weight++
-                val m_type = (Math.random()*3).toInt()
-                //0->なし　1->戦闘　2->アイテム　masu[][1]
-                masu[height][weight] = m_type
-                weight++
-                if (m_type == 1 && enemy<5){
-                    //masu[][2]　戦闘相手の番号
-                    masu[height][weight] = enemy
-                    enemy++
-                }
-                else if(m_type == 1 && enemy>=5){
-                    while (re_daisu==2||re_daisu==0){
-                        val re_m_type = (Math.random()*3).toInt()
-                        re_daisu =re_m_type
-                    }
-                    masu[height][weight - 1] = re_daisu
-                }
+        height = 0
+        enemy = 0
+        System.out.println(masu_event.size)
+        System.out.println(masu_result_num.size)
+        while (height < max_height) {
+            val m_type = (Math.random() * 3).toInt()
+            //0->なし　1->戦闘　2->アイテム　masu[][1]
+            if (m_type == 1 && enemy < 5) {
+                masu_event[height] = m_type
+                masu_result_num[height] = enemy
                 enemy++
-                weight++
+            } else if (m_type == 1 && enemy >= 5) {
+                masu_event[height] = m_type
+                masu_result_num[height] = (Math.random() * 5).toInt()
+            } else {
+                masu_event[height] = m_type
+                masu_result_num[height] = (Math.random() * 2).toInt() + 1
             }
             height++
         }
-        //monster
-        height = 0
-        //human[][0]-> 相手の番号
-        while (height<human_type_height){
-            human[height][0] = height+1
-            height++
-        }
-        //hp
-        human[0][1] = 100
-        human[1][1] = 90
-        human[2][1] = 80
-        human[3][1] = 70
-        human[4][1] = 60
-        //atk
-        human[0][2] = 2
-        human[1][2] = 3
-        human[2][2] = 3
-        human[3][2] = 4
-        human[4][2] = 3
-        //def
-        human[0][3] = 10
-        human[1][3] = 9
-        human[2][3] = 8
-        human[3][3] = 7
-        human[4][3] = 6
-        //mp
-        human[0][4] = 1
-        human[1][4] = 1
-        human[2][4] = 1
-        human[3][4] = 1
-        human[4][4] = 1
-        //ult
-        human[0][5] = 1
-        human[1][5] = 1
-        human[2][5] = 1
-        human[3][5] = 1
-        human[4][5] = 1
+    }
 
-        //ult
+    //
 
-        height = 0
-        while (height<ult_height){
-            ult[height][0] = height+1
-            height++
-        }
-        //0->ヒール　・　1->攻撃
-        ult[0][1] = 0
-        ult[1][1] = 1
-        //num
-        ult[0][2] = 100
-        ult[1][2] = 100
+    override fun onPause() {
+        super.onPause()
+        soundPool.release()
     }
 }
