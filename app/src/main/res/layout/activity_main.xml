@@ -143,10 +143,10 @@
         android:text="サイコロを振る"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/image3"
-        app:layout_constraintVertical_bias="0.172" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <TextView
         android:id="@+id/masucount"
@@ -240,7 +240,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:text="100"
+        android:text="5"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.009"
@@ -251,7 +251,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="100"
+        android:text="10"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -349,5 +349,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="94dp"
+        android:layout_height="48dp"
+        android:text="save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.841" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

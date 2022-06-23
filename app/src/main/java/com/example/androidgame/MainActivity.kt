@@ -1,14 +1,16 @@
 package com.example.androidgame
 
+import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.AppLaunchChecker
 import androidx.core.content.edit
 import com.example.androidgame.databinding.ActivityMainBinding
+import org.json.JSONArray
+
 //import androidx.preference
 
 class MainActivity : AppCompatActivity() {
@@ -46,12 +48,11 @@ class MainActivity : AppCompatActivity() {
         arrayOfNulls<Int>(ult_height)
     }
     //技名
-    var ult_name = arrayOf("ヒール","暗黒斬り")
+    var ult_name = arrayOf("ヒール", "暗黒斬り")
     //
     var masu_num = 0
     var all_masu = 0
     //
-    var ch = 0
     var type = 0
     var human_daisu = 0
     var devil_daisu = 0
@@ -67,14 +68,18 @@ class MainActivity : AppCompatActivity() {
         binding.daisu.setOnClickListener { daisu_start() }
         binding.usepo.setOnClickListener { use_portion() }
         binding.menu.setOnClickListener { menu_change() }
-
+        binding.save.setOnClickListener { save() }
+        //
+        create_array()
         //save chack
-        val init = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
-        if (init==true){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        if (pref.getInt("pl_check",0)==0){
             status()
+            System.out.println("ok")
         }
         else{
-
+            load_status()
+            System.out.println("no")
         }
 
         setContentView(binding.root)
@@ -82,13 +87,8 @@ class MainActivity : AppCompatActivity() {
     //
     //
     fun daisu_start(){
-        if (ch==0){
-            create_array()
-            status()
-            ch++
-        }
         if (type==0){
-            devil_daisu = 1//(Math.random()*6).toInt()+1
+            devil_daisu = (Math.random()*6).toInt()+1
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
@@ -108,40 +108,73 @@ class MainActivity : AppCompatActivity() {
     //初回ステータス保存
     fun status(){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        // 保存
         pref.edit{
-            putInt("pl_hp",100)
-            putInt("pl_atk",8)
-            putInt("pl_def",20)
-            putInt("pl_mp",20)
-            putInt("pl_po",0)
+            putInt("pl_hp", 100)
+            putInt("pl_atk", 5)
+            putInt("pl_def", 10)
+            putInt("pl_mp", 20)
+            putInt("pl_po", 0)
+            putInt("pl_masu",0)
+            putInt("pl_check",1)
         }
-        hp=pref.getInt("pl_hp",0)
-        atk=pref.getInt("pl_atk",0)
-        def=pref.getInt("pl_def",0)
-        po=pref.getInt("pl_po",0)
+        hp=pref.getInt("pl_hp", 0)
+        atk=pref.getInt("pl_atk", 0)
+        def=pref.getInt("pl_def", 0)
+        po=pref.getInt("pl_po", 0)
+        masu_num=pref.getInt("pl_masu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
+        binding.masucount.text = (30-masu_num).toString()
     }
     //2回目以降（途中で止めたデータ）
-
-    //移動
+    fun load_status(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        hp=pref.getInt("pl_hp", 0)
+        atk=pref.getInt("pl_atk", 0)
+        def=pref.getInt("pl_def", 0)
+        po=pref.getInt("pl_po", 0)
+        masu_num=pref.getInt("pl_masu",0)
+        binding.hp.text = hp.toString()
+        binding.atk.text = atk.toString()
+        binding.def.text = def.toString()
+        binding.masucount.text = (30-masu_num).toString()
+    }
+    //save
+    fun save(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        pref.edit{
+            putInt("pl_hp", Integer.parseInt(binding.hp.text.toString()))
+            putInt("pl_atk", Integer.parseInt(binding.atk.text.toString()))
+            putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
+            putInt("pl_mp", 20)
+            putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
+            putInt("pl_masu",30-Integer.parseInt(binding.masucount.text.toString()))
+            putInt("pl_check",1)
+        }
+    }
+    //
+    //
+    //ボスマス移動
     fun move(){
         //val intent = Intent(this,res2::class.java)
         //startActivity(intent)
         binding.result.text="到達!!"
     }
+    //ゲームオーバー移動
     fun game_over(){
         val intent = Intent(this, Gameover::class.java)
         startActivity(intent)
     }
+    //メニュー移動
     fun menu_change(){
         //val intent = Intent(this,SubActivity::class.java)
         //startActivity(intent)
         setContentView(R.layout.activity_sub)
     }
-
-    fun masu_checker(num:Int){
+    //マス確認
+    fun masu_checker(num: Int){
         if(masu[num][1]==1){
             //戦闘
             binding.result.text = "戦闘！！"
@@ -163,9 +196,8 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.notevent3)
         }
     }
-
-    //img_set
-    fun set_enemy(no:Int){
+    //イメージセット
+    fun set_enemy(no: Int){
         enemy_no = no
         if (no==0){
             binding.enemyImage.setImageResource(R.drawable.image1)
@@ -183,8 +215,7 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.image5)
         }
     }
-
-    //potion use
+    //ポーション使用
     fun use_portion(){
         if (po>0){
             var ing_hp = Integer.parseInt(binding.hp.text.toString())
@@ -199,12 +230,19 @@ class MainActivity : AppCompatActivity() {
             binding.portionNum.text = po.toString()
         }
     }
-
-
-    //buttle
+    //戦闘モード
     fun btl(){
-        var human_hp = binding.hpnum.text
-        var result_human_hp = Integer.parseInt(human_hp.toString()) - (atk*devil_daisu)
+        //敵のHP
+        var human_hp = Integer.parseInt(binding.hpnum.text.toString())
+        var human_atk = Integer.parseInt(binding.atknum.text.toString())
+        var human_def = Integer.parseInt(binding.defnum.text.toString())
+        var me_atk_dmg = 0
+        var human_atk_dmg = 0
+        me_atk_dmg = human_def - (atk*devil_daisu)
+        if (me_atk_dmg<=0){
+            me_atk_dmg = 0
+        }
+        var result_human_hp = human_hp - me_atk_dmg
         if(result_human_hp<=0){
             binding.result.text = "倒した！"
             binding.meResult.text = ""
@@ -214,15 +252,18 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             enemy_daisu()
-            var result_hp = hp-human_daisu*enemy_atk
-            hp = result_hp
-            var text = "相手："+ ((devil_daisu*atk)).toString() + "ダメージ"
-            binding.hpnum.text = result_human_hp.toString()
+            human_atk_dmg = def - human_daisu*human_atk
+            if (human_atk_dmg<=0){
+                human_atk_dmg = 0
+            }
+            hp = hp - human_atk_dmg
+            var text = "相手："+ me_atk_dmg + "ダメージ"
+            binding.hpnum.text = human_hp.toString()
             binding.result.text = text
-            text = "自分：" + ((human_daisu*enemy_atk)).toString() + "ダメージ"
+            text = "自分：" + human_atk_dmg + "ダメージ"
             //
-            if (result_hp>0){
-                binding.hp.text = result_hp.toString()
+            if (hp>0){
+                binding.hp.text = hp.toString()
                 binding.meResult.text = text
             }
             else{
@@ -231,14 +272,12 @@ class MainActivity : AppCompatActivity() {
         }
         round++
     }
-
-    //enemy_atack
+    //相手攻撃
     fun enemy_daisu(){
         human_daisu = (Math.random()*6).toInt()+1
     }
-
-    //enemy_status_open
-    fun open_enemy_status(no:Int){
+    //相手のステータスを表示
+    fun open_enemy_status(no: Int){
         binding.hptext.setVisibility(View.VISIBLE)
         binding.hpnum.setVisibility(View.VISIBLE)
         binding.atktext.setVisibility(View.VISIBLE)
@@ -247,7 +286,7 @@ class MainActivity : AppCompatActivity() {
         binding.defnum.setVisibility(View.VISIBLE)
         set_enemy_status(no)
     }
-    //enemy_status_invisible
+    //相手のステータスを非表示
     fun invisible_enemy_status(){
         binding.hptext.setVisibility(View.INVISIBLE)
         binding.hpnum.setVisibility(View.INVISIBLE)
@@ -256,9 +295,8 @@ class MainActivity : AppCompatActivity() {
         binding.deftext.setVisibility(View.INVISIBLE)
         binding.defnum.setVisibility(View.INVISIBLE)
     }
-
-    //enemy_status_set
-    fun set_enemy_status(no:Int){
+    //相手のステータスの数値を表示
+    fun set_enemy_status(no: Int){
         binding.hpnum.text=human[no][1].toString()
         binding.atknum.text=human[no][2].toString()
         binding.defnum.text=human[no][3].toString()
@@ -266,8 +304,7 @@ class MainActivity : AppCompatActivity() {
         enemy_atk = Integer.parseInt(binding.atknum.text.toString())
         enemy_def = Integer.parseInt(binding.defnum.text.toString())
     }
-
-    //
+    //マス、相手のステータス、技などを作る
     fun create_array(){
         //masu
         var height = 0
@@ -278,12 +315,15 @@ class MainActivity : AppCompatActivity() {
         while(height<max_height){
             weight = 0
             while (weight<max_weight){
+                //マス番号1-30　masu[][0]
                 masu[height][weight] = weight+1
                 weight++
                 val m_type = (Math.random()*3).toInt()
+                //0->なし　1->戦闘　2->アイテム　masu[][1]
                 masu[height][weight] = m_type
                 weight++
                 if (m_type == 1 && enemy<5){
+                    //masu[][2]　戦闘相手の番号
                     masu[height][weight] = enemy
                     enemy++
                 }
@@ -292,7 +332,7 @@ class MainActivity : AppCompatActivity() {
                         val re_m_type = (Math.random()*3).toInt()
                         re_daisu =re_m_type
                     }
-                    masu[height][weight-1] = re_daisu
+                    masu[height][weight - 1] = re_daisu
                 }
                 enemy++
                 weight++
@@ -301,6 +341,7 @@ class MainActivity : AppCompatActivity() {
         }
         //monster
         height = 0
+        //human[][0]-> 相手の番号
         while (height<human_type_height){
             human[height][0] = height+1
             height++
