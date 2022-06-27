@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         binding.daisu.setOnClickListener {
             if (type==1){
                 if(soud_ch==0){
-                    soundPool.play(dark_bgm,1.0f,100f,0,-1,1.0f)
+                    soundPool.play(dark_bgm,1.0f,100f,0,-1,0.5f)
                     soud_ch = 1
                 }
                 soundPool.play(atk_sound,1.0f,100f,0,0,1.0f)
@@ -313,13 +313,13 @@ class MainActivity : AppCompatActivity() {
                     if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]){
                         enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
                         binding.mpnum.text = enemy_mp.toString()
-                        human_atk_dmg = human_daisu*ult_result_num[human_ult_set[use_ult]] - def
+                        human_atk_dmg = human_daisu + ult_result_num[human_ult_set[use_ult]] - def
                         if (human_atk_dmg <= 0) {
                             human_atk_dmg = 0
                         }
                         hp = hp - human_atk_dmg
                         text2 = "相手の" + ult_name[human_ult_set[use_ult]] + me_atk_dmg + "ダメージ"
-                        text = "相手："+ human_atk_dmg + "ダメージ"
+                        text = "相手に"+ human_atk_dmg + "ダメージ"
                     }
                     else{
                         human_atk_dmg = human_daisu * human_atk - def
@@ -327,8 +327,8 @@ class MainActivity : AppCompatActivity() {
                             human_atk_dmg = 0
                         }
                         hp = hp - human_atk_dmg
-                        text2 = "自分：" + human_atk_dmg + "ダメージ"
-                        text = "相手："+ me_atk_dmg + "ダメージ"
+                        text2 = "相手から" + human_atk_dmg + "ダメージ"
+                        text = "相手に"+ me_atk_dmg + "ダメージ"
                     }
                 }
                 //回復スキル
@@ -340,7 +340,7 @@ class MainActivity : AppCompatActivity() {
                         binding.hpnum.text = human_hp.toString()
                         var heal = ult_result_num[human_ult_set[use_ult]]
                         text2 = "相手の" + ult_name[human_ult_set[use_ult]] + ":" + heal + "回復"
-                        text = "相手："+ me_atk_dmg + "ダメージ"
+                        text = "相手に"+ me_atk_dmg + "ダメージ"
                     }
                     else{
                         human_atk_dmg = human_daisu * human_atk - def
@@ -348,8 +348,8 @@ class MainActivity : AppCompatActivity() {
                             human_atk_dmg = 0
                         }
                         hp = hp - human_atk_dmg
-                        text2 = "自分：" + human_atk_dmg + "ダメージ"
-                        text = "相手："+ me_atk_dmg + "ダメージ"
+                        text2 = "相手から" + human_atk_dmg + "ダメージ"
+                        text = "相手に"+ me_atk_dmg + "ダメージ"
                     }
                 }
             }
