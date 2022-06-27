@@ -28,9 +28,8 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/aitemButton"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabFrame" />
+        app:layout_constraintTop_toBottomOf="@id/tabFrame" />
 
     <Button
         android:id="@+id/aitemButton"
@@ -73,7 +72,7 @@
 
     <Button
         android:id="@+id/batuButton"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
         android:background="#FB0000"
         android:text="✖"
