@@ -20,19 +20,22 @@ import java.util.jar.Attributes
 
 class MainActivity : AppCompatActivity() {
     //定義
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     //サウンド
     lateinit var soundPool: SoundPool
     var atk_sound = 0
     var daisu_sound = 0
     var dark_bgm = 0
+    var skl_heal = 0
+    var skl_soud = 0
 
     //自分ステータス
     var hp = 0
     var atk = 0
     var def = 0
     var po = 0
+    var mp = 0
 
     //マス定義
     var max_height = 30
@@ -85,13 +88,15 @@ class MainActivity : AppCompatActivity() {
                 setUsage(AudioAttributes.USAGE_GAME)
                 build()
             }
-            setMaxStreams(2)
+            setMaxStreams(5)
             setAudioAttributes(audioAttributes)
             build()
         }
         atk_sound = soundPool.load(this,R.raw.sordattack2,1)
         daisu_sound = soundPool.load(this,R.raw.daisu,2)
         dark_bgm = soundPool.load(this,R.raw.deathworld,0)
+        skl_heal = soundPool.load(this,R.raw.sklheal,0)
+        skl_soud = soundPool.load(this,R.raw.sklsoud,0)
         //
         binding.daisu.setOnClickListener {
             if (type==1){
@@ -109,6 +114,8 @@ class MainActivity : AppCompatActivity() {
         binding.usepo.setOnClickListener { use_portion() }
         binding.menu.setOnClickListener { menu_change() }
         binding.save.setOnClickListener { save() }
+        binding.atkButton.setOnClickListener { my_skl(1) }
+        binding.healButton.setOnClickListener { my_skl(0) }
         create_array()
         //save chack
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
@@ -164,10 +171,12 @@ class MainActivity : AppCompatActivity() {
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
+        mp=pref.getInt("pl_mp",0)
         masu_num=pref.getInt("pl_masu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
+        binding.mp.text = mp.toString()
         binding.masucount.text = (30-masu_num).toString()
     }
     //2回目以降（途中で止めたデータ）
@@ -177,10 +186,12 @@ class MainActivity : AppCompatActivity() {
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
+        mp=pref.getInt("pl_mp",0)
         all_masu=pref.getInt("pl_masu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
+        binding.mp.text = mp.toString()
         binding.masucount.text = (30-all_masu).toString()
     }
     //save
@@ -190,7 +201,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_hp", Integer.parseInt(binding.hp.text.toString()))
             putInt("pl_atk", Integer.parseInt(binding.atk.text.toString()))
             putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
-            putInt("pl_mp", 20)
+            putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
             putInt("pl_masu",30-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_check",1)
@@ -375,11 +386,88 @@ class MainActivity : AppCompatActivity() {
         }
         round++
     }
+    //enemy_turn_atk
+    fun enemy_turn_atk(parcent:Int){
+
+    }
+
+    //自身のスキル
+    fun my_skl(typ:Int){
+        //
+        var human_hp = Integer.parseInt(binding.hpnum.text.toString())
+        var human_def = Integer.parseInt(binding.defnum.text.toString())
+        var me_atk_dmg = 0
+        var me_heal = 0
+        //
+        //typ=0 -> heal
+        if(typ==0){
+            if(type==1){
+                System.out.println("heal")
+                if(mp>=5){
+                    var rnd_num = (Math.random()*6).toInt()+1
+                    me_heal = ult_result_num[typ]*rnd_num
+                    soundPool.play(skl_heal,1.0f,100f,0,0,1.0f)
+                    if(me_heal+hp>100){
+                        hp = 100
+                        binding.hp.text = hp.toString()
+                        binding.meResult.text = "自身の" + ult_name[typ] + ult_name[typ] + "により全回復"
+                    }
+                    else{
+                        binding.meResult.text = "自身の" + ult_name[typ] + ult_name[typ] + "により" + me_heal.toString() + "回復"
+                    }
+                    mp = mp - ult_use_mp[typ]
+                    binding.mp.text = mp.toString()
+                }
+                else{
+                    binding.result.text = "mpがたりない"
+                }
+            }
+        }
+        //typ=1 -> atk
+        else if(typ==1){
+            if(type==1){
+                if(mp>=5){
+                    var rnd_num = (Math.random()*6).toInt()+1
+                    me_atk_dmg = ult_result_num[typ]*rnd_num
+                    soundPool.play(skl_soud,1.0f,100f,0,0,0.8f)
+                    if((me_atk_dmg-human_def)>0){
+                        var me_atk = me_atk_dmg-human_def
+                        human_hp = human_hp - me_atk
+                        binding.result.text = ""
+                        binding.meResult.text = "自身の" + ult_name[typ] + "により相手に" + me_atk + "ダメージ"
+                        if(human_hp<=0){
+                            soud_ch = 0
+                            soundPool.stop(dark_bgm)
+                            binding.result.text = "倒した！"
+                            binding.enemyImage.setImageResource(R.drawable.taosita)
+                            invisible_enemy_status()
+                            type = 0
+                        }
+                        else{
+                            binding.hpnum.text = human_hp.toString()
+                        }
+                    }
+                    else{
+                        binding.result.text = "相手の防御を抜けなかった..."
+                    }
+                    mp = mp - ult_use_mp[typ]
+                    binding.mp.text = mp.toString()
+                }
+                else{
+                    binding.result.text = "mpがたりない"
+                }
+            }
+        }
+        else{
+            binding.result.text = "error"
+        }
+    }
+
     //相手攻撃
     fun enemy_daisu(){
         human_daisu = (Math.random()*6).toInt()+1
     }
-    //相手のステータスを表示
+    //相手のステータス・スキルボタンを表示
     fun open_enemy_status(no: Int){
         binding.hptext.setVisibility(View.VISIBLE)
         binding.hpnum.setVisibility(View.VISIBLE)
@@ -389,9 +477,12 @@ class MainActivity : AppCompatActivity() {
         binding.defnum.setVisibility(View.VISIBLE)
         binding.mptext.setVisibility(View.VISIBLE)
         binding.mpnum.setVisibility(View.VISIBLE)
+        //スキルボタン
+        binding.atkButton.setVisibility(View.VISIBLE)
+        binding.healButton.setVisibility(View.VISIBLE)
         set_enemy_status(no)
     }
-    //相手のステータスを非表示
+    //相手のステータス・スキルボタンを非表示
     fun invisible_enemy_status(){
         binding.hptext.setVisibility(View.INVISIBLE)
         binding.hpnum.setVisibility(View.INVISIBLE)
@@ -401,6 +492,10 @@ class MainActivity : AppCompatActivity() {
         binding.defnum.setVisibility(View.INVISIBLE)
         binding.mptext.setVisibility(View.INVISIBLE)
         binding.mpnum.setVisibility(View.INVISIBLE)
+        //スキルボタン
+        binding.atkButton.setVisibility(View.INVISIBLE)
+        binding.healButton.setVisibility(View.INVISIBLE)
+
     }
     //相手のステータスの数値を表示
     fun set_enemy_status(no: Int){
