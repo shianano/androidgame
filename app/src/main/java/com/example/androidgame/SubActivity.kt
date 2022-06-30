@@ -15,9 +15,10 @@ class SubActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySubBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_sub)
+        setContentView(binding.root)
 
         binding.settingButton.setOnClickListener {
+            System.out.println("aaaa")
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, SettingFragment())
                 addToBackStack(null)
@@ -25,9 +26,5 @@ class SubActivity : AppCompatActivity() {
                 commit()
             }
         }
-    }
-
-    private fun setContentView(root: ConstraintLayout) {
-
     }
 }
