@@ -21,6 +21,7 @@
         android:layout_height="282dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backimagedarkcave" />
 
@@ -368,7 +369,7 @@
         android:text="使用する"
         app:layout_constraintBottom_toTopOf="@+id/daisu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image2"
         app:layout_constraintVertical_bias="1.0" />
@@ -391,6 +392,7 @@
         android:id="@+id/atk_button"
         android:layout_width="172dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
         android:text="攻撃スキル:消費５"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -402,9 +404,11 @@
         android:id="@+id/heal_button"
         android:layout_width="174dp"
         android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
         android:text="回復スキル:消費５"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/daisu"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usepo" />
 
