@@ -8,16 +8,6 @@
     tools:context=".SubActivity"
     tools:deviceIds="wear">
 
-    <FrameLayout
-        android:id="@+id/tabFrame"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
-
     <Button
         android:id="@+id/suteButton"
         android:layout_width="110dp"
@@ -29,7 +19,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/aitemButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabFrame" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/aitemButton"
@@ -87,11 +77,11 @@
         android:id="@+id/container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aitemButton">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

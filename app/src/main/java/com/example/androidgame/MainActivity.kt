@@ -223,9 +223,9 @@ class MainActivity : AppCompatActivity() {
     }
     //メニュー移動
     fun menu_change(){
-        //val intent = Intent(this,SubActivity::class.java)
-        //startActivity(intent)
-        setContentView(R.layout.activity_sub)
+        val intent = Intent(this,SubActivity::class.java)
+        startActivity(intent)
+        //setContentView(R.layout.activity_sub)
     }
     //マス確認
     fun masu_checker(num: Int){
@@ -249,6 +249,12 @@ class MainActivity : AppCompatActivity() {
         else{
             binding.result.text = "なし！！"
             binding.enemyImage.setImageResource(R.drawable.notevent3)
+        }
+        if(all_masu>=10&&all_masu<20){
+            binding.imageView3.setImageResource(R.drawable.backimagerightcave)
+        }
+        else if(all_masu>=20){
+            binding.imageView3.setImageResource(R.drawable.backimagelast)
         }
     }
     //イメージセット
@@ -315,55 +321,14 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             binding.hpnum.text = result_human_hp.toString()
+            text = "相手："+ me_atk_dmg + "ダメージ"
             enemy_daisu()
             var ult_check = (Math.random()*100).toInt()
+            //
             if(ult_check<=80){
-                var use_ult = (Math.random()*human_ult_set.size).toInt()
-                System.out.println(human_ult_set.size)
-                //攻撃スキル
-                if(ult_type[human_ult_set[use_ult]]==1){
-                    if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]){
-                        enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
-                        binding.mpnum.text = enemy_mp.toString()
-                        human_atk_dmg = human_daisu + ult_result_num[human_ult_set[use_ult]] - def
-                        if (human_atk_dmg <= 0) {
-                            human_atk_dmg = 0
-                        }
-                        hp = hp - human_atk_dmg
-                        text2 = "相手の" + ult_name[human_ult_set[use_ult]] + me_atk_dmg + "ダメージ"
-                        text = "相手に"+ human_atk_dmg + "ダメージ"
-                    }
-                    else{
-                        human_atk_dmg = human_daisu * human_atk - def
-                        if (human_atk_dmg <= 0) {
-                            human_atk_dmg = 0
-                        }
-                        hp = hp - human_atk_dmg
-                        text2 = "相手から" + human_atk_dmg + "ダメージ"
-                        text = "相手に"+ me_atk_dmg + "ダメージ"
-                    }
-                }
-                //回復スキル
-                else if(ult_type[human_ult_set[use_ult]]==0){
-                    if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]) {
-                        enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
-                        binding.mpnum.text = enemy_mp.toString()
-                        human_hp = human_hp + ult_result_num[human_ult_set[use_ult]]
-                        binding.hpnum.text = human_hp.toString()
-                        var heal = ult_result_num[human_ult_set[use_ult]]
-                        text2 = "相手の" + ult_name[human_ult_set[use_ult]] + ":" + heal + "回復"
-                        text = "相手に"+ me_atk_dmg + "ダメージ"
-                    }
-                    else{
-                        human_atk_dmg = human_daisu * human_atk - def
-                        if (human_atk_dmg <= 0) {
-                            human_atk_dmg = 0
-                        }
-                        hp = hp - human_atk_dmg
-                        text2 = "相手から" + human_atk_dmg + "ダメージ"
-                        text = "相手に"+ me_atk_dmg + "ダメージ"
-                    }
-                }
+                enemy_skl()
+                binding.hp.text = hp.toString()
+                binding.result.text = text
             }
             else {
                 human_atk_dmg = human_daisu * human_atk - def
@@ -371,17 +336,14 @@ class MainActivity : AppCompatActivity() {
                     human_atk_dmg = 0
                 }
                 hp = hp - human_atk_dmg
-                text = "相手："+ me_atk_dmg + "ダメージ"
                 binding.hpnum.text = result_human_hp.toString()
                 text2 = "自分：" + human_atk_dmg + "ダメージ"
                 //
-            }
-            if (hp>0){
                 binding.hp.text = hp.toString()
-                binding.meResult.text = text2
                 binding.result.text = text
+                binding.meResult.text = text2
             }
-            else{
+            if(hp<=0){
                 game_over()
             }
         }
@@ -462,6 +424,57 @@ class MainActivity : AppCompatActivity() {
         else{
             binding.result.text = "error"
         }
+    }
+    //敵のスキル
+    fun enemy_skl(){
+        var human_hp = Integer.parseInt(binding.hpnum.text.toString())
+        var human_atk = Integer.parseInt(binding.atknum.text.toString())
+        var me_atk_dmg = 0
+        var human_atk_dmg = 0
+        var text2 = ""
+        var use_ult = (Math.random()*human_ult_set.size).toInt()
+        //
+        //攻撃
+        if(ult_type[human_ult_set[use_ult]]==1){
+            if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]){
+                enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                binding.mpnum.text = enemy_mp.toString()
+                human_atk_dmg = human_daisu + ult_result_num[human_ult_set[use_ult]] - def
+                if (human_atk_dmg <= 0) {
+                    human_atk_dmg = 0
+                }
+                hp = hp - human_atk_dmg
+                text2 = "相手の" + ult_name[human_ult_set[use_ult]] + me_atk_dmg + "ダメージ"
+            }
+            else{
+                human_atk_dmg = human_daisu * human_atk - def
+                if (human_atk_dmg <= 0) {
+                    human_atk_dmg = 0
+                }
+                hp = hp - human_atk_dmg
+                text2 = "相手から" + human_atk_dmg + "ダメージ"
+            }
+        }//回復スキル
+        else if(ult_type[human_ult_set[use_ult]]==0){
+            if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]) {
+                enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                binding.mpnum.text = enemy_mp.toString()
+                human_hp = human_hp + ult_result_num[human_ult_set[use_ult]]
+                binding.hpnum.text = human_hp.toString()
+                var heal = ult_result_num[human_ult_set[use_ult]]
+                text2 = "相手の" + ult_name[human_ult_set[use_ult]] + ":" + heal + "回復"
+            }
+            else{
+                human_atk_dmg = human_daisu * human_atk - def
+                if (human_atk_dmg <= 0) {
+                    human_atk_dmg = 0
+                }
+                hp = hp - human_atk_dmg
+                text2 = "相手から" + human_atk_dmg + "ダメージ"
+            }
+        }
+        //
+        binding.meResult.text = text2
     }
 
     //相手攻撃
