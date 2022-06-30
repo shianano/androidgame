@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     //var human_type_weight = 6
     //test input
     val human_hp: Array<Int> = arrayOf(100,90,80,70,60)
-    val human_atk: Array<Int> = arrayOf(5,5,5,5,5)
+    val human_atk: Array<Int> = arrayOf(10,10,10,10,10)
     val human_def: Array<Int> = arrayOf(10,9,8,7,6)
     val human_mp: Array<Int> = arrayOf(5,5,5,5,5)
     val human_ult: Array<String> = arrayOf("1","1","1","1","1")
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         else{
             devil_daisu = (Math.random()*6).toInt()+1
         }
-        if(all_masu >= 30 && type == 0){
+        if(all_masu >= max_height && type == 0){
             binding.enemyImage.setImageResource(R.drawable.clear)
             binding.masucount.text="0"
         }
@@ -217,9 +217,9 @@ class MainActivity : AppCompatActivity() {
     }
     //ゲームオーバー移動
     fun game_over(){
-        //val intent = Intent(this, Gameover::class.java)
-        //startActivity(intent)
-        binding.result.text = "gameover"
+        val intent = Intent(this, Gameover::class.java)
+        startActivity(intent)
+        //binding.result.text = "gameover"
     }
     //メニュー移動
     fun menu_change(){
@@ -241,6 +241,7 @@ class MainActivity : AppCompatActivity() {
         else if(masu_event[num]==2){
             //アイテムゲット
             binding.result.text = "アイテムゲット！！"
+            binding.meResult.text = ""
             binding.enemyImage.setImageResource(R.drawable.po)
             po = po + masu_result_num[num]
             binding.portionNum.text = po.toString()
