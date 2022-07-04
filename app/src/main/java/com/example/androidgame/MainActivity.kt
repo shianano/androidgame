@@ -257,7 +257,8 @@ class MainActivity : AppCompatActivity() {
             set_enemy(enemy_no)
             open_enemy_status(enemy_no)
             type = 1
-            mp0.stop()
+            mp0.pause()
+            btl_sound.seekTo(0)
             btl_sound.start()
         }
         else if(masu_event[num]==2){
@@ -342,7 +343,8 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.taosita)
             invisible_enemy_status()
             type = 0
-            btl_sound.stop()
+            btl_sound.pause()
+            mp0.seekTo(0)
             mp0.start()
         }
         else{
@@ -432,7 +434,8 @@ class MainActivity : AppCompatActivity() {
                             binding.enemyImage.setImageResource(R.drawable.taosita)
                             invisible_enemy_status()
                             type = 0
-                            btl_sound.stop()
+                            btl_sound.pause()
+                            mp0.seekTo(0)
                             mp0.start()
                         }
                         else{
@@ -593,6 +596,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        soundPool.release()
         mp0.release()
+        btl_sound.release()
     }
 }
