@@ -2,8 +2,10 @@ package com.example.androidgame
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.media.AudioAttributes
 import android.media.AudioAttributes.CONTENT_TYPE_SPEECH
+import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -29,6 +31,11 @@ class MainActivity : AppCompatActivity() {
     var dark_bgm = 0
     var skl_heal = 0
     var skl_soud = 0
+    var drunk_po = 0
+    var bossbgm = 0
+    //MediaPlayer
+    lateinit var mp0:MediaPlayer //start
+    lateinit var btl_sound:MediaPlayer//buttle
 
     //自分ステータス
     var hp = 0
@@ -78,14 +85,20 @@ class MainActivity : AppCompatActivity() {
     var enemy_def = 0
     var enemy_mp = 0
     var soud_ch = 0
+    var bgm_ch = 0
     //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         //
+        mp0 = MediaPlayer.create(this,R.raw.firstbgm)
+        mp0.isLooping = true
+        btl_sound = MediaPlayer.create(this,R.raw.normalbattlebgm)
+        btl_sound.isLooping = true
+        //
         soundPool = SoundPool.Builder().run {
             val audioAttributes = AudioAttributes.Builder().run {
-                setUsage(AudioAttributes.USAGE_GAME)
+                setUsage(AudioAttributes.USAGE_MEDIA)
                 build()
             }
             setMaxStreams(5)
@@ -94,20 +107,25 @@ class MainActivity : AppCompatActivity() {
         }
         atk_sound = soundPool.load(this,R.raw.sordattack2,1)
         daisu_sound = soundPool.load(this,R.raw.daisu,2)
-        dark_bgm = soundPool.load(this,R.raw.deathworld,0)
+        //dark_bgm = soundPool.load(this,R.raw.deathworld,0)
         skl_heal = soundPool.load(this,R.raw.sklheal,0)
         skl_soud = soundPool.load(this,R.raw.sklsoud,0)
+        drunk_po = soundPool.load(this,R.raw.drunks,0)
+        bossbgm = soundPool.load(this,R.raw.bossbgm,0)
         //
         binding.daisu.setOnClickListener {
             if (type==1){
                 if(soud_ch==0){
-                    soundPool.play(dark_bgm,1.0f,100f,0,-1,0.5f)
+                    //soundPool.play(dark_bgm,1.0f,100f,0,-1,0.5f)
                     soud_ch = 1
                 }
                 soundPool.play(atk_sound,1.0f,100f,0,0,1.0f)
             }
             else if(type==0){
                 soundPool.play(daisu_sound,1.0f,100f,0,0,1.0f)
+                if(bgm_ch==0){
+                    bgm_ch=1
+                }
             }
             daisu_start()
         }
@@ -127,7 +145,9 @@ class MainActivity : AppCompatActivity() {
             load_status()
             System.out.println("load_data")
         }
-
+        //
+        mp0.start()
+        //
         setContentView(binding.root)
     }
     //
@@ -237,6 +257,8 @@ class MainActivity : AppCompatActivity() {
             set_enemy(enemy_no)
             open_enemy_status(enemy_no)
             type = 1
+            mp0.stop()
+            btl_sound.start()
         }
         else if(masu_event[num]==2){
             //アイテムゲット
@@ -251,9 +273,10 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.notevent3)
         }
         if(all_masu>=10&&all_masu<20){
+            bgm_ch=2
             binding.imageView3.setImageResource(R.drawable.backimagerightcave)
         }
-        else if(all_masu>=20){
+        else if(all_masu>=20&&all_masu<=30){
             binding.imageView3.setImageResource(R.drawable.backimagelast)
         }
     }
@@ -279,6 +302,7 @@ class MainActivity : AppCompatActivity() {
     //ポーション使用
     fun use_portion(){
         if (po>0){
+            soundPool.play(drunk_po,1.0f,500f,0,0,1.0f)
             var ing_hp = Integer.parseInt(binding.hp.text.toString())
             ing_hp = ing_hp + 20
             if(ing_hp>100){
@@ -312,12 +336,14 @@ class MainActivity : AppCompatActivity() {
         var result_human_hp = human_hp - me_atk_dmg
         if(result_human_hp<=0){
             soud_ch = 0
-            soundPool.stop(dark_bgm)
+            //soundPool.stop(dark_bgm)
             binding.result.text = "倒した！"
             binding.meResult.text = ""
             binding.enemyImage.setImageResource(R.drawable.taosita)
             invisible_enemy_status()
             type = 0
+            btl_sound.stop()
+            mp0.start()
         }
         else{
             binding.hpnum.text = result_human_hp.toString()
@@ -344,6 +370,7 @@ class MainActivity : AppCompatActivity() {
                 binding.meResult.text = text2
             }
             if(hp<=0){
+                btl_sound.stop()
                 game_over()
             }
         }
@@ -400,11 +427,13 @@ class MainActivity : AppCompatActivity() {
                         binding.meResult.text = "自身の" + ult_name[typ] + "により相手に" + me_atk + "ダメージ"
                         if(human_hp<=0){
                             soud_ch = 0
-                            soundPool.stop(dark_bgm)
+                            //soundPool.stop(dark_bgm)
                             binding.result.text = "倒した！"
                             binding.enemyImage.setImageResource(R.drawable.taosita)
                             invisible_enemy_status()
                             type = 0
+                            btl_sound.stop()
+                            mp0.start()
                         }
                         else{
                             binding.hpnum.text = human_hp.toString()
@@ -560,5 +589,10 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         soundPool.release()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mp0.release()
     }
 }
