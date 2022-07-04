@@ -17,15 +17,44 @@ class SubActivity : AppCompatActivity() {
         binding = ActivitySubBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.settingButton.setOnClickListener {
-            System.out.println("aaaa")
+        //ステータスボタン
+        binding.suteButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.container, SettingFragment())
                 addToBackStack(null)
-                setContentView(R.layout.fragment_setting)
                 commit()
             }
         }
+        //アイテムボタン
+        binding.aitemButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, Fragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
+        //設定ボタン
+        binding.settingButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, Fragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
+        //装備ボタン
+        binding.soubiButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container, Fragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
+        //✖ボタン
+        binding.batuButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+
+            }
+        }
+
     }
-    //
 }
