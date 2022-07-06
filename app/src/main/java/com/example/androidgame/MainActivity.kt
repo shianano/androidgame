@@ -182,6 +182,7 @@ class MainActivity : AppCompatActivity() {
         // 保存
         pref.edit{
             putInt("pl_hp", 100)
+            putInt("pl_max_hp",100)
             putInt("pl_atk", 5)
             putInt("pl_def", 10)
             putInt("pl_mp", 20)
@@ -232,6 +233,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
             putInt("pl_masu",30-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
+            putInt("pl_max_hp",(Integer.parseInt(binding.levelMain.text.toString())-1)*10 + pref.getInt("pl_max_hp",0))
             putInt("pl_check",1)
         }
     }
@@ -366,6 +368,7 @@ class MainActivity : AppCompatActivity() {
                 btl_sound.pause()
                 mp0.seekTo(0)
                 mp0.start()
+                binding.levelMain.text = (level + 1).toString()
             }
             else{
                 runOnUiThread {
