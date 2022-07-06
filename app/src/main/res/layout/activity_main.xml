@@ -414,4 +414,29 @@
         app:layout_constraintTop_toBottomOf="@+id/image2"
         app:layout_constraintVertical_bias="0.875" />
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="81dp"
+        android:text="LV:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/daisu"
+        app:layout_constraintStart_toEndOf="@+id/mp"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/level_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/daisu"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.336" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

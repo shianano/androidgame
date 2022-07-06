@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     var def = 0
     var po = 0
     var mp = 0
+    var level = 1
 
     //マス定義
     var max_height = 30
@@ -187,6 +188,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_po", 0)
             putInt("pl_masu",0)
             putInt("pl_check",1)
+            putInt("pl_level",1)
         }
         hp=pref.getInt("pl_hp", 0)
         atk=pref.getInt("pl_atk", 0)
@@ -194,10 +196,12 @@ class MainActivity : AppCompatActivity() {
         po=pref.getInt("pl_po", 0)
         mp=pref.getInt("pl_mp",0)
         masu_num=pref.getInt("pl_masu",0)
+        level=pref.getInt("pl_level",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
         binding.mp.text = mp.toString()
+        binding.levelMain.text = level.toString()
         binding.masucount.text = (30-masu_num).toString()
     }
     //2回目以降（途中で止めたデータ）
@@ -208,11 +212,13 @@ class MainActivity : AppCompatActivity() {
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
         mp=pref.getInt("pl_mp",0)
+        level=pref.getInt("pl_level",0)
         all_masu=pref.getInt("pl_masu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
         binding.mp.text = mp.toString()
+        binding.levelMain.text = level.toString()
         binding.masucount.text = (30-all_masu).toString()
     }
     //save
@@ -225,6 +231,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
             putInt("pl_masu",30-Integer.parseInt(binding.masucount.text.toString()))
+            putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
             putInt("pl_check",1)
         }
     }
