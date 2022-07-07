@@ -122,10 +122,10 @@ class MainActivity : AppCompatActivity() {
                     //soundPool.play(dark_bgm,1.0f,100f,0,-1,0.5f)
                     soud_ch = 1
                 }
-                soundPool.play(atk_sound,1.0f,100f,0,0,1.0f)
+                soundPool.play(atk_sound,10f,10f,0,0,1.0f)
             }
             else if(type==0){
-                soundPool.play(daisu_sound,1.0f,100f,0,0,1.0f)
+                soundPool.play(daisu_sound,10f,10f,0,0,1.0f)
                 if(bgm_ch==0){
                     bgm_ch=1
                 }
@@ -351,11 +351,10 @@ class MainActivity : AppCompatActivity() {
         var text2 = ""
         if (po>0){
             soundPool.play(drunk_po,1.0f,500f,0,0,1.0f)
-            Thread.sleep(2000)
             var ing_hp = Integer.parseInt(binding.hp.text.toString())
             ing_hp = ing_hp + 20
-            if(ing_hp>100){
-                ing_hp = 100
+            if(ing_hp>max_hp){
+                ing_hp = max_hp
             }
             binding.hp.text = ing_hp.toString()
             text1 = "ポーション使用"
