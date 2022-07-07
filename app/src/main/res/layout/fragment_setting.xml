@@ -5,19 +5,18 @@
     android:id="@+id/SettingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingFragment" >
+    tools:context=".SettingFragment">
 
     <Button
         android:id="@+id/titleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="602dp"
-        android:layout_marginEnd="226dp"
-        android:layout_marginBottom="81dp"
         android:text="タイトルに戻る"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.885" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

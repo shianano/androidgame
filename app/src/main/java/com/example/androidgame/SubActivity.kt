@@ -20,7 +20,7 @@ class SubActivity : AppCompatActivity() {
         //ステータスボタン
         binding.suteButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, statusFragment())
+                replace(R.id.container, Fragment())
                 addToBackStack(null)
                 commit()
             }
@@ -44,7 +44,7 @@ class SubActivity : AppCompatActivity() {
         //装備ボタン
         binding.soubiButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, soubiFragment())
+                replace(R.id.container, Fragment())
                 addToBackStack(null)
                 commit()
             }
@@ -52,9 +52,8 @@ class SubActivity : AppCompatActivity() {
         //✖ボタン
         binding.batuButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-
+                finish()
             }
         }
-
     }
 }
