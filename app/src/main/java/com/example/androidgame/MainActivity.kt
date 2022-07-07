@@ -246,6 +246,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_atk", Integer.parseInt(binding.atk.text.toString()))
             putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
             putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
+            putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
             putInt("pl_all_masu",30-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
@@ -421,8 +422,8 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread{
                     comment_in(text1,text2)
                     binding.enemyImage.setImageResource(R.drawable.taosita)
-                    level = Integer.parseInt(binding.levelMain.text.toString())
-                    binding.levelMain.text = (level + 1).toString()
+                    level = Integer.parseInt(binding.levelMain.text.toString()) + 1
+                    binding.levelMain.text = (level).toString()
                 }
                 invisible_enemy_status()
                 type = 0
@@ -533,8 +534,8 @@ class MainActivity : AppCompatActivity() {
                             //soundPool.stop(dark_bgm)
                             text1 = "倒した！"
                             binding.enemyImage.setImageResource(R.drawable.taosita)
-                            level = Integer.parseInt(binding.levelMain.text.toString())
-                            binding.levelMain.text = (level + 1).toString()
+                            level = Integer.parseInt(binding.levelMain.text.toString()) + 1
+                            binding.levelMain.text = (level).toString()
                             invisible_enemy_status()
                             type = 0
                             btl_sound.pause()
