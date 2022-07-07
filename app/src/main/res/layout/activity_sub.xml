@@ -10,12 +10,13 @@
 
     <Button
         android:id="@+id/suteButton"
-        android:layout_width="110dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="1dp"
         android:background="#FB0000"
         android:text="ステータス"
         android:textColor="#FFFFFF"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/aitemButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +24,13 @@
 
     <Button
         android:id="@+id/aitemButton"
-        android:layout_width="100dp"
+        android:layout_width="85dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="1dp"
         android:background="#FB0000"
         android:text="アイテム"
         android:textColor="#FFFFFF"
+        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/settingButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,11 +39,13 @@
 
     <Button
         android:id="@+id/settingButton"
-        android:layout_width="70dp"
+        android:layout_width="63dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="1dp"
         android:background="#FB0000"
         android:text="設定"
         android:textColor="#FFFFFF"
+        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/soubiButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,11 +54,13 @@
 
     <Button
         android:id="@+id/soubiButton"
-        android:layout_width="70dp"
+        android:layout_width="63dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="1dp"
         android:background="#FB0000"
         android:text="装備"
         android:textColor="#FFFFFF"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/batuButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -62,11 +69,12 @@
 
     <Button
         android:id="@+id/batuButton"
-        android:layout_width="50dp"
+        android:layout_width="45dp"
         android:layout_height="40dp"
         android:background="#FB0000"
         android:text="✖"
         android:textColor="#FFFFFF"
+        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -80,8 +88,10 @@
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
