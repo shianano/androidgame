@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity() {
         binding.levelMain.text = level.toString()
         binding.masucount.text = (30-masu_num).toString()
         saveArrayList("masu_event",masu_event.toCollection(ArrayList()))
-        //saveArrayList("masu_result_num",masu_result_num.toCollection(ArrayList()))
+        saveArrayList("masu_result_num",masu_result_num.toCollection(ArrayList()))
     }
     //2回目以降（途中で止めたデータ）
     fun load_status(){
@@ -234,8 +234,8 @@ class MainActivity : AppCompatActivity() {
         binding.masucount.text = (30-all_masu).toString()
         masu_event = loadArrayList("masu_event").toIntArray()
         System.out.println("masu_event"+loadArrayList("masu_event").toIntArray().size)
-        //masu_result_num = loadArrayList("masu_result_num").toIntArray()
-        //System.out.println("masu_result_num"+loadArrayList("masu_result").toIntArray().size)
+        masu_result_num = loadArrayList("masu_result_num").toIntArray()
+        System.out.println("masu_result_num"+loadArrayList("masu_result").toIntArray().size)
         masu_checker(all_masu)
     }
     //save
@@ -390,6 +390,7 @@ class MainActivity : AppCompatActivity() {
         else if (po==0){
             binding.portionNum.text = po.toString()
         }
+        save()
     }
     //戦闘モード
     fun btl(){
@@ -420,6 +421,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread{
                     comment_in(text1,text2)
                     binding.enemyImage.setImageResource(R.drawable.taosita)
+                    level = Integer.parseInt(binding.levelMain.text.toString())
                     binding.levelMain.text = (level + 1).toString()
                 }
                 invisible_enemy_status()
@@ -531,6 +533,7 @@ class MainActivity : AppCompatActivity() {
                             //soundPool.stop(dark_bgm)
                             text1 = "倒した！"
                             binding.enemyImage.setImageResource(R.drawable.taosita)
+                            level = Integer.parseInt(binding.levelMain.text.toString())
                             binding.levelMain.text = (level + 1).toString()
                             invisible_enemy_status()
                             type = 0
