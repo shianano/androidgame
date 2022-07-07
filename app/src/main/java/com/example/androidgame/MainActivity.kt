@@ -413,7 +413,7 @@ class MainActivity : AppCompatActivity() {
         comment_in(text1,text2)
         var result_human_hp = human_hp - me_atk_dmg
         thread {
-            Thread.sleep(2000L)
+            Thread.sleep(1500L)
             if(result_human_hp<=0){
                 soud_ch = 0
                 //soundPool.stop(dark_bgm)
@@ -556,6 +556,7 @@ class MainActivity : AppCompatActivity() {
                     text1 = "mpがたりない"
                 }
                 comment_in(text1,text2)
+                save()
             }
         }
         else{
