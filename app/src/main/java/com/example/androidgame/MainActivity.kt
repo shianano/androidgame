@@ -169,9 +169,11 @@ class MainActivity : AppCompatActivity() {
         }
         else if(type==0){
             binding.masucount.text = (Integer.parseInt(binding.masucount.text.toString())-devil_daisu).toString()
+            set_daisu_image(devil_daisu)
             masu_checker(all_masu)
         }
         else if (type==1){
+            set_daisu_image(devil_daisu)
             btl()
         }
         save()
@@ -345,12 +347,33 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.image5)
         }
     }
+    //サイコロイメージセット
+    fun set_daisu_image(no:Int){
+        if(no==1){
+            binding.daisuimage.setImageResource(R.drawable.daisu1)
+        }
+        else if(no==2){
+            binding.daisuimage.setImageResource(R.drawable.daisu2)
+        }
+        else if(no==3){
+            binding.daisuimage.setImageResource(R.drawable.daisu3)
+        }
+        else if(no==4){
+            binding.daisuimage.setImageResource(R.drawable.daisu4)
+        }
+        else if(no==5){
+            binding.daisuimage.setImageResource(R.drawable.daisu5)
+        }
+        else if(no==6){
+            binding.daisuimage.setImageResource(R.drawable.daisu6)
+        }
+    }
     //ポーション使用
     fun use_portion(){
         var text1 = ""
         var text2 = ""
         if (po>0){
-            soundPool.play(drunk_po,1.0f,500f,0,0,1.0f)
+            soundPool.play(drunk_po,50f,50f,0,0,1.0f)
             var ing_hp = Integer.parseInt(binding.hp.text.toString())
             ing_hp = ing_hp + 20
             if(ing_hp>max_hp){

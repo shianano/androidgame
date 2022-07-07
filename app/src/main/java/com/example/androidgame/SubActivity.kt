@@ -20,7 +20,7 @@ class SubActivity : AppCompatActivity() {
         //ステータスボタン
         binding.suteButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, Fragment())
+                replace(R.id.container, statusFragment())
                 addToBackStack(null)
                 commit()
             }

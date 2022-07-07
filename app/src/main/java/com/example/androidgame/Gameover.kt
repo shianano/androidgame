@@ -13,17 +13,16 @@ class Gameover : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameoverBinding.inflate(layoutInflater)
-        gameover.isLooping = true
-        gameover.start()
         binding.titlebtn.setOnClickListener { start_menu() }
         gameover = MediaPlayer.create(this,R.raw.gameoverbgm)
+        gameover.start()
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         pref.edit().clear().commit()
         setContentView(binding.root)
     }
 
     fun start_menu(){
-        gameover.pause()
+        gameover.stop()
         val intent = Intent(this,StaActivity::class.java)
         startActivity(intent)
     }
