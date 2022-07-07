@@ -187,6 +187,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_atk", 5)
             putInt("pl_def", 10)
             putInt("pl_mp", 20)
+            putInt("pl_max_mp",20)
             putInt("pl_po", 0)
             putInt("pl_all_masu",0)
             putInt("pl_check",1)
@@ -209,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         binding.levelMain.text = level.toString()
         binding.masucount.text = (30-masu_num).toString()
         saveArrayList("masu_event",masu_event.toCollection(ArrayList()))
-        saveArrayList("masu_result_num",masu_result_num.toCollection(ArrayList()))
+        //saveArrayList("masu_result_num",masu_result_num.toCollection(ArrayList()))
     }
     //2回目以降（途中で止めたデータ）
     fun load_status(){
@@ -231,8 +232,8 @@ class MainActivity : AppCompatActivity() {
         binding.masucount.text = (30-all_masu).toString()
         masu_event = loadArrayList("masu_event").toIntArray()
         System.out.println("masu_event"+loadArrayList("masu_event").toIntArray().size)
-        masu_result_num = loadArrayList("masu_result_num").toIntArray()
-        System.out.println("masu_result_num"+loadArrayList("masu_result").toIntArray().size)
+        //masu_result_num = loadArrayList("masu_result_num").toIntArray()
+        //System.out.println("masu_result_num"+loadArrayList("masu_result").toIntArray().size)
         masu_checker(all_masu)
     }
     //save
