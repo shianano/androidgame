@@ -303,6 +303,7 @@ class MainActivity : AppCompatActivity() {
             type = 1
             mp0.pause()
             btl_sound.seekTo(0)
+            btl_sound.setVolume(0.3f,0.3f)
             btl_sound.start()
         }
         else if(masu_event[num]==2){
