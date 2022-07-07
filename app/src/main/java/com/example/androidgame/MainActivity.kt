@@ -249,10 +249,11 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
             putInt("pl_all_masu",30-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
-            putInt("pl_max_hp",(Integer.parseInt(binding.levelMain.text.toString())-1)*10 + pref.getInt("pl_max_hp",0))
+            putInt("pl_max_hp",(Integer.parseInt(binding.levelMain.text.toString())-1)*10 + 100)
             putInt("pl_now_daisu",devil_daisu)
             putInt("pl_check",1)
         }
+        max_hp = pref.getInt("pl_max_hp",100)
     }
     //マス保存
     //保存（string）
