@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/soubiLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/status_background"
+    tools:context=".soubiFragment" >
+
+    <ProgressBar
+        android:id="@+id/MPBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="130dp"
+        android:layout_height="10dp"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintStart_toStartOf="@+id/textView38"
+        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="184dp"
+        android:layout_height="172dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/maou"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buki"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tate"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/buki_imageButton" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/atama"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/tate_imageButton" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/karada"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintTop_toBottomOf="@+id/atama_imageButton" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/Weapon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView21"
+        tools:text="剣" />
+
+    <TextView
+        android:id="@+id/Shield1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/Weapon1"
+        app:layout_constraintTop_toTopOf="@+id/textView22"
+        tools:text="たて" />
+
+    <TextView
+        android:id="@+id/Head1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/Shield1"
+        app:layout_constraintTop_toTopOf="@+id/textView23"
+        tools:text="かぶと" />
+
+    <TextView
+        android:id="@+id/Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/Head1"
+        app:layout_constraintTop_toTopOf="@+id/textView26"
+        tools:text="よろい" />
+
+    <ImageButton
+        android:id="@+id/buki_imageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="-4dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitEnd"
+        android:src="@drawable/buki"
+        app:layout_constraintEnd_toEndOf="@+id/Weapon1"
+        app:layout_constraintTop_toBottomOf="@+id/Weapon1" />
+
+    <ImageButton
+        android:id="@+id/tate_imageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitEnd"
+        android:src="@drawable/tate"
+        app:layout_constraintEnd_toEndOf="@+id/buki_imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/Shield1" />
+
+    <ImageButton
+        android:id="@+id/atama_imageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitEnd"
+        android:src="@drawable/atama"
+        app:layout_constraintEnd_toEndOf="@+id/tate_imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/Head1" />
+
+    <ImageButton
+        android:id="@+id/karada_imageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitEnd"
+        android:src="@drawable/karada"
+        app:layout_constraintEnd_toEndOf="@+id/atama_imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/Body1" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/status"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/Level"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView30"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <TextView
+        android:id="@+id/Level2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
+        app:layout_constraintTop_toTopOf="@+id/textView31"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Level99"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/Level2"
+        app:layout_constraintTop_toTopOf="@+id/Level2" />
+
+    <ProgressBar
+        android:id="@+id/HPBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="130dp"
+        android:layout_height="10dp"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintStart_toStartOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/HitPoint"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+    <TextView
+        android:id="@+id/MaxHP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2"
+        app:layout_constraintEnd_toEndOf="@+id/HPBar2"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/MaxMP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2"
+        app:layout_constraintEnd_toEndOf="@+id/MPBar2"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2"
+        app:layout_constraintEnd_toStartOf="@+id/MaxHP2" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2"
+        app:layout_constraintEnd_toStartOf="@+id/MaxMP2" />
+
+    <TextView
+        android:id="@+id/HP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2"
+        app:layout_constraintEnd_toStartOf="@+id/textView33"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/MP2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2"
+        app:layout_constraintEnd_toStartOf="@+id/textView34"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/MagicPoint"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/HPBar2" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/attack"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/MPBar2"
+        app:layout_constraintTop_toBottomOf="@+id/MPBar2" />
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/defense"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView39"
+        app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/MagicPower"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView40"
+        app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+    <TextView
+        android:id="@+id/AttackPoint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/MPBar2"
+        app:layout_constraintTop_toTopOf="@+id/textView39"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/MagicPowerPoint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/DefensePoint2"
+        app:layout_constraintTop_toTopOf="@+id/textView41"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/DefensePoint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/AttackPoint2"
+        app:layout_constraintTop_toTopOf="@+id/textView40"
+        tools:text="0" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="164dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:src="@android:drawable/divider_horizontal_dark"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

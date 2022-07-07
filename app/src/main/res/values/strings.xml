@@ -8,4 +8,22 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="MagicPower">魔力</string>
+    <string name="defense">防御</string>
+    <string name="attack">攻撃</string>
+    <string name="MagicPoint">MP</string>
+    <string name="HitPoint">HP</string>
+    <string name="Level">Lv.</string>
+    <string name="Level99">/99</string>
+    <string name="level99">/99</string>
+    <string name="status">ステータス：</string>
+    <string name="karada">体：</string>
+    <string name="atama">頭：</string>
+    <string name="tate">盾：</string>
+    <string name="buki">武器：</string>
+    <string name="s">/</string>
+    <string name="tugi">次のレベルまで：</string>
+    <string name="Exp">Exp</string>
+    <string name="waza">技：</string>
+    <string name="Laval0">%1$d</string>
 </resources>
