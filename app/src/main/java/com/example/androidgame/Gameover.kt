@@ -23,7 +23,7 @@ class Gameover : AppCompatActivity() {
     }
 
     fun start_menu(){
-        gameover.stop()
+        gameover.pause()
         val intent = Intent(this,StaActivity::class.java)
         startActivity(intent)
     }
