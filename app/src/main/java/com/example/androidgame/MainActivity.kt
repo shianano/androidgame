@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     //自分ステータス
     var hp = 0
+    var max_hp = 0
     var atk = 0
     var def = 0
     var po = 0
@@ -187,40 +188,52 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_def", 10)
             putInt("pl_mp", 20)
             putInt("pl_po", 0)
-            putInt("pl_masu",0)
+            putInt("pl_all_masu",0)
             putInt("pl_check",1)
             putInt("pl_level",1)
+            putInt("pl_now_masu",0)
         }
         hp=pref.getInt("pl_hp", 0)
+        max_hp=pref.getInt("pl_max_hp",0)
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
         mp=pref.getInt("pl_mp",0)
-        masu_num=pref.getInt("pl_masu",0)
+        all_masu=pref.getInt("pl_all_masu",0)
         level=pref.getInt("pl_level",0)
+        devil_daisu=pref.getInt("pl_now_daisu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
         binding.mp.text = mp.toString()
         binding.levelMain.text = level.toString()
         binding.masucount.text = (30-masu_num).toString()
+        saveArrayList("masu_event",masu_event.toCollection(ArrayList()))
+        saveArrayList("masu_result_num",masu_result_num.toCollection(ArrayList()))
     }
     //2回目以降（途中で止めたデータ）
     fun load_status(){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         hp=pref.getInt("pl_hp", 0)
+        max_hp=pref.getInt("pl_max_hp",0)
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
         mp=pref.getInt("pl_mp",0)
         level=pref.getInt("pl_level",0)
-        all_masu=pref.getInt("pl_masu",0)
+        all_masu=pref.getInt("pl_all_masu",0)
+        devil_daisu=pref.getInt("pl_now_daisu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
         binding.mp.text = mp.toString()
         binding.levelMain.text = level.toString()
         binding.masucount.text = (30-all_masu).toString()
+        masu_event = loadArrayList("masu_event").toIntArray()
+        System.out.println("masu_event"+loadArrayList("masu_event").toIntArray().size)
+        masu_result_num = loadArrayList("masu_result_num").toIntArray()
+        System.out.println("masu_result_num"+loadArrayList("masu_result").toIntArray().size)
+        masu_checker(all_masu)
     }
     //save
     fun save(){
@@ -231,13 +244,33 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
             putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
-            putInt("pl_masu",30-Integer.parseInt(binding.masucount.text.toString()))
+            putInt("pl_all_masu",30-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
             putInt("pl_max_hp",(Integer.parseInt(binding.levelMain.text.toString())-1)*10 + pref.getInt("pl_max_hp",0))
+            putInt("pl_now_daisu",devil_daisu)
             putInt("pl_check",1)
         }
     }
-    //
+    //マス保存
+    //保存（string）
+    fun saveArrayList(key: String, arrayList: ArrayList<Int>) {
+        val shardPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val shardPrefEditor = shardPreferences.edit()
+        val jsonArray = JSONArray(arrayList)
+        shardPrefEditor.putString(key, jsonArray.toString())
+        shardPrefEditor.apply()
+    }
+    // リストの読み込み
+    fun loadArrayList(key: String):ArrayList<Int> {
+        val shardPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val jsonArray = JSONArray(shardPreferences.getString(key, "[]"))
+        val arrayList_b: ArrayList<Int> = ArrayList()
+
+        for (i in 0 until jsonArray.length()) {
+            arrayList_b.add(jsonArray.get(i) as Int)
+        }
+        return arrayList_b
+    }
     //
     //ボスマス移動
     fun move(){
@@ -362,13 +395,13 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread{
                     comment_in(text1,text2)
                     binding.enemyImage.setImageResource(R.drawable.taosita)
+                    binding.levelMain.text = (level + 1).toString()
                 }
                 invisible_enemy_status()
                 type = 0
                 btl_sound.pause()
                 mp0.seekTo(0)
                 mp0.start()
-                binding.levelMain.text = (level + 1).toString()
             }
             else{
                 runOnUiThread {
@@ -433,15 +466,19 @@ class MainActivity : AppCompatActivity() {
                     var rnd_num = (Math.random()*6).toInt()+1
                     me_heal = ult_result_num[typ]
                     soundPool.play(skl_heal,1.0f,100f,0,0,1.0f)
-                    if(me_heal+hp>100){
+                    if(me_heal+hp>max_hp){
                         hp = 100
                         text1 = "自身の回復スキル[" + ult_name[typ] + "]"
                         text2 = "全回復"
+                        hp = max_hp
+                        binding.hp.text = hp.toString()
                     }
                     else{
                         binding.hp.text = (hp+me_heal).toString()
                         text1 = "自身の回復スキル[" + ult_name[typ] + "]"
                         text2 = me_heal.toString() + "回復"
+                        hp = Integer.parseInt(binding.hp.text.toString())
+                        binding.hp.text = (hp + me_heal).toString()
                     }
                     mp = mp - ult_use_mp[typ]
                     binding.mp.text = mp.toString()
@@ -469,6 +506,7 @@ class MainActivity : AppCompatActivity() {
                             //soundPool.stop(dark_bgm)
                             text1 = "倒した！"
                             binding.enemyImage.setImageResource(R.drawable.taosita)
+                            binding.levelMain.text = (level + 1).toString()
                             invisible_enemy_status()
                             type = 0
                             btl_sound.pause()

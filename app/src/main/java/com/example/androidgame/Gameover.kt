@@ -4,6 +4,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import com.example.androidgame.databinding.ActivityGameoverBinding
 
 class Gameover : AppCompatActivity() {
@@ -12,10 +13,12 @@ class Gameover : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameoverBinding.inflate(layoutInflater)
-        binding.titlebtn.setOnClickListener { start_menu() }
-        gameover = MediaPlayer.create(this,R.raw.gameoverbgm)
         gameover.isLooping = true
         gameover.start()
+        binding.titlebtn.setOnClickListener { start_menu() }
+        gameover = MediaPlayer.create(this,R.raw.gameoverbgm)
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        pref.edit().clear().commit()
         setContentView(binding.root)
     }
 
