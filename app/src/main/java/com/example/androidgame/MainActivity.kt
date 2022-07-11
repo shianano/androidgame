@@ -1,5 +1,6 @@
 package com.example.androidgame
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetFileDescriptor
@@ -11,6 +12,10 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.provider.Settings
 import android.view.View
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.AppLaunchChecker
 import androidx.core.content.edit
@@ -19,6 +24,7 @@ import com.example.androidgame.databinding.ActivityMainBinding
 import org.json.JSONArray
 import java.util.jar.Attributes
 import kotlin.concurrent.thread
+
 
 //import androidx.preference
 
@@ -47,6 +53,13 @@ class MainActivity : AppCompatActivity() {
     var po = 0
     var mp = 0
     var level = 1
+    var exp_all = 0
+    var my_skil = "0,1,2,3"
+    var my_ult_set: Array<Int> = arrayOf()
+    var my_ult_set_atk: Array<Int> = arrayOf()
+    var my_ult_atk_name: Array<String> = arrayOf()
+    var my_ult_set_heal: Array<Int> = arrayOf()
+    var my_ult_heal_name: Array<String> = arrayOf()
 
     //マス定義
     var max_height = 30
@@ -71,10 +84,11 @@ class MainActivity : AppCompatActivity() {
     //人間と戦闘時ステータスを入れて戦闘
 
     //技(ult) ultの番号・[0]ヒール系,[1]攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
-    val ult_type: Array<Int> = arrayOf(0,1)
-    val ult_result_num: Array<Int> = arrayOf(20,15)
-    val ult_use_mp: Array<Int> = arrayOf(5,5)
-    val ult_name: Array<String> = arrayOf("ヒール", "暗黒斬り")
+    val ult_type: Array<Int> = arrayOf(0,1,1,0)
+    val ult_result_num: Array<Int> = arrayOf(20,15,25,100)
+    val ult_use_mp: Array<Int> = arrayOf(5,5,10,15)
+    val ult_name: Array<String> = arrayOf("ヒール", "暗黒斬り","斬鉄","フルヒール")
+    var ult_select_name = ""
     //
     var masu_num = 0
     var all_masu = 0
@@ -471,16 +485,71 @@ class MainActivity : AppCompatActivity() {
         }
         round++
     }
-    //enemy_turn_atk
-    fun enemy_turn_atk(parcent:Int){
-
+    //自身のスキルセット
+    fun my_skil_set(){
+        my_ult_set = my_skil.split(",").map(String::toInt).toTypedArray()
+        //System.out.println(my_ult_set.size)
+        var sta = 0
+        var sta2 = 0
+        var sta3 = 0
+        my_ult_set_heal = Array(my_ult_set.size){1}
+        my_ult_set_atk = Array(my_ult_set.size){1}
+        my_ult_heal_name = Array(my_ult_set.size){""}
+        my_ult_atk_name = Array(my_ult_set.size){""}
+        while(sta<my_ult_set.size){
+            //heal
+            if(ult_type[my_ult_set[sta]]==0){
+                //System.out.println(my_ult_set[sta].toString())
+                my_ult_set_heal[sta2] = my_ult_set[sta]
+                my_ult_heal_name[sta2] = ult_name[my_ult_set[sta]] + "-mp消費" + ult_use_mp[my_ult_set[sta]]
+                sta2++
+            }
+            //atk
+            else if(ult_type[my_ult_set[sta]]==1){
+                my_ult_set_atk[sta3] = my_ult_set[sta]
+                my_ult_atk_name[sta3] = ult_name[my_ult_set[sta]] + "-mp消費" + ult_use_mp[my_ult_set[sta]]
+                sta3++
+            }
+            sta++
+        }
+        val adapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,my_ult_atk_name)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.atkList.adapter = adapter
+        val adapter2 = ArrayAdapter(this,android.R.layout.simple_spinner_item,my_ult_heal_name)
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.healList.adapter = adapter2
     }
-
+    //選択スキル取得
+    fun get_select_skil(no:Int):Int{
+        var number = 0
+        if(no==0){
+            val spinner = binding.healList
+            ult_select_name = spinner.selectedItem.toString()
+            while (number<my_ult_set.size){
+                if(my_ult_heal_name[number]==ult_select_name){
+                    return number
+                }
+                number++
+            }
+        }
+        else if(no==1){
+            val spinner = binding.atkList
+            ult_select_name = spinner.selectedItem.toString()
+            while (number<my_ult_set.size){
+                if(my_ult_atk_name[number]==ult_select_name){
+                    return number
+                }
+                number++
+            }
+        }
+        return 0
+    }
     //自身のスキル
     fun my_skl(typ:Int){
         //
         var human_hp = Integer.parseInt(binding.hpnum.text.toString())
         var human_def = Integer.parseInt(binding.defnum.text.toString())
+        mp = Integer.parseInt(binding.mp.text.toString())
         var me_atk_dmg = 0
         var me_heal = 0
         var text1 = ""
@@ -488,27 +557,29 @@ class MainActivity : AppCompatActivity() {
         //
         //typ=0 -> heal
         if(typ==0){
-            if(type==1){
-                System.out.println("heal")
-                if(mp>=5){
-                    var rnd_num = (Math.random()*6).toInt()+1
-                    me_heal = ult_result_num[typ]
+            if(type==1) {
+                //
+                var select_no = get_select_skil(0)
+                System.out.println(select_no.toString())
+                //
+                if(ult_use_mp[my_ult_set_heal[select_no]]<=mp){
+                    //var rnd_num = (Math.random()*6).toInt()+1
+                    me_heal = ult_result_num[my_ult_set_heal[select_no]]
                     soundPool.play(skl_heal,1.0f,100f,0,0,1.0f)
                     if(me_heal+hp>max_hp){
-                        hp = 100
-                        text1 = "自身の回復スキル[" + ult_name[typ] + "]"
+                        text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = "全回復"
                         hp = max_hp
                         binding.hp.text = hp.toString()
                     }
                     else{
                         binding.hp.text = (hp+me_heal).toString()
-                        text1 = "自身の回復スキル[" + ult_name[typ] + "]"
+                        text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = me_heal.toString() + "回復"
                         hp = Integer.parseInt(binding.hp.text.toString())
                         binding.hp.text = (hp + me_heal).toString()
                     }
-                    mp = mp - ult_use_mp[typ]
+                    mp = mp - ult_use_mp[my_ult_set_heal[select_no]]
                     binding.mp.text = mp.toString()
                 }
                 else{
@@ -520,14 +591,18 @@ class MainActivity : AppCompatActivity() {
         //typ=1 -> atk
         else if(typ==1){
             if(type==1){
-                if(mp>=5){
+                //
+                var select_no = get_select_skil(1)
+                System.out.println(select_no.toString())
+                //
+                if(ult_use_mp[my_ult_set_atk[select_no]]<=mp){
                     var rnd_num = (Math.random()*6).toInt()+1
-                    me_atk_dmg = ult_result_num[typ]*rnd_num
+                    me_atk_dmg = ult_result_num[my_ult_set_atk[select_no]]*rnd_num
                     soundPool.play(skl_soud,1.0f,100f,0,0,0.8f)
                     if((me_atk_dmg-human_def)>0){
                         var me_atk = me_atk_dmg-human_def
                         human_hp = human_hp - me_atk
-                        text1 = "自身の攻撃スキル[" + ult_name[typ] + "]"
+                        text1 = "自身の攻撃スキル[" + ult_name[my_ult_set_atk[select_no]] + "]"
                         text2 = "相手に" + me_atk + "ダメージ"
                         if(human_hp<=0){
                             soud_ch = 0
@@ -549,7 +624,7 @@ class MainActivity : AppCompatActivity() {
                     else{
                         text1 = "相手の防御を抜けなかった..."
                     }
-                    mp = mp - ult_use_mp[typ]
+                    mp = mp - ult_use_mp[my_ult_set_atk[select_no]]
                     binding.mp.text = mp.toString()
                 }
                 else{
@@ -647,24 +722,30 @@ class MainActivity : AppCompatActivity() {
         binding.mptext.setVisibility(View.VISIBLE)
         binding.mpnum.setVisibility(View.VISIBLE)
         //スキルボタン
+        my_skil_set()
         binding.atkButton.setVisibility(View.VISIBLE)
         binding.healButton.setVisibility(View.VISIBLE)
+        binding.healList.setVisibility(View.VISIBLE)
+        binding.atkList.setVisibility(View.VISIBLE)
         set_enemy_status(no)
     }
     //相手のステータス・スキルボタンを非表示
     fun invisible_enemy_status(){
-        binding.hptext.setVisibility(View.INVISIBLE)
-        binding.hpnum.setVisibility(View.INVISIBLE)
-        binding.atktext.setVisibility(View.INVISIBLE)
-        binding.atknum.setVisibility(View.INVISIBLE)
-        binding.deftext.setVisibility(View.INVISIBLE)
-        binding.defnum.setVisibility(View.INVISIBLE)
-        binding.mptext.setVisibility(View.INVISIBLE)
-        binding.mpnum.setVisibility(View.INVISIBLE)
-        //スキルボタン
-        binding.atkButton.setVisibility(View.INVISIBLE)
-        binding.healButton.setVisibility(View.INVISIBLE)
-
+        runOnUiThread {
+            binding.hptext.setVisibility(View.INVISIBLE)
+            binding.hpnum.setVisibility(View.INVISIBLE)
+            binding.atktext.setVisibility(View.INVISIBLE)
+            binding.atknum.setVisibility(View.INVISIBLE)
+            binding.deftext.setVisibility(View.INVISIBLE)
+            binding.defnum.setVisibility(View.INVISIBLE)
+            binding.mptext.setVisibility(View.INVISIBLE)
+            binding.mpnum.setVisibility(View.INVISIBLE)
+            //スキルボタン
+            binding.atkButton.setVisibility(View.INVISIBLE)
+            binding.healButton.setVisibility(View.INVISIBLE)
+            binding.healList.setVisibility(View.INVISIBLE)
+            binding.atkList.setVisibility(View.INVISIBLE)
+        }
     }
     //相手のステータスの数値を表示
     fun set_enemy_status(no: Int){
@@ -678,7 +759,6 @@ class MainActivity : AppCompatActivity() {
         enemy_mp = Integer.parseInt(binding.mpnum.text.toString())
         var i = human_ult[no]
         human_ult_set = i.split(",").map(String::toInt).toTypedArray()
-        System.out.println(human_ult_set[0])
     }
     //マス、相手のステータス、技などを作る
     fun create_array() {
@@ -709,7 +789,18 @@ class MainActivity : AppCompatActivity() {
             height++
         }
     }
-
+    //
+    fun exp_check(){
+        level = Integer.parseInt(binding.levelMain.text.toString())
+        if(exp_all>=level*100){
+            runOnUiThread{
+                binding.levelMain.text = (level+1).toString()
+            }
+        }
+        else{
+            exp_all += 100
+        }
+    }
     //
     override fun onPause() {
         super.onPause()

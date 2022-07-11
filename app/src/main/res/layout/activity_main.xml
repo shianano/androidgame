@@ -246,26 +246,104 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:text="防御力:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
         app:layout_constraintStart_toEndOf="@+id/atk"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.461" />
+        app:layout_constraintTop_toBottomOf="@+id/image2" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/level_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.583" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="LV:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
+        app:layout_constraintStart_toEndOf="@+id/mp"
+        app:layout_constraintTop_toBottomOf="@+id/image2" />
+
+    <TextView
+        android:id="@+id/mp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.583" />
+
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="体力:"
+        android:text="MP："
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/usepo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image2" />
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
+        app:layout_constraintStart_toEndOf="@+id/def"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.516" />
+
+    <TextView
+        android:id="@+id/def"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="10"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.575" />
+
+    <TextView
+        android:id="@+id/atk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="5"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/heal_list"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.586" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="攻撃力:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/atk_list"
+        app:layout_constraintStart_toEndOf="@+id/hp"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.789" />
 
     <TextView
         android:id="@+id/hp"
@@ -275,96 +353,45 @@
         android:text="100"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/usepo"
+        app:layout_constraintBottom_toTopOf="@+id/atk_list"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/image2" />
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.515" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="攻撃力:"
+        android:text="体力:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/usepo"
-        app:layout_constraintStart_toEndOf="@+id/hp"
-        app:layout_constraintTop_toBottomOf="@+id/image2" />
-
-    <TextView
-        android:id="@+id/atk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="5"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/usepo"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/image2" />
-
-    <TextView
-        android:id="@+id/def"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="10"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/portion_num"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/atk_list"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.465" />
-
-    <TextView
-        android:id="@+id/mp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="0"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/daisu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.327" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="MP："
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/daisu"
-        app:layout_constraintStart_toEndOf="@+id/def"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.458" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
         android:text="回復薬:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/usepo"
-        app:layout_constraintTop_toBottomOf="@+id/image2" />
+        app:layout_constraintStart_toStartOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/usepo"
-        android:layout_width="126dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:text="使用する"
-        app:layout_constraintBottom_toTopOf="@+id/daisu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/portion_num" />
 
     <TextView
         android:id="@+id/portion_num"
@@ -374,72 +401,49 @@
         android:text="0"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.511" />
+        app:layout_constraintVertical_bias="0.88" />
 
     <Button
         android:id="@+id/atk_button"
-        android:layout_width="172dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:text="攻撃スキル:消費５"
+        android:layout_width="155dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="45dp"
+        android:text="攻撃スキル"
+        android:textSize="12sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toStartOf="@+id/daisu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heal_button" />
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/heal_button"
-        android:layout_width="174dp"
-        android:layout_height="37dp"
+        android:layout_width="159dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginEnd="8dp"
-        android:text="回復スキル:消費５"
+        android:layout_marginBottom="14dp"
+        android:text="回復スキル"
+        android:textSize="12sp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/daisu"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usepo" />
+        app:layout_constraintBottom_toTopOf="@+id/daisu"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/atk_button" />
 
     <Button
         android:id="@+id/daisu"
-        android:layout_width="170dp"
-        android:layout_height="67dp"
+        android:layout_width="144dp"
+        android:layout_height="71dp"
+        android:layout_marginEnd="8dp"
         android:text="サイコロを振る"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/usepo"
         app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.875" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="81dp"
-        android:text="LV:"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/daisu"
-        app:layout_constraintStart_toEndOf="@+id/mp"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/level_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/daisu"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.955" />
 
     <ImageView
         android:id="@+id/daisuimage"
@@ -454,5 +458,36 @@
         app:layout_constraintTop_toTopOf="@+id/image2"
         app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Spinner
+        android:id="@+id/heal_list"
+        android:layout_width="164dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/white"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/heal_button"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toEndOf="@+id/atk_list" />
+
+    <Spinner
+        android:id="@+id/atk_list"
+        android:layout_width="161dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/atk_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.636" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
