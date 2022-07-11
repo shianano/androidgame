@@ -204,6 +204,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_def", 10)
             putInt("pl_mp", 20)
             putInt("pl_max_mp",20)
+            putInt("pl_exp",0)
             putInt("pl_po", 0)
             putInt("pl_all_masu",0)
             putInt("pl_check",1)
@@ -218,6 +219,7 @@ class MainActivity : AppCompatActivity() {
         mp=pref.getInt("pl_mp",0)
         all_masu=pref.getInt("pl_all_masu",0)
         level=pref.getInt("pl_level",0)
+        exp_all=pref.getInt("pl_exp",0)
         devil_daisu=pref.getInt("pl_now_daisu",0)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
@@ -661,7 +663,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 hp = hp - human_atk_dmg
                 text1 = "相手の攻撃スキル[" + ult_name[human_ult_set[use_ult]] + "]"
-                text2 = me_atk_dmg.toString() + "ダメージ"
+                text2 = human_atk_dmg.toString() + "ダメージ"
             }
             else{
                 human_atk_dmg = human_daisu * human_atk - def
@@ -789,7 +791,7 @@ class MainActivity : AppCompatActivity() {
             height++
         }
     }
-    //
+    //経験値レベルアップ判定
     fun exp_check(){
         level = Integer.parseInt(binding.levelMain.text.toString())
         if(exp_all>=level*100){
