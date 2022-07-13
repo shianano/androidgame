@@ -263,6 +263,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
             putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
+            putInt("pl_exp",exp_all)
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
             putInt("pl_all_masu",30-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
