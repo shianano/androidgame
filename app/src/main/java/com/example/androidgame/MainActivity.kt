@@ -69,20 +69,20 @@ class MainActivity : AppCompatActivity() {
     //
 
     //マス定義
-    var max_height = 30
+    var max_height = 30// = 0
     //test input
-    var masu_event = IntArray(max_height)
-    var masu_result_num = IntArray(max_height)
+    var masu_event = IntArray(max_height)//var masu_event = arrayof()
+    var masu_result_num = IntArray(max_height)//var masu_result_num = arrayof()
 
     //人間ステータス定義
     //var human_type_height = 6
     //var human_type_weight = 6
     //test input
-    var human_hp: Array<Int> = arrayOf()//100,90,80,70,60)
-    var human_atk: Array<Int> = arrayOf()//10,10,10,10,10)
-    var human_def: Array<Int> = arrayOf()//10,9,8,7,6)
-    var human_mp: Array<Int> = arrayOf()//5,5,5,5,5)
-    var human_ult: Array<String> = arrayOf()//"1","1","1","1","1")
+    var human_hp: Array<Int> = arrayOf()
+    var human_atk: Array<Int> = arrayOf()
+    var human_def: Array<Int> = arrayOf()
+    var human_mp: Array<Int> = arrayOf()
+    var human_ult: Array<String> = arrayOf()
     //set
     var human_ult_set: Array<Int> = arrayOf()
     //人間と戦闘時ステータスを入れて戦闘
@@ -138,11 +138,26 @@ class MainActivity : AppCompatActivity() {
                 human_def[i] = jsonData.getString("DEF").toInt()
                 human_mp[i] = jsonData.getString("MP").toInt()
                 human_ult[i] = jsonData.getString("ult")
-                //Log.d("Check", "$i : ${jsonData.getString("ATK")}")
             }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+        //
+        /*
+        val jsonArray_masu = jsonObject.getJSONArray("masu")
+        masu_event = Array(jsonArray_masu.lenght()){0}
+        masu_result_num = Array(jsonArray_masu.lenght()){0}
+        max_height = jsonArray_masu.lenght()
+        try {
+            for (i in 0 until jsonArray_masu.length()) {
+                val jsonData = jsonArray_masu.getJSONObject(i)
+                masu_event[i] = jsonData.getString("masu_event").toInt()
+                masu_result_num[i] = jsonData.getString("masu_result_num").toInt()
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        */
         //
         //
         mp0 = MediaPlayer.create(this,R.raw.firstbgm)
@@ -247,6 +262,10 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_check",1)
             putInt("pl_level",1)
             putInt("pl_now_masu",0)
+            putInt("pl_atk_weapon",0)
+            putInt("pl_shield_weapon",1)
+            putInt("pl_head_weapon",2)
+            putInt("pl_chest_weapon",3)
         }
         hp=pref.getInt("pl_hp", 0)
         max_hp=pref.getInt("pl_max_hp",0)
@@ -386,43 +405,15 @@ class MainActivity : AppCompatActivity() {
     }
     //イメージセット
     fun set_enemy(no: Int){
-        enemy_no = no
-        if (no==0){
-            binding.enemyImage.setImageResource(R.drawable.image1)
-        }
-        else if (no==1){
-            binding.enemyImage.setImageResource(R.drawable.image2)
-        }
-        else if (no==2){
-            binding.enemyImage.setImageResource(R.drawable.image3)
-        }
-        else if (no==3){
-            binding.enemyImage.setImageResource(R.drawable.image4)
-        }
-        else if (no==4){
-            binding.enemyImage.setImageResource(R.drawable.image5)
-        }
+        var text_image = "image" + no.toString()
+        val resId = resources.getIdentifier(text_image, "drawable", packageName)
+        binding.enemyImage.setImageResource(resId)
     }
     //サイコロイメージセット
     fun set_daisu_image(no:Int){
-        if(no==1){
-            binding.daisuimage.setImageResource(R.drawable.daisu1)
-        }
-        else if(no==2){
-            binding.daisuimage.setImageResource(R.drawable.daisu2)
-        }
-        else if(no==3){
-            binding.daisuimage.setImageResource(R.drawable.daisu3)
-        }
-        else if(no==4){
-            binding.daisuimage.setImageResource(R.drawable.daisu4)
-        }
-        else if(no==5){
-            binding.daisuimage.setImageResource(R.drawable.daisu5)
-        }
-        else if(no==6){
-            binding.daisuimage.setImageResource(R.drawable.daisu6)
-        }
+        var text_image = "daisu" + no.toString()
+        val resId = resources.getIdentifier(text_image, "drawable", packageName)
+        binding.daisuimage.setImageResource(resId)
     }
     //ポーション使用
     fun use_portion(){
@@ -702,6 +693,9 @@ class MainActivity : AppCompatActivity() {
                 hp = hp - human_atk_dmg
                 text1 = "相手の攻撃スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = human_atk_dmg.toString() + "ダメージ"
+                runOnUiThread {
+                    binding.hp.text = hp.toString()
+                }
             }
             else{
                 human_atk_dmg = human_daisu * human_atk - def
@@ -711,6 +705,9 @@ class MainActivity : AppCompatActivity() {
                 hp = hp - human_atk_dmg
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
+                runOnUiThread {
+                    binding.hp.text = hp.toString()
+                }
             }
         }//回復スキル
         else if(ult_type[human_ult_set[use_ult]]==0){
