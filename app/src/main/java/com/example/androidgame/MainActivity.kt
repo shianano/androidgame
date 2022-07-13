@@ -818,7 +818,7 @@ class MainActivity : AppCompatActivity() {
                 enemy++
             } else if (m_type == 1 && enemy >= 5) {
                 masu_event[height] = m_type
-                masu_result_num[height] = (Math.random() * 5).toInt()
+                masu_result_num[height] = (Math.random() * 7).toInt()
             } else {
                 masu_event[height] = m_type
                 masu_result_num[height] = (Math.random() * 2).toInt() + 1
