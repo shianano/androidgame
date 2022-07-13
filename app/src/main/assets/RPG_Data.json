@@ -1,0 +1,128 @@
+{
+    "enemy":[
+        {
+            "id":0,
+            "name":"ファグラ",
+            "HP": 100,
+            "ATK":10,
+            "DEF":10,
+            "MP":5,
+            "ult":"1"
+        },
+        {
+            "id":1,
+            "name":"トートリ",
+            "HP": 90,
+            "ATK":10,
+            "DEF":9,
+            "MP":5,
+            "ult":"1"
+        },
+        {
+            "id":2,
+            "name":"アゲイン",
+            "HP": 80,
+            "ATK":10,
+            "DEF":8,
+            "MP":5,
+            "ult":"1"
+        },
+        {
+            "id":3,
+            "name":"エクレー",
+            "HP": 70,
+            "ATK":10,
+            "DEF":7,
+            "MP":5,
+            "ult":"1"
+        },
+        {
+            "id":4,
+            "name":"オフェリア",
+            "HP": 60,
+            "ATK":10,
+            "DEF":6,
+            "MP":5,
+            "ult":"1"
+        }
+    ],
+    "masu_data": [
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        }
+
+    ]
+}

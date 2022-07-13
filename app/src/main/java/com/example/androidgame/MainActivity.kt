@@ -11,6 +11,7 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Adapter
 import android.widget.AdapterView
@@ -22,6 +23,10 @@ import androidx.core.content.edit
 import androidx.media.AudioAttributesCompat.CONTENT_TYPE_SPEECH
 import com.example.androidgame.databinding.ActivityMainBinding
 import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.util.jar.Attributes
 import kotlin.concurrent.thread
 
@@ -60,6 +65,8 @@ class MainActivity : AppCompatActivity() {
     var my_ult_atk_name: Array<String> = arrayOf()
     var my_ult_set_heal: Array<Int> = arrayOf()
     var my_ult_heal_name: Array<String> = arrayOf()
+    //
+    //
 
     //マス定義
     var max_height = 30
@@ -71,16 +78,13 @@ class MainActivity : AppCompatActivity() {
     //var human_type_height = 6
     //var human_type_weight = 6
     //test input
-    val human_hp: Array<Int> = arrayOf(100,90,80,70,60)
-    val human_atk: Array<Int> = arrayOf(10,10,10,10,10)
-    val human_def: Array<Int> = arrayOf(10,9,8,7,6)
-    val human_mp: Array<Int> = arrayOf(5,5,5,5,5)
-    val human_ult: Array<String> = arrayOf("1","1","1","1","1")
+    var human_hp: Array<Int> = arrayOf()//100,90,80,70,60)
+    var human_atk: Array<Int> = arrayOf()//10,10,10,10,10)
+    var human_def: Array<Int> = arrayOf()//10,9,8,7,6)
+    var human_mp: Array<Int> = arrayOf()//5,5,5,5,5)
+    var human_ult: Array<String> = arrayOf()//"1","1","1","1","1")
     //set
     var human_ult_set: Array<Int> = arrayOf()
-
-    //人間名定義
-    val human_name = arrayOf("ファグラ","トートリ","アゲイン","エクレー","オフェリア")
     //人間と戦闘時ステータスを入れて戦闘
 
     //技(ult) ultの番号・[0]ヒール系,[1]攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
@@ -108,6 +112,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        //
+        //
+        //
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("RPG_Data.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray = jsonObject.getJSONArray("enemy")
+        //
+        //
+        human_hp = Array(jsonArray.length()){0}
+        human_atk = Array(jsonArray.length()){0}
+        human_def = Array(jsonArray.length()){0}
+        human_mp = Array(jsonArray.length()){0}
+        human_ult = Array(jsonArray.length()){"0"}
+        //
+        //
+        try {
+            for (i in 0 until jsonArray.length()) {
+                val jsonData = jsonArray.getJSONObject(i)
+                human_hp[i] = jsonData.getString("HP").toInt()
+                human_atk[i] = jsonData.getString("ATK").toInt()
+                human_def[i] = jsonData.getString("DEF").toInt()
+                human_mp[i] = jsonData.getString("MP").toInt()
+                human_ult[i] = jsonData.getString("ult")
+                //Log.d("Check", "$i : ${jsonData.getString("ATK")}")
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        //
         //
         mp0 = MediaPlayer.create(this,R.raw.firstbgm)
         mp0.isLooping = true
@@ -163,6 +199,7 @@ class MainActivity : AppCompatActivity() {
         }
         //
         mp0.start()
+        //
         //
         setContentView(binding.root)
     }
