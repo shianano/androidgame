@@ -260,9 +260,13 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_level",1)
             putInt("pl_now_masu",0)
             putInt("pl_atk_weapon",0)
+            putString("pl_atk_weapon_list","0")
             putInt("pl_shield_weapon",1)
+            putString("pl_shield_weapon_list","1")
             putInt("pl_head_weapon",2)
+            putString("pl_head_weapon_list","2")
             putInt("pl_chest_weapon",3)
+            putString("pl_chest_weapon_list","3")
         }
         hp=pref.getInt("pl_hp", 0)
         max_hp=pref.getInt("pl_max_hp",0)
@@ -700,6 +704,9 @@ class MainActivity : AppCompatActivity() {
                 hp = hp - human_atk_dmg
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
+                runOnUiThread {
+                    binding.hp.text = hp.toString()
+                }
             }
         }
         //
@@ -807,6 +814,25 @@ class MainActivity : AppCompatActivity() {
                 binding.levelMain.text = (level+1).toString()
             }
             exp_all = 0
+        }
+    }
+    //
+    fun weapon_check(no:Int){
+        //武器
+        if(no==0){
+
+        }
+        //盾
+        else if(no==1){
+
+        }
+        //頭
+        else if(no==2){
+
+        }
+        //胸
+        else if(no==3){
+
         }
     }
     //
