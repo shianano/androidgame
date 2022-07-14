@@ -71,8 +71,8 @@ class MainActivity : AppCompatActivity() {
     //マス定義
     var max_height = 30// = 0
     //test input
-    var masu_event = IntArray(max_height)//var masu_event = arrayof()
-    var masu_result_num = IntArray(max_height)//var masu_result_num = arrayof()
+    var masu_event: Array<Int> = arrayOf()//var masu_event = IntArray(max_height)
+    var masu_result_num: Array<Int> = arrayOf()//var masu_result_num = arrayof()
 
     //人間ステータス定義
     //var human_type_height = 6
@@ -143,11 +143,10 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         //
-        /*
-        val jsonArray_masu = jsonObject.getJSONArray("masu")
-        masu_event = Array(jsonArray_masu.lenght()){0}
-        masu_result_num = Array(jsonArray_masu.lenght()){0}
-        max_height = jsonArray_masu.lenght()
+        val jsonArray_masu = jsonObject.getJSONArray("masu_data")
+        masu_event = Array(jsonArray_masu.length()){0}
+        masu_result_num = Array(jsonArray_masu.length()){0}
+        max_height = jsonArray_masu.length()
         try {
             for (i in 0 until jsonArray_masu.length()) {
                 val jsonData = jsonArray_masu.getJSONObject(i)
@@ -157,7 +156,6 @@ class MainActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        */
         //
         //
         mp0 = MediaPlayer.create(this,R.raw.firstbgm)
@@ -201,7 +199,6 @@ class MainActivity : AppCompatActivity() {
         binding.menu.setOnClickListener { menu_change() }
         binding.atkButton.setOnClickListener { my_skl(1) }
         binding.healButton.setOnClickListener { my_skl(0) }
-        create_array()
         //save chack
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         if (pref.getInt("pl_check",0)==0){
@@ -282,9 +279,7 @@ class MainActivity : AppCompatActivity() {
         binding.def.text = def.toString()
         binding.mp.text = mp.toString()
         binding.levelMain.text = level.toString()
-        binding.masucount.text = (30-masu_num).toString()
-        saveArrayList("masu_event",masu_event.toCollection(ArrayList()))
-        saveArrayList("masu_result_num",masu_result_num.toCollection(ArrayList()))
+        binding.masucount.text = (max_height-masu_num).toString()
     }
     //2回目以降（途中で止めたデータ）
     fun load_status(){
@@ -303,11 +298,7 @@ class MainActivity : AppCompatActivity() {
         binding.def.text = def.toString()
         binding.mp.text = mp.toString()
         binding.levelMain.text = level.toString()
-        binding.masucount.text = (30-all_masu).toString()
-        masu_event = loadArrayList("masu_event").toIntArray()
-        System.out.println("masu_event"+loadArrayList("masu_event").toIntArray().size)
-        masu_result_num = loadArrayList("masu_result_num").toIntArray()
-        System.out.println("masu_result_num"+loadArrayList("masu_result").toIntArray().size)
+        binding.masucount.text = (max_height-all_masu).toString()
         masu_checker(all_masu)
     }
     //save
@@ -330,25 +321,6 @@ class MainActivity : AppCompatActivity() {
         max_hp = pref.getInt("pl_max_hp",100)
     }
     //マス保存
-    //保存（string）
-    fun saveArrayList(key: String, arrayList: ArrayList<Int>) {
-        val shardPreferences = this.getPreferences(Context.MODE_PRIVATE)
-        val shardPrefEditor = shardPreferences.edit()
-        val jsonArray = JSONArray(arrayList)
-        shardPrefEditor.putString(key, jsonArray.toString())
-        shardPrefEditor.apply()
-    }
-    // リストの読み込み
-    fun loadArrayList(key: String):ArrayList<Int> {
-        val shardPreferences = this.getPreferences(Context.MODE_PRIVATE)
-        val jsonArray = JSONArray(shardPreferences.getString(key, "[]"))
-        val arrayList_b: ArrayList<Int> = ArrayList()
-
-        for (i in 0 until jsonArray.length()) {
-            arrayList_b.add(jsonArray.get(i) as Int)
-        }
-        return arrayList_b
-    }
     //
     //ボスマス移動
     fun move(){
@@ -467,8 +439,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread{
                     comment_in(text1,text2)
                     binding.enemyImage.setImageResource(R.drawable.taosita)
-                    level = Integer.parseInt(binding.levelMain.text.toString()) + 1
-                    binding.levelMain.text = (level).toString()
+                    exp_check()
                 }
                 invisible_enemy_status()
                 type = 0
@@ -640,8 +611,7 @@ class MainActivity : AppCompatActivity() {
                             //soundPool.stop(dark_bgm)
                             text1 = "倒した！"
                             binding.enemyImage.setImageResource(R.drawable.taosita)
-                            level = Integer.parseInt(binding.levelMain.text.toString()) + 1
-                            binding.levelMain.text = (level).toString()
+                            exp_check()
                             invisible_enemy_status()
                             type = 0
                             btl_sound.pause()
@@ -798,6 +768,7 @@ class MainActivity : AppCompatActivity() {
         human_ult_set = i.split(",").map(String::toInt).toTypedArray()
     }
     //マス、相手のステータス、技などを作る
+    /*
     fun create_array() {
         //masu
         var height = 0
@@ -826,6 +797,7 @@ class MainActivity : AppCompatActivity() {
             height++
         }
     }
+     */
     //経験値レベルアップ判定
     fun exp_check(){
         level = Integer.parseInt(binding.levelMain.text.toString())
@@ -833,6 +805,7 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread{
                 binding.levelMain.text = (level+1).toString()
             }
+            exp_all = 0
         }
         else{
             exp_all += 100
