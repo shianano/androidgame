@@ -819,8 +819,8 @@ class MainActivity : AppCompatActivity() {
             exp_all = 0
         }
     }
-    //
-    fun weapon_check(no:Int){
+    //装備入手一覧にいれる
+    fun weapon_get(no:Int){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val assetManager = resources.assets
         val inputStream = assetManager.open("weapon_list.json")
@@ -861,6 +861,9 @@ class MainActivity : AppCompatActivity() {
         }
         inputStream.close()
         bufferedReader.close()
+    }
+    //装備確認
+    fun weapon_status_plus() {
     }
     //
     override fun onPause() {
