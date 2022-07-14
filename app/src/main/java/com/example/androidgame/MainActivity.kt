@@ -801,14 +801,12 @@ class MainActivity : AppCompatActivity() {
     //経験値レベルアップ判定
     fun exp_check(){
         level = Integer.parseInt(binding.levelMain.text.toString())
+        exp_all += 100
         if(exp_all>=level*100){
             runOnUiThread{
                 binding.levelMain.text = (level+1).toString()
             }
             exp_all = 0
-        }
-        else{
-            exp_all += 100
         }
     }
     //
