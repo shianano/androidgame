@@ -156,6 +156,8 @@ class MainActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+        inputStream.close()
+        bufferedReader.close()
         //
         //
         mp0 = MediaPlayer.create(this,R.raw.firstbgm)
@@ -260,9 +262,13 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_level",1)
             putInt("pl_now_masu",0)
             putInt("pl_atk_weapon",0)
+            putString("pl_atk_weapon_list","0")
             putInt("pl_shield_weapon",1)
+            putString("pl_shield_weapon_list","1")
             putInt("pl_head_weapon",2)
+            putString("pl_head_weapon_list","2")
             putInt("pl_chest_weapon",3)
+            putString("pl_chest_weapon_list","3")
         }
         hp=pref.getInt("pl_hp", 0)
         max_hp=pref.getInt("pl_max_hp",0)
@@ -408,6 +414,7 @@ class MainActivity : AppCompatActivity() {
         else if (po==0){
             binding.portionNum.text = po.toString()
         }
+        hp = Integer.parseInt(binding.hp.text.toString())
         save()
     }
     //戦闘モード
@@ -575,7 +582,6 @@ class MainActivity : AppCompatActivity() {
                         binding.hp.text = hp.toString()
                     }
                     else{
-                        binding.hp.text = (hp+me_heal).toString()
                         text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = me_heal.toString() + "回復"
                         hp = Integer.parseInt(binding.hp.text.toString())
@@ -643,6 +649,7 @@ class MainActivity : AppCompatActivity() {
     fun enemy_skl(){
         var human_hp = Integer.parseInt(binding.hpnum.text.toString())
         var human_atk = Integer.parseInt(binding.atknum.text.toString())
+        hp = Integer.parseInt(binding.hp.text.toString())
         var me_atk_dmg = 0
         var human_atk_dmg = 0
         var text1 = ""
@@ -700,6 +707,9 @@ class MainActivity : AppCompatActivity() {
                 hp = hp - human_atk_dmg
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
+                runOnUiThread {
+                    binding.hp.text = hp.toString()
+                }
             }
         }
         //
@@ -801,15 +811,43 @@ class MainActivity : AppCompatActivity() {
     //経験値レベルアップ判定
     fun exp_check(){
         level = Integer.parseInt(binding.levelMain.text.toString())
+        exp_all += 100
         if(exp_all>=level*100){
             runOnUiThread{
                 binding.levelMain.text = (level+1).toString()
             }
             exp_all = 0
         }
-        else{
-            exp_all += 100
+    }
+    //
+    fun weapon_check(no:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
+        val jsonData = jsonArray_weapon.getJSONObject(no)
+        var weapon_type = jsonData.getInt("weapon_type")
+        //武器
+        if(weapon_type==0){
+
         }
+        //盾
+        else if(weapon_type==1){
+
+        }
+        //頭
+        else if(weapon_type==2){
+
+        }
+        //胸
+        else if(weapon_type==3){
+
+        }
+        inputStream.close()
+        bufferedReader.close()
     }
     //
     override fun onPause() {
