@@ -395,6 +395,12 @@ class MainActivity : AppCompatActivity() {
         val resId = resources.getIdentifier(text_image, "drawable", packageName)
         binding.daisuimage.setImageResource(resId)
     }
+    //敵
+    fun enemy_set_daisu_image(no:Int){
+        var text_image = "daisu" + no.toString()
+        val resId = resources.getIdentifier(text_image, "drawable", packageName)
+        binding.enemyDaisu.setImageResource(resId)
+    }
     //ポーション使用
     fun use_portion(){
         var text1 = ""
@@ -477,6 +483,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     hp = hp - human_atk_dmg
                     runOnUiThread {
+                        enemy_set_daisu_image(human_daisu)
                         binding.hpnum.text = result_human_hp.toString()
                     }
                     text1 = "相手の通常攻撃"
@@ -686,6 +693,7 @@ class MainActivity : AppCompatActivity() {
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
                 runOnUiThread {
+                    enemy_set_daisu_image(human_daisu)
                     binding.hp.text = hp.toString()
                 }
             }
@@ -711,6 +719,7 @@ class MainActivity : AppCompatActivity() {
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
                 runOnUiThread {
+                    enemy_set_daisu_image(human_daisu)
                     binding.hp.text = hp.toString()
                 }
             }
