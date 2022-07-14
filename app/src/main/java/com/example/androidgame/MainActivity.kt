@@ -156,6 +156,8 @@ class MainActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+        inputStream.close()
+        bufferedReader.close()
         //
         //
         mp0 = MediaPlayer.create(this,R.raw.firstbgm)
@@ -412,6 +414,7 @@ class MainActivity : AppCompatActivity() {
         else if (po==0){
             binding.portionNum.text = po.toString()
         }
+        hp = Integer.parseInt(binding.hp.text.toString())
         save()
     }
     //戦闘モード
@@ -646,6 +649,7 @@ class MainActivity : AppCompatActivity() {
     fun enemy_skl(){
         var human_hp = Integer.parseInt(binding.hpnum.text.toString())
         var human_atk = Integer.parseInt(binding.atknum.text.toString())
+        hp = Integer.parseInt(binding.hp.text.toString())
         var me_atk_dmg = 0
         var human_atk_dmg = 0
         var text1 = ""
@@ -817,22 +821,33 @@ class MainActivity : AppCompatActivity() {
     }
     //
     fun weapon_check(no:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
+        val jsonData = jsonArray_weapon.getJSONObject(no)
+        var weapon_type = jsonData.getInt("weapon_type")
         //武器
-        if(no==0){
+        if(weapon_type==0){
 
         }
         //盾
-        else if(no==1){
+        else if(weapon_type==1){
 
         }
         //頭
-        else if(no==2){
+        else if(weapon_type==2){
 
         }
         //胸
-        else if(no==3){
+        else if(weapon_type==3){
 
         }
+        inputStream.close()
+        bufferedReader.close()
     }
     //
     override fun onPause() {
