@@ -579,7 +579,6 @@ class MainActivity : AppCompatActivity() {
                         binding.hp.text = hp.toString()
                     }
                     else{
-                        binding.hp.text = (hp+me_heal).toString()
                         text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = me_heal.toString() + "回復"
                         hp = Integer.parseInt(binding.hp.text.toString())
