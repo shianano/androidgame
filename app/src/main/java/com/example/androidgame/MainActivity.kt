@@ -830,21 +830,34 @@ class MainActivity : AppCompatActivity() {
         val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val jsonData = jsonArray_weapon.getJSONObject(no)
         var weapon_type = jsonData.getInt("weapon_type")
+        var weapon_list_txt = ""
         //武器
         if(weapon_type==0){
-
+            weapon_list_txt = pref.getString("pl_atk_weapon_list","0") + "," + no.toString()
+            pref.edit(){
+                putString("pl_atk_weapon_list",weapon_list_txt)
+            }
         }
         //盾
         else if(weapon_type==1){
-
+            weapon_list_txt = pref.getString("pl_shield_weapon_list","1") + "," + no.toString()
+            pref.edit(){
+                putString("pl_shield_weapon_list",weapon_list_txt)
+            }
         }
         //頭
         else if(weapon_type==2){
-
+            weapon_list_txt = pref.getString("pl_head_weapon_list","2") + "," + no.toString()
+            pref.edit(){
+                putString("pl_head_weapon_list",weapon_list_txt)
+            }
         }
         //胸
         else if(weapon_type==3){
-
+            weapon_list_txt = pref.getString("pl_chest_weapon_list","3") + "," + no.toString()
+            pref.edit(){
+                putString("pl_chest_weapon_list",weapon_list_txt)
+            }
         }
         inputStream.close()
         bufferedReader.close()
