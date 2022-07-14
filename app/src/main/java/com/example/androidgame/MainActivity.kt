@@ -318,7 +318,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
             putInt("pl_exp",exp_all)
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
-            putInt("pl_all_masu",30-Integer.parseInt(binding.masucount.text.toString()))
+            putInt("pl_all_masu",max_height-Integer.parseInt(binding.masucount.text.toString()))
             putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
             putInt("pl_max_hp",(Integer.parseInt(binding.levelMain.text.toString())-1)*10 + 100)
             putInt("pl_now_daisu",devil_daisu)
@@ -336,6 +336,8 @@ class MainActivity : AppCompatActivity() {
     }
     //ゲームオーバー移動
     fun game_over(){
+        mp0.stop()
+        btl_sound.stop()
         val intent = Intent(this, Gameover::class.java)
         startActivity(intent)
         //binding.result.text = "gameover"
@@ -419,6 +421,7 @@ class MainActivity : AppCompatActivity() {
     }
     //戦闘モード
     fun btl(){
+        mp0.pause()
         //敵のHP
         var human_hp = Integer.parseInt(binding.hpnum.text.toString())
         var human_atk = Integer.parseInt(binding.atknum.text.toString())
@@ -873,8 +876,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        mp0.stop()
+        btl_sound.stop()
         soundPool.release()
         mp0.release()
         btl_sound.release()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(type==1){
+            btl_sound.start()
+        }
+        else if(type==0){
+            mp0.start()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(type==1){
+            btl_sound.pause()
+        }
+        else if(type==0){
+            mp0.pause()
+        }
     }
 }

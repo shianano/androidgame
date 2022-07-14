@@ -1,0 +1,32 @@
+{
+    "ult":[
+        {
+            "id":0,
+            "ult_type":0,
+            "ult_result_num":20,
+            "ult_use_mp":5,
+            "ult_name":"ヒール"
+        },
+        {
+            "id":1,
+            "ult_type":1,
+            "ult_result_num":15,
+            "ult_use_mp":5,
+            "ult_name":"暗黒斬り"
+        },
+        {
+            "id":2,
+            "ult_type":1,
+            "ult_result_num":25,
+            "ult_use_mp":10,
+            "ult_name":"斬鉄"
+        },
+        {
+            "id":3,
+            "ult_type":0,
+            "ult_result_num":100,
+            "ult_use_mp":15,
+            "ult_name":"フルヒール"
+        }
+    ]
+}
