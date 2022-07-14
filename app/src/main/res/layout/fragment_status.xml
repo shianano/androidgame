@@ -10,6 +10,8 @@
 
     <ImageView
         android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/soubi_imagebutton"
         android:src="@android:drawable/divider_horizontal_dim_dark"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,6 +27,8 @@
 
     <ImageView
         android:id="@+id/imageView8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/soubi_imagebutton"
         android:src="@android:drawable/divider_horizontal_dim_dark"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
@@ -40,6 +44,8 @@
 
     <ImageView
         android:id="@+id/imageView7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/soubi_imagebutton"
         android:src="@android:drawable/divider_horizontal_dim_dark"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView28"
+        app:layout_constraintEnd_toEndOf="@+id/textView29"
         app:layout_constraintTop_toTopOf="@+id/textView16"
         tools:text="剣" />
 
@@ -87,9 +93,11 @@
         android:text="@string/buki"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintStart_toStartOf="@+id/textView28"
+        app:layout_constraintEnd_toStartOf="@+id/Weapon"
+        app:layout_constraintHorizontal_bias="0.276"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/NextLevel"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.035" />
 
     <TextView
         android:id="@+id/textView12"
@@ -146,6 +154,8 @@
     <ProgressBar
         android:id="@+id/HPBar"
         style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:max="100"
         android:progress="100"
         android:progressDrawable="@drawable/custom_progress"
@@ -163,6 +173,8 @@
     <ProgressBar
         android:id="@+id/MPBar"
         style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:max="100"
         android:progress="100"
         android:progressDrawable="@drawable/custom_progress"
@@ -362,7 +374,9 @@
         android:text="@string/Exp"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="@+id/textView28"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/textView28"
         app:layout_constraintVertical_bias="0.046" />
 
@@ -377,6 +391,7 @@
 
     <ImageView
         android:id="@+id/imageView4"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/maou"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -406,6 +421,8 @@
 
     <ImageView
         android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/soubi_imagebutton"
         android:src="@android:drawable/divider_horizontal_dim_dark"
         app:layout_constraintBottom_toBottomOf="parent"
