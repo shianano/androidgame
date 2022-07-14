@@ -819,8 +819,8 @@ class MainActivity : AppCompatActivity() {
             exp_all = 0
         }
     }
-    //
-    fun weapon_check(no:Int){
+    //装備入手一覧にいれる
+    fun weapon_get(no:Int){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val assetManager = resources.assets
         val inputStream = assetManager.open("weapon_list.json")
@@ -830,24 +830,40 @@ class MainActivity : AppCompatActivity() {
         val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val jsonData = jsonArray_weapon.getJSONObject(no)
         var weapon_type = jsonData.getInt("weapon_type")
+        var weapon_list_txt = ""
         //武器
         if(weapon_type==0){
-
+            weapon_list_txt = pref.getString("pl_atk_weapon_list","0") + "," + no.toString()
+            pref.edit(){
+                putString("pl_atk_weapon_list",weapon_list_txt)
+            }
         }
         //盾
         else if(weapon_type==1){
-
+            weapon_list_txt = pref.getString("pl_shield_weapon_list","1") + "," + no.toString()
+            pref.edit(){
+                putString("pl_shield_weapon_list",weapon_list_txt)
+            }
         }
         //頭
         else if(weapon_type==2){
-
+            weapon_list_txt = pref.getString("pl_head_weapon_list","2") + "," + no.toString()
+            pref.edit(){
+                putString("pl_head_weapon_list",weapon_list_txt)
+            }
         }
         //胸
         else if(weapon_type==3){
-
+            weapon_list_txt = pref.getString("pl_chest_weapon_list","3") + "," + no.toString()
+            pref.edit(){
+                putString("pl_chest_weapon_list",weapon_list_txt)
+            }
         }
         inputStream.close()
         bufferedReader.close()
+    }
+    //装備確認
+    fun weapon_status_plus() {
     }
     //
     override fun onPause() {
