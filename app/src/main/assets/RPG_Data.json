@@ -6,23 +6,23 @@
             "HP": 100,
             "ATK":10,
             "DEF":10,
-            "MP":5,
+            "MP":15,
             "ult":"1"
         },
         {
             "id":1,
             "name":"トートリ",
             "HP": 90,
-            "ATK":10,
+            "ATK":9,
             "DEF":9,
-            "MP":5,
+            "MP":10,
             "ult":"1"
         },
         {
             "id":2,
             "name":"アゲイン",
             "HP": 80,
-            "ATK":10,
+            "ATK":8,
             "DEF":8,
             "MP":5,
             "ult":"1"
@@ -31,7 +31,7 @@
             "id":3,
             "name":"エクレー",
             "HP": 70,
-            "ATK":10,
+            "ATK":7,
             "DEF":7,
             "MP":5,
             "ult":"1"
@@ -40,16 +40,70 @@
             "id":4,
             "name":"オフェリア",
             "HP": 60,
-            "ATK":10,
+            "ATK":6,
             "DEF":6,
             "MP":5,
+            "ult":"1"
+        },
+        {
+            "id":5,
+            "name":"",
+            "HP": 50,
+            "ATK":5,
+            "DEF":4,
+            "MP":20,
+            "ult":"1"
+        },
+        {
+            "id":6,
+            "name":"",
+            "HP": 40,
+            "ATK":5,
+            "DEF":4,
+            "MP":0,
             "ult":"1"
         }
     ],
     "masu_data": [
         {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
             "masu_event": 0,
             "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 6
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 6
         },
         {
             "masu_event": 0,
@@ -64,8 +118,100 @@
             "masu_result_num": 0
         },
         {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 6
+        },
+        {
             "masu_event": 0,
             "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
         },
         {
             "masu_event": 0,
@@ -80,8 +226,96 @@
             "masu_result_num": 0
         },
         {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
             "masu_event": 0,
             "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
         },
         {
             "masu_event": 0,
@@ -96,8 +330,12 @@
             "masu_result_num": 0
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
         },
         {
             "masu_event": 0,
@@ -108,8 +346,16 @@
             "masu_result_num": 0
         },
         {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
             "masu_event": 0,
             "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
         },
         {
             "masu_event": 0,
@@ -120,7 +366,183 @@
             "masu_result_num": 0
         },
         {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
             "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
             "masu_result_num": 0
         }
 
