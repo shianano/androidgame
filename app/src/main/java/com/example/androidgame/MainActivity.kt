@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     //技(ult) ultの番号・[0]ヒール系,[1]攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
     val ult_type: Array<Int> = arrayOf(0,1,1,0,1)
     val ult_result_num: Array<Int> = arrayOf(20,15,25,100,18)
-    val ult_use_mp: Array<Int> = arrayOf(5,5,10,15)
+    val ult_use_mp: Array<Int> = arrayOf(5,5,10,15,15)
     val ult_name: Array<String> = arrayOf("ヒール", "暗黒斬り","斬鉄","フルヒール","ティマイオス")
     var ult_select_name = ""
     //
