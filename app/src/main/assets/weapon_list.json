@@ -6,70 +6,70 @@
             "weapon_name":"疎かな剣",
             "weapon_type":0,
             "plus_atk":1,
-            "plus_def":0,
+            "plus_def":0
         },
         {
             "id":1,
             "weapon_name":"疎かな盾",
             "weapon_type":1,
             "plus_atk":0,
-            "plus_def":1,
+            "plus_def":1
         },
         {
             "id":2,
             "weapon_name":"疎かな王冠",
             "weapon_type":2,
             "plus_atk":0,
-            "plus_def":1,
+            "plus_def":1
         },
         {
             "id":3,
             "weapon_name":"疎かな織物",
             "weapon_type":3,
             "plus_atk":0,
-            "plus_def":1,
+            "plus_def":1
         },
         {
             "id":4,
             "weapon_name":"頑丈な剣",
             "weapon_type":0,
             "plus_atk":2,
-            "plus_def":1,
+            "plus_def":1
         },
         {
             "id":5,
             "weapon_name":"頑丈な盾",
             "weapon_type":1,
             "plus_atk":0,
-            "plus_def":2,
+            "plus_def":2
         },
         {
             "id":6,
             "weapon_name":"頑丈な王冠",
             "weapon_type":2,
             "plus_atk":1,
-            "plus_def":2,
+            "plus_def":2
         },
         {
             "id":7,
             "weapon_name":"頑丈な織物",
             "weapon_type":3,
             "plus_atk":0,
-            "plus_def":2,
+            "plus_def":2
         },
         {
             "id":8,
             "weapon_name":"頑丈な杖",
             "weapon_type":0,
             "plus_atk":1,
-            "plus_def":1,
+            "plus_def":1
         },
         {
             "id":9,
             "weapon_name":"優秀な魔導書",
             "weapon_type":1,
             "plus_atk":3,
-            "plus_def":4,
+            "plus_def":4
         }
     ]
 }
