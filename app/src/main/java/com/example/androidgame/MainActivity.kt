@@ -398,11 +398,11 @@ class MainActivity : AppCompatActivity() {
             binding.result.text = "なし！！"
             binding.enemyImage.setImageResource(R.drawable.notevent3)
         }
-        if(all_masu>=10&&all_masu<20){
+        if(all_masu>=max_height/4&&all_masu<max_height/2){
             bgm_ch=2
             binding.imageView3.setImageResource(R.drawable.backimagerightcave)
         }
-        else if(all_masu>=20&&all_masu<=30){
+        else if(all_masu>=max_height/2&&all_masu<=max_height){
             binding.imageView3.setImageResource(R.drawable.backimagelast)
         }
     }
@@ -696,7 +696,8 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
                 }
-                human_atk_dmg = human_daisu + ult_result_num[human_ult_set[use_ult]] - def
+                human_atk_dmg = human_daisu * ult_result_num[human_ult_set[use_ult]] - def
+                enemy_set_daisu_image(human_daisu)
                 if (human_atk_dmg <= 0) {
                     human_atk_dmg = 0
                 }
