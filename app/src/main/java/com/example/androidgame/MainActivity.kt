@@ -226,8 +226,8 @@ class MainActivity : AppCompatActivity() {
     //
     fun daisu_start(){
         if (type==0){
-            //devil_daisu = (Math.random()*6).toInt()+1
-                devil_daisu++
+            devil_daisu = (Math.random()*6).toInt()+1
+            //devil_daisu++
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
@@ -290,6 +290,7 @@ class MainActivity : AppCompatActivity() {
         my_shield_weapon=pref.getInt("pl_shield_weapon",1)
         my_head_weapon=pref.getInt("pl_head_weapon",2)
         my_chest_weapon=pref.getInt("pl_chest_weapon",3)
+        weapon_status_plus()
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
@@ -313,6 +314,7 @@ class MainActivity : AppCompatActivity() {
         my_shield_weapon=pref.getInt("pl_shield_weapon",1)
         my_head_weapon=pref.getInt("pl_head_weapon",2)
         my_chest_weapon=pref.getInt("pl_chest_weapon",3)
+        weapon_status_plus()
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
@@ -868,7 +870,7 @@ class MainActivity : AppCompatActivity() {
                 putString("pl_atk_weapon_list",weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            System.out.println(weapon_list_txt + "asasssasasasasasasasaas")
+            binding.enemyImage.setImageResource(R.drawable.buki)
         }
         //盾
         else if(weapon_type==1){
@@ -877,7 +879,7 @@ class MainActivity : AppCompatActivity() {
                 putString("pl_shield_weapon_list",weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            System.out.print(weapon_list_txt)
+            binding.enemyImage.setImageResource(R.drawable.tate)
         }
         //頭
         else if(weapon_type==2){
@@ -886,7 +888,7 @@ class MainActivity : AppCompatActivity() {
                 putString("pl_head_weapon_list",weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            System.out.print(weapon_list_txt)
+            binding.enemyImage.setImageResource(R.drawable.atama)
         }
         //胸
         else if(weapon_type==3){
@@ -895,13 +897,33 @@ class MainActivity : AppCompatActivity() {
                 putString("pl_chest_weapon_list",weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            System.out.print(weapon_list_txt)
+            binding.enemyImage.setImageResource(R.drawable.karada)
         }
         inputStream.close()
         bufferedReader.close()
     }
-    //装備確認
+    //装備ステータス反映
     fun weapon_status_plus() {
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        atk = atk + atk_date.getInt("plus_atk")
+        def = def + atk_date.getInt("plus_def")
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        atk = atk + shield_date.getInt("plus_atk")
+        def = def + shield_date.getInt("plus_def")
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        atk = atk + head_date.getInt("plus_atk")
+        def = def + head_date.getInt("plus_def")
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+        atk = atk + chest_date.getInt("plus_atk")
+        def = def + chest_date.getInt("plus_def")
+        inputStream.close()
+        bufferedReader.close()
     }
     //
     override fun onPause() {
@@ -925,6 +947,9 @@ class MainActivity : AppCompatActivity() {
         }
         else if(type==0){
             mp0.start()
+            load_status()
+            weapon_status_plus()
+            System.out.println("weapon_status_plus")
         }
     }
 
