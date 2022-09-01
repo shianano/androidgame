@@ -29,6 +29,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.jar.Attributes
 import kotlin.concurrent.thread
+import kotlin.math.log
 
 
 //import androidx.preference
@@ -65,6 +66,10 @@ class MainActivity : AppCompatActivity() {
     var my_ult_atk_name: Array<String> = arrayOf()
     var my_ult_set_heal: Array<Int> = arrayOf()
     var my_ult_heal_name: Array<String> = arrayOf()
+    var my_atk_weapon = 0
+    var my_shield_weapon = 1
+    var my_head_weapon = 2
+    var my_chest_weapon = 3
     //
     //
 
@@ -221,7 +226,8 @@ class MainActivity : AppCompatActivity() {
     //
     fun daisu_start(){
         if (type==0){
-            devil_daisu = (Math.random()*6).toInt()+1
+            //devil_daisu = (Math.random()*6).toInt()+1
+                devil_daisu++
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
@@ -280,6 +286,10 @@ class MainActivity : AppCompatActivity() {
         level=pref.getInt("pl_level",0)
         exp_all=pref.getInt("pl_exp",0)
         devil_daisu=pref.getInt("pl_now_daisu",0)
+        my_atk_weapon=pref.getInt("pl_atk_weapon",0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon",1)
+        my_head_weapon=pref.getInt("pl_head_weapon",2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon",3)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
@@ -299,6 +309,10 @@ class MainActivity : AppCompatActivity() {
         level=pref.getInt("pl_level",0)
         all_masu=pref.getInt("pl_all_masu",0)
         devil_daisu=pref.getInt("pl_now_daisu",0)
+        my_atk_weapon=pref.getInt("pl_atk_weapon",0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon",1)
+        my_head_weapon=pref.getInt("pl_head_weapon",2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon",3)
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
         binding.def.text = def.toString()
@@ -370,6 +384,9 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.po)
             po = po + masu_result_num[num]
             binding.portionNum.text = po.toString()
+        }
+        else if(masu_event[num]==3){
+            weapon_get(masu_result_num[num])
         }
         else{
             binding.result.text = "なし！！"
@@ -842,6 +859,7 @@ class MainActivity : AppCompatActivity() {
         val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val jsonData = jsonArray_weapon.getJSONObject(no)
         var weapon_type = jsonData.getInt("weapon_type")
+        var weapon_name = jsonData.getString("weapon_name")
         var weapon_list_txt = ""
         //武器
         if(weapon_type==0){
@@ -849,6 +867,8 @@ class MainActivity : AppCompatActivity() {
             pref.edit(){
                 putString("pl_atk_weapon_list",weapon_list_txt)
             }
+            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+            System.out.println(weapon_list_txt + "asasssasasasasasasasaas")
         }
         //盾
         else if(weapon_type==1){
@@ -856,6 +876,8 @@ class MainActivity : AppCompatActivity() {
             pref.edit(){
                 putString("pl_shield_weapon_list",weapon_list_txt)
             }
+            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+            System.out.print(weapon_list_txt)
         }
         //頭
         else if(weapon_type==2){
@@ -863,6 +885,8 @@ class MainActivity : AppCompatActivity() {
             pref.edit(){
                 putString("pl_head_weapon_list",weapon_list_txt)
             }
+            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+            System.out.print(weapon_list_txt)
         }
         //胸
         else if(weapon_type==3){
@@ -870,6 +894,8 @@ class MainActivity : AppCompatActivity() {
             pref.edit(){
                 putString("pl_chest_weapon_list",weapon_list_txt)
             }
+            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+            System.out.print(weapon_list_txt)
         }
         inputStream.close()
         bufferedReader.close()
