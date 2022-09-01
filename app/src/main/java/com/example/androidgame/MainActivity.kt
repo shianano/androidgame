@@ -93,10 +93,10 @@ class MainActivity : AppCompatActivity() {
     //人間と戦闘時ステータスを入れて戦闘
 
     //技(ult) ultの番号・[0]ヒール系,[1]攻撃系　判定変数・判定変数による値(例：ヒール系の値(100)なら100回復)
-    val ult_type: Array<Int> = arrayOf(0,1,1,0,1)
-    val ult_result_num: Array<Int> = arrayOf(20,15,25,100,18)
-    val ult_use_mp: Array<Int> = arrayOf(5,5,10,15,15)
-    val ult_name: Array<String> = arrayOf("ヒール", "暗黒斬り","斬鉄","フルヒール","ティマイオス")
+    var ult_type: Array<Int> = arrayOf()
+    var ult_result_num: Array<Int> = arrayOf()
+    var ult_use_mp: Array<Int> = arrayOf()
+    var ult_name: Array<String> = arrayOf()
     var ult_select_name = ""
     //
     var masu_num = 0
@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         //
         //
+        ult_list_set()
         //
         val assetManager = resources.assets
         val inputStream = assetManager.open("RPG_Data.json")
@@ -226,8 +227,8 @@ class MainActivity : AppCompatActivity() {
     //
     fun daisu_start(){
         if (type==0){
-            devil_daisu = (Math.random()*6).toInt()+1
-            //devil_daisu++
+            //devil_daisu = (Math.random()*6).toInt()+1
+            devil_daisu=1
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
@@ -925,6 +926,31 @@ class MainActivity : AppCompatActivity() {
         val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
         atk = atk + chest_date.getInt("plus_atk")
         def = def + chest_date.getInt("plus_def")
+        inputStream.close()
+        bufferedReader.close()
+    }
+    //
+    fun ult_list_set(){
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("ult_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_ult = jsonObject.getJSONArray("ult")
+        ult_type = Array(jsonArray_ult.length()){0}
+        ult_result_num = Array(jsonArray_ult.length()){0}
+        ult_use_mp = Array(jsonArray_ult.length()){0}
+        ult_name = Array(jsonArray_ult.length()){""}
+        var i = 0
+        while(i < jsonArray_ult.length()){
+            val ult_date = jsonArray_ult.getJSONObject(i)
+            ult_type[i]=ult_date.getInt("ult_type")
+            ult_result_num[i]=ult_date.getInt("ult_result_num")
+            ult_use_mp[i]=ult_date.getInt("ult_use_mp")
+            ult_name[i]=ult_date.getString("ult_name")
+            i++
+        }
+        System.out.println(ult_name[jsonArray_ult.length()-1])
         inputStream.close()
         bufferedReader.close()
     }

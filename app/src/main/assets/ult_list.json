@@ -27,6 +27,13 @@
             "ult_result_num":100,
             "ult_use_mp":15,
             "ult_name":"フルヒール"
+        },
+        {
+            "id":4,
+            "ult_type":1,
+            "ult_result_num":30,
+            "ult_use_mp":15,
+            "ult_name":"クレディアス"
         }
     ]
 }
