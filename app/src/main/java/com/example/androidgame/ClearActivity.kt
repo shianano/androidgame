@@ -14,7 +14,7 @@ class ClearActivity : AppCompatActivity() {
         " だが、お前が私を操作したことが \n 周りにしれれば私の威厳にかかわってしまう。",
         " よって、お前の記憶を消す。いいな。 \n 素晴らしい武勲であったぞ。。。"
     )
-    var cnt = 1
+    var cnt = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +31,11 @@ class ClearActivity : AppCompatActivity() {
         }
     }
     fun comment(){
-        if(cnt<3){
-            while(cnt<3){
-                binding.maouComment.text = comment_list[cnt]
-                cnt++
-            }
+        if(cnt<2){
+            binding.maouComment.text = comment_list[cnt]
+            cnt++
         }
-        else if(cnt>=3){
+        else if(cnt>=2){
             binding.BackTop.visibility
         }
     }
