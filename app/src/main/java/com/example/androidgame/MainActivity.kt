@@ -227,8 +227,8 @@ class MainActivity : AppCompatActivity() {
     //
     fun daisu_start(){
         if (type==0){
-            //devil_daisu = (Math.random()*6).toInt()+1
-            devil_daisu=1
+            devil_daisu = (Math.random()*6).toInt()+1
+            //devil_daisu=1
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
@@ -236,8 +236,10 @@ class MainActivity : AppCompatActivity() {
             devil_daisu = (Math.random()*6).toInt()+1
         }
         if(all_masu >= max_height && type == 0){
-            binding.enemyImage.setImageResource(R.drawable.clear)
-            binding.masucount.text="0"
+            mp0.stop()
+            btl_sound.stop()
+            val intent = Intent(this, ClearActivity::class.java)
+            startActivity(intent)
         }
         else if(type==0){
             binding.masucount.text = (Integer.parseInt(binding.masucount.text.toString())-devil_daisu).toString()
