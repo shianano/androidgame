@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     var mp = 0
     var level = 1
     var exp_all = 0
-    var my_skil = "0,2,3,4"
+    var my_skil = "0,1,3,4"
     var my_ult_set: Array<Int> = arrayOf()
     var my_ult_set_atk: Array<Int> = arrayOf()
     var my_ult_atk_name: Array<String> = arrayOf()
