@@ -1,35 +1,22 @@
 package com.example.androidgame
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.res.AssetFileDescriptor
 import android.media.AudioAttributes
-import android.media.AudioAttributes.CONTENT_TYPE_SPEECH
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.provider.Settings
-import android.util.Log
 import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
+import android.view.animation.AlphaAnimation
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.AppLaunchChecker
 import androidx.core.content.edit
-import androidx.media.AudioAttributesCompat.CONTENT_TYPE_SPEECH
 import com.example.androidgame.databinding.ActivityMainBinding
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.util.jar.Attributes
 import kotlin.concurrent.thread
-import kotlin.math.log
 
 
 //import androidx.preference
@@ -166,9 +153,9 @@ class MainActivity : AppCompatActivity() {
         bufferedReader.close()
         //
         //
-        mp0 = MediaPlayer.create(this,R.raw.firstbgm)
+        mp0 = MediaPlayer.create(this, R.raw.firstbgm)
         mp0.isLooping = true
-        btl_sound = MediaPlayer.create(this,R.raw.normalbattlebgm)
+        btl_sound = MediaPlayer.create(this, R.raw.normalbattlebgm)
         btl_sound.isLooping = true
         //
         soundPool = SoundPool.Builder().run {
@@ -180,12 +167,12 @@ class MainActivity : AppCompatActivity() {
             setAudioAttributes(audioAttributes)
             build()
         }
-        atk_sound = soundPool.load(this,R.raw.sordattack2,1)
-        daisu_sound = soundPool.load(this,R.raw.daisu,2)
-        skl_heal = soundPool.load(this,R.raw.sklheal,0)
-        skl_soud = soundPool.load(this,R.raw.sklsoud,0)
-        drunk_po = soundPool.load(this,R.raw.drunks,0)
-        bossbgm = soundPool.load(this,R.raw.bossbgm,0)
+        atk_sound = soundPool.load(this, R.raw.sordattack2, 1)
+        daisu_sound = soundPool.load(this, R.raw.daisu, 2)
+        skl_heal = soundPool.load(this, R.raw.sklheal, 0)
+        skl_soud = soundPool.load(this, R.raw.sklsoud, 0)
+        drunk_po = soundPool.load(this, R.raw.drunks, 0)
+        bossbgm = soundPool.load(this, R.raw.bossbgm, 0)
         //
         binding.daisu.setOnClickListener {
             if (type==1){
@@ -193,10 +180,10 @@ class MainActivity : AppCompatActivity() {
                     //soundPool.play(dark_bgm,1.0f,100f,0,-1,0.5f)
                     soud_ch = 1
                 }
-                soundPool.play(atk_sound,10f,10f,0,0,1.0f)
+                soundPool.play(atk_sound, 10f, 10f, 0, 0, 1.0f)
             }
             else if(type==0){
-                soundPool.play(daisu_sound,10f,10f,0,0,1.0f)
+                soundPool.play(daisu_sound, 10f, 10f, 0, 0, 1.0f)
                 if(bgm_ch==0){
                     bgm_ch=1
                 }
@@ -209,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         binding.healButton.setOnClickListener { my_skl(0) }
         //save chack
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        if (pref.getInt("pl_check",0)==0){
+        if (pref.getInt("pl_check", 0)==0){
             status()
             System.out.println("data_set")
         }
@@ -259,40 +246,40 @@ class MainActivity : AppCompatActivity() {
         // 保存
         pref.edit{
             putInt("pl_hp", 100)
-            putInt("pl_max_hp",100)
+            putInt("pl_max_hp", 100)
             putInt("pl_atk", 5)
             putInt("pl_def", 10)
             putInt("pl_mp", 20)
-            putInt("pl_max_mp",20)
-            putInt("pl_exp",0)
+            putInt("pl_max_mp", 20)
+            putInt("pl_exp", 0)
             putInt("pl_po", 0)
-            putInt("pl_all_masu",0)
-            putInt("pl_check",1)
-            putInt("pl_level",1)
-            putInt("pl_now_masu",0)
-            putInt("pl_atk_weapon",0)
-            putString("pl_atk_weapon_list","0")
-            putInt("pl_shield_weapon",1)
-            putString("pl_shield_weapon_list","1")
-            putInt("pl_head_weapon",2)
-            putString("pl_head_weapon_list","2")
-            putInt("pl_chest_weapon",3)
-            putString("pl_chest_weapon_list","3")
+            putInt("pl_all_masu", 0)
+            putInt("pl_check", 1)
+            putInt("pl_level", 1)
+            putInt("pl_now_masu", 0)
+            putInt("pl_atk_weapon", 0)
+            putString("pl_atk_weapon_list", "0")
+            putInt("pl_shield_weapon", 1)
+            putString("pl_shield_weapon_list", "1")
+            putInt("pl_head_weapon", 2)
+            putString("pl_head_weapon_list", "2")
+            putInt("pl_chest_weapon", 3)
+            putString("pl_chest_weapon_list", "3")
         }
         hp=pref.getInt("pl_hp", 0)
-        max_hp=pref.getInt("pl_max_hp",0)
+        max_hp=pref.getInt("pl_max_hp", 0)
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
-        mp=pref.getInt("pl_mp",0)
-        all_masu=pref.getInt("pl_all_masu",0)
-        level=pref.getInt("pl_level",0)
-        exp_all=pref.getInt("pl_exp",0)
-        devil_daisu=pref.getInt("pl_now_daisu",0)
-        my_atk_weapon=pref.getInt("pl_atk_weapon",0)
-        my_shield_weapon=pref.getInt("pl_shield_weapon",1)
-        my_head_weapon=pref.getInt("pl_head_weapon",2)
-        my_chest_weapon=pref.getInt("pl_chest_weapon",3)
+        mp=pref.getInt("pl_mp", 0)
+        all_masu=pref.getInt("pl_all_masu", 0)
+        level=pref.getInt("pl_level", 0)
+        exp_all=pref.getInt("pl_exp", 0)
+        devil_daisu=pref.getInt("pl_now_daisu", 0)
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
         weapon_status_plus()
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
@@ -305,18 +292,18 @@ class MainActivity : AppCompatActivity() {
     fun load_status(){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         hp=pref.getInt("pl_hp", 0)
-        max_hp=pref.getInt("pl_max_hp",0)
+        max_hp=pref.getInt("pl_max_hp", 0)
         atk=pref.getInt("pl_atk", 0)
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
-        mp=pref.getInt("pl_mp",0)
-        level=pref.getInt("pl_level",0)
-        all_masu=pref.getInt("pl_all_masu",0)
-        devil_daisu=pref.getInt("pl_now_daisu",0)
-        my_atk_weapon=pref.getInt("pl_atk_weapon",0)
-        my_shield_weapon=pref.getInt("pl_shield_weapon",1)
-        my_head_weapon=pref.getInt("pl_head_weapon",2)
-        my_chest_weapon=pref.getInt("pl_chest_weapon",3)
+        mp=pref.getInt("pl_mp", 0)
+        level=pref.getInt("pl_level", 0)
+        all_masu=pref.getInt("pl_all_masu", 0)
+        devil_daisu=pref.getInt("pl_now_daisu", 0)
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
         weapon_status_plus()
         binding.hp.text = hp.toString()
         binding.atk.text = atk.toString()
@@ -334,16 +321,16 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_atk", Integer.parseInt(binding.atk.text.toString()))
             putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
             putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
-            putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
-            putInt("pl_exp",exp_all)
+            putInt("pl_level", Integer.parseInt(binding.levelMain.text.toString()))
+            putInt("pl_exp", exp_all)
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
-            putInt("pl_all_masu",max_height-Integer.parseInt(binding.masucount.text.toString()))
-            putInt("pl_level",Integer.parseInt(binding.levelMain.text.toString()))
-            putInt("pl_max_hp",(Integer.parseInt(binding.levelMain.text.toString())-1)*10 + 100)
-            putInt("pl_now_daisu",devil_daisu)
-            putInt("pl_check",1)
+            putInt("pl_all_masu", max_height - Integer.parseInt(binding.masucount.text.toString()))
+            putInt("pl_level", Integer.parseInt(binding.levelMain.text.toString()))
+            putInt("pl_max_hp", (Integer.parseInt(binding.levelMain.text.toString()) - 1) * 10 + 100)
+            putInt("pl_now_daisu", devil_daisu)
+            putInt("pl_check", 1)
         }
-        max_hp = pref.getInt("pl_max_hp",100)
+        max_hp = pref.getInt("pl_max_hp", 100)
     }
     //マス保存
     //
@@ -363,7 +350,7 @@ class MainActivity : AppCompatActivity() {
     }
     //メニュー移動
     fun menu_change(){
-        val intent = Intent(this,SubActivity::class.java)
+        val intent = Intent(this, SubActivity::class.java)
         startActivity(intent)
         //setContentView(R.layout.activity_sub)
     }
@@ -382,7 +369,7 @@ class MainActivity : AppCompatActivity() {
             type = 1
             mp0.pause()
             btl_sound.seekTo(0)
-            btl_sound.setVolume(0.3f,0.3f)
+            btl_sound.setVolume(0.3f, 0.3f)
             btl_sound.start()
         }
         else if(masu_event[num]==2){
@@ -415,13 +402,13 @@ class MainActivity : AppCompatActivity() {
         binding.enemyImage.setImageResource(resId)
     }
     //サイコロイメージセット
-    fun set_daisu_image(no:Int){
+    fun set_daisu_image(no: Int){
         var text_image = "daisu" + no.toString()
         val resId = resources.getIdentifier(text_image, "drawable", packageName)
         binding.daisuimage.setImageResource(resId)
     }
     //敵
-    fun enemy_set_daisu_image(no:Int){
+    fun enemy_set_daisu_image(no: Int){
         var text_image = "daisu" + no.toString()
         val resId = resources.getIdentifier(text_image, "drawable", packageName)
         binding.enemyDaisu.setImageResource(resId)
@@ -431,7 +418,7 @@ class MainActivity : AppCompatActivity() {
         var text1 = ""
         var text2 = ""
         if (po>0){
-            soundPool.play(drunk_po,50f,50f,0,0,1.0f)
+            soundPool.play(drunk_po, 50f, 50f, 0, 0, 1.0f)
             var ing_hp = Integer.parseInt(binding.hp.text.toString())
             ing_hp = ing_hp + 20
             if(ing_hp>max_hp){
@@ -442,7 +429,7 @@ class MainActivity : AppCompatActivity() {
             text2 = "20回復した"
             po--
             binding.portionNum.text = po.toString()
-            comment_in(text1,text2)
+            comment_in(text1, text2)
         }
         else if (po==0){
             binding.portionNum.text = po.toString()
@@ -468,7 +455,10 @@ class MainActivity : AppCompatActivity() {
         }
         text1 = "通常攻撃"
         text2 = "相手に" + me_atk_dmg.toString() + "ダメージ"
-        comment_in(text1,text2)
+        comment_in(text1, text2)
+        runOnUiThread {
+            in_out_action()
+        }
         var result_human_hp = human_hp - me_atk_dmg
         thread {
             Thread.sleep(1500L)
@@ -478,7 +468,7 @@ class MainActivity : AppCompatActivity() {
                 text1 = "倒した！"
                 text2 = ""
                 runOnUiThread{
-                    comment_in(text1,text2)
+                    comment_in(text1, text2)
                     binding.enemyImage.setImageResource(R.drawable.taosita)
                     exp_check()
                 }
@@ -518,7 +508,7 @@ class MainActivity : AppCompatActivity() {
                         binding.hp.text = hp.toString()
                     }
                     runOnUiThread {
-                        comment_in(text1,text2)
+                        comment_in(text1, text2)
                     }
                 }
                 if(hp<=0){
@@ -556,15 +546,15 @@ class MainActivity : AppCompatActivity() {
             }
             sta++
         }
-        val adapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,my_ult_atk_name)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, my_ult_atk_name)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.atkList.adapter = adapter
-        val adapter2 = ArrayAdapter(this,android.R.layout.simple_spinner_item,my_ult_heal_name)
+        val adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item, my_ult_heal_name)
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.healList.adapter = adapter2
     }
     //選択スキル取得
-    fun get_select_skil(no:Int):Int{
+    fun get_select_skil(no: Int):Int{
         var number = 0
         if(no==0){
             val spinner = binding.healList
@@ -589,7 +579,7 @@ class MainActivity : AppCompatActivity() {
         return 0
     }
     //自身のスキル
-    fun my_skl(typ:Int){
+    fun my_skl(typ: Int){
         //
         var human_hp = Integer.parseInt(binding.hpnum.text.toString())
         var human_def = Integer.parseInt(binding.defnum.text.toString())
@@ -609,7 +599,7 @@ class MainActivity : AppCompatActivity() {
                 if(ult_use_mp[my_ult_set_heal[select_no]]<=mp){
                     //var rnd_num = (Math.random()*6).toInt()+1
                     me_heal = ult_result_num[my_ult_set_heal[select_no]]
-                    soundPool.play(skl_heal,1.0f,100f,0,0,1.0f)
+                    soundPool.play(skl_heal, 1.0f, 100f, 0, 0, 1.0f)
                     if(me_heal+hp>max_hp){
                         text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = "全回復"
@@ -628,7 +618,7 @@ class MainActivity : AppCompatActivity() {
                 else{
                     text2 = "mpがたりない"
                 }
-                comment_in(text1,text2)
+                comment_in(text1, text2)
             }
         }
         //typ=1 -> atk
@@ -641,7 +631,7 @@ class MainActivity : AppCompatActivity() {
                 if(ult_use_mp[my_ult_set_atk[select_no]]<=mp){
                     var rnd_num = (Math.random()*6).toInt()+1
                     me_atk_dmg = ult_result_num[my_ult_set_atk[select_no]]*rnd_num
-                    soundPool.play(skl_soud,1.0f,100f,0,0,0.8f)
+                    soundPool.play(skl_soud, 1.0f, 100f, 0, 0, 0.8f)
                     if((me_atk_dmg-human_def)>0){
                         var me_atk = me_atk_dmg-human_def
                         human_hp = human_hp - me_atk
@@ -672,7 +662,7 @@ class MainActivity : AppCompatActivity() {
                 else{
                     text1 = "mpがたりない"
                 }
-                comment_in(text1,text2)
+                comment_in(text1, text2)
                 save()
             }
         }
@@ -727,6 +717,9 @@ class MainActivity : AppCompatActivity() {
         else if(ult_type[human_ult_set[use_ult]]==0){
             if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]) {
                 enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                runOnUiThread {
+                    binding.mpnum.text = enemy_mp.toString()
+                }
                 human_hp = human_hp + ult_result_num[human_ult_set[use_ult]]
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
@@ -750,12 +743,35 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        //
-        comment_in(text1,text2)
+        //攻撃力強化
+        else if(ult_type[human_ult_set[use_ult]]==2){
+            if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]) {
+                enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                runOnUiThread {
+                    binding.mpnum.text = enemy_mp.toString()
+                    enemy_atk = enemy_atk + ult_result_num[human_ult_set[use_ult]]
+                    binding.atknum.text = enemy_atk.toString()
+                }
+            }
+            else {
+                human_atk_dmg = human_daisu * human_atk - def
+                if (human_atk_dmg <= 0) {
+                    human_atk_dmg = 0
+                }
+                hp = hp - human_atk_dmg
+                text1 = "相手の通常攻撃"
+                text2 = "相手から" + human_atk_dmg + "ダメージ"
+                runOnUiThread {
+                    enemy_set_daisu_image(human_daisu)
+                    binding.hp.text = hp.toString()
+                }
+            }
+        }
+        comment_in(text1, text2)
     }
 
     //コメント表示
-    fun comment_in(text1:String,text2:String){
+    fun comment_in(text1: String, text2: String){
         runOnUiThread {
             binding.result.text = text1
             binding.meResult.text = text2
@@ -828,7 +844,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     //装備入手一覧にいれる
-    fun weapon_get(no:Int){
+    fun weapon_get(no: Int){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val assetManager = resources.assets
         val inputStream = assetManager.open("weapon_list.json")
@@ -842,36 +858,36 @@ class MainActivity : AppCompatActivity() {
         var weapon_list_txt = ""
         //武器
         if(weapon_type==0){
-            weapon_list_txt = pref.getString("pl_atk_weapon_list","0") + "," + no.toString()
+            weapon_list_txt = pref.getString("pl_atk_weapon_list", "0") + "," + no.toString()
             pref.edit(){
-                putString("pl_atk_weapon_list",weapon_list_txt)
+                putString("pl_atk_weapon_list", weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
             binding.enemyImage.setImageResource(R.drawable.buki)
         }
         //盾
         else if(weapon_type==1){
-            weapon_list_txt = pref.getString("pl_shield_weapon_list","1") + "," + no.toString()
+            weapon_list_txt = pref.getString("pl_shield_weapon_list", "1") + "," + no.toString()
             pref.edit(){
-                putString("pl_shield_weapon_list",weapon_list_txt)
+                putString("pl_shield_weapon_list", weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
             binding.enemyImage.setImageResource(R.drawable.tate)
         }
         //頭
         else if(weapon_type==2){
-            weapon_list_txt = pref.getString("pl_head_weapon_list","2") + "," + no.toString()
+            weapon_list_txt = pref.getString("pl_head_weapon_list", "2") + "," + no.toString()
             pref.edit(){
-                putString("pl_head_weapon_list",weapon_list_txt)
+                putString("pl_head_weapon_list", weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
             binding.enemyImage.setImageResource(R.drawable.atama)
         }
         //胸
         else if(weapon_type==3){
-            weapon_list_txt = pref.getString("pl_chest_weapon_list","3") + "," + no.toString()
+            weapon_list_txt = pref.getString("pl_chest_weapon_list", "3") + "," + no.toString()
             pref.edit(){
-                putString("pl_chest_weapon_list",weapon_list_txt)
+                putString("pl_chest_weapon_list", weapon_list_txt)
             }
             binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
             binding.enemyImage.setImageResource(R.drawable.karada)
@@ -923,10 +939,38 @@ class MainActivity : AppCompatActivity() {
             ult_name[i]=ult_date.getString("ult_name")
             i++
         }
-        System.out.println(ult_name[jsonArray_ult.length()-1])
+        System.out.println(ult_name[jsonArray_ult.length() - 1])
         inputStream.close()
         bufferedReader.close()
     }
+
+    //animation
+    fun fadeout() {
+        // 透明度を1から0に変化
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)
+        // animation時間 msec
+        alphaFadeout.duration = 500
+        // animationが終わったそのまま表示にする
+        alphaFadeout.fillAfter = true
+        binding.attackefect.animation = alphaFadeout
+    }
+    fun fadein() {
+        // 透明度を0から1に変化
+        val alphaFadeIn = AlphaAnimation(0.0f, 1.0f)
+        // animation時間 msec
+        alphaFadeIn.duration = 500
+        // animationが終わったそのまま表示にする
+        alphaFadeIn.fillAfter = true
+        binding.attackefect.animation = alphaFadeIn
+        System.out.println("animation OK")
+    }
+    fun in_out_action(){
+        binding.attackefect.setVisibility(View.VISIBLE)
+        fadein()
+        fadeout()
+        binding.attackefect.setVisibility(View.INVISIBLE)
+    }
+
     //
     override fun onPause() {
         super.onPause()
