@@ -504,8 +504,8 @@
 
     <ImageView
         android:id="@+id/attackefect"
-        android:layout_width="230dp"
-        android:layout_height="170dp"
+        android:layout_width="247dp"
+        android:layout_height="168dp"
         android:background="#00FFFFFF"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/enemyImage"
