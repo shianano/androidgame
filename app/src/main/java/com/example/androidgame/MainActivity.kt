@@ -410,7 +410,7 @@ class MainActivity : AppCompatActivity() {
     //エフェクトイメージセット
     fun effect_image(no: Int){
         //0->通常攻撃 1->攻撃スキル 2->攻撃強化スキル 3->回復スキル 4->MP回復スキル
-        var text_image = "efect" + no.toString()
+        var text_image = "effect" + no.toString()
         val resId = resources.getIdentifier(text_image,"drawable",packageName)
         binding.attackefect.setImageResource(resId)
     }
@@ -642,7 +642,7 @@ class MainActivity : AppCompatActivity() {
                     if((me_atk_dmg-human_def)>0){
                         var me_atk = me_atk_dmg-human_def
                         human_hp = human_hp - me_atk
-                        effect_image(1)
+                        in_out_action(1)
                         text1 = "自身の攻撃スキル[" + ult_name[my_ult_set_atk[select_no]] + "]"
                         text2 = "相手に" + me_atk + "ダメージ"
                         if(human_hp<=0){
@@ -732,7 +732,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
                     binding.hpnum.text = human_hp.toString()
-                    effect_image(3)
+                    in_out_action(3)
                 }
                 var heal = ult_result_num[human_ult_set[use_ult]]
                 text1 = "相手の回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
@@ -760,7 +760,7 @@ class MainActivity : AppCompatActivity() {
                     binding.mpnum.text = enemy_mp.toString()
                     enemy_atk = enemy_atk + ult_result_num[human_ult_set[use_ult]]
                     binding.atknum.text = enemy_atk.toString()
-                    effect_image(2)
+                    in_out_action(2)
                 }
                 text1 = "相手の攻撃強化スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = ult_result_num[human_ult_set[use_ult]].toString() + " 攻撃力強化された"
@@ -785,6 +785,7 @@ class MainActivity : AppCompatActivity() {
                 enemy_mp = enemy_mp + ult_result_num[human_ult_set[use_ult]]
                 binding.mpnum.text = enemy_mp.toString()
             }
+            in_out_action(4)
             text1 = "相手のMP回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
             text2 = ult_result_num[human_ult_set[use_ult]].toString() + " MPが回復した"
         }
