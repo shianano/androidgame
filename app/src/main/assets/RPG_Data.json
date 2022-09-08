@@ -3,84 +3,84 @@
         {
             "id":0,
             "name":"ファグラ",
-            "HP": 95,
-            "ATK":7,
-            "DEF":4,
-            "MP":15,
-            "ult":"1"
+            "HP": 110,
+            "ATK":8,
+            "DEF":6,
+            "MP":20,
+            "ult":"5,1,0"
         },
         {
             "id":1,
             "name":"トートリ",
-            "HP": 80,
-            "ATK":6,
-            "DEF":3,
+            "HP": 90,
+            "ATK":7,
+            "DEF":5,
             "MP":10,
-            "ult":"1"
+            "ult":"7"
         },
         {
             "id":2,
             "name":"アゲイン",
-            "HP": 70,
-            "ATK":6,
-            "DEF":3,
+            "HP": 80,
+            "ATK":7,
+            "DEF":5,
             "MP":5,
-            "ult":"1"
+            "ult":"3"
         },
         {
             "id":3,
             "name":"エクレー",
-            "HP": 60,
-            "ATK":5,
-            "DEF":3,
+            "HP": 70,
+            "ATK":6,
+            "DEF":5,
             "MP":5,
             "ult":"1"
         },
         {
             "id":4,
             "name":"オフェリア",
-            "HP": 50,
-            "ATK":4,
-            "DEF":3,
+            "HP": 60,
+            "ATK":5,
+            "DEF":5,
             "MP":5,
-            "ult":"1"
+            "ult":"2"
         },
         {
             "id":5,
             "name":"",
-            "HP": 40,
-            "ATK":2,
-            "DEF":2,
+            "HP": 50,
+            "ATK":3,
+            "DEF":4,
             "MP":15,
-            "ult":"1"
+            "ult":"6"
         },
         {
             "id":6,
             "name":"",
-            "HP": 30,
-            "ATK":3,
-            "DEF":2,
+            "HP": 40,
+            "ATK":4,
+            "DEF":4,
             "MP":0,
             "ult":"1"
         },
         {
             "id":7,
             "name":"ボス",
-            "HP": 150,
+            "HP": 300,
             "ATK":7,
             "DEF":4,
-            "MP":30,
-            "ult":"1"
+            "MP":50,
+            "ult":"7,8,9,10,11,12"
         }
     ],
     "masu_data": [
         {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
             "masu_event": 0,
             "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
         },
         {
             "masu_event": 0,
@@ -92,7 +92,7 @@
         },
         {
             "masu_event": 3,
-            "masu_result_num": 1
+            "masu_result_num": 4
         },
         {
             "masu_event": 0,
@@ -116,7 +116,7 @@
         },
         {
             "masu_event": 3,
-            "masu_result_num": 0
+            "masu_result_num": 5
         },
         {
             "masu_event": 0,
@@ -136,133 +136,13 @@
         },
         {
             "masu_event": 3,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 3,
-            "masu_result_num": 3
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 4
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 3,
-            "masu_result_num": 4
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 4
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 3,
-            "masu_result_num": 5
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 4
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 4
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 3,
             "masu_result_num": 6
         },
         {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
             "masu_event": 0,
             "masu_result_num": 0
         },
@@ -271,28 +151,148 @@
             "masu_result_num": 5
         },
         {
-            "masu_event": 1,
-            "masu_result_num": 4
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
         },
         {
             "masu_event": 2,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 3
+            "masu_result_num": 1
         },
         {
             "masu_event": 3,
             "masu_result_num": 7
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 3,
+            "masu_result_num": 8
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 3,
+            "masu_result_num": 9
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 3,
+            "masu_result_num": 10
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 5
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 4
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 3,
+            "masu_result_num": 11
         },
         {
             "masu_event": 1,
@@ -508,7 +508,7 @@
         },
         {
             "masu_event": 3,
-            "masu_result_num": 9
+            "masu_result_num": 12
         },
         {
             "masu_event": 1,
@@ -544,11 +544,11 @@
         },
         {
             "masu_event": 1,
-            "masu_result_num": 1
+            "masu_result_num": 0
         },
         {
             "masu_event": 1,
-            "masu_result_num": 1
+            "masu_result_num":0
         },
         {
             "masu_event": 1,

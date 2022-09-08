@@ -3,37 +3,93 @@
         {
             "id":0,
             "ult_type":0,
-            "ult_result_num":20,
-            "ult_use_mp":5,
+            "ult_result_num":30,
+            "ult_use_mp":7,
             "ult_name":"ヒール"
         },
         {
             "id":1,
             "ult_type":1,
-            "ult_result_num":15,
+            "ult_result_num":9,
             "ult_use_mp":5,
             "ult_name":"暗黒斬り"
         },
         {
             "id":2,
             "ult_type":1,
-            "ult_result_num":25,
+            "ult_result_num":9,
+            "ult_use_mp":5,
+            "ult_name":"火炎斬り"
+        },
+        {
+            "id":3,
+            "ult_type":1,
+            "ult_result_num":14,
             "ult_use_mp":10,
             "ult_name":"斬鉄"
         },
         {
-            "id":3,
+            "id":4,
             "ult_type":0,
             "ult_result_num":100,
-            "ult_use_mp":15,
+            "ult_use_mp":20,
             "ult_name":"フルヒール"
         },
         {
-            "id":4,
+            "id":5,
             "ult_type":1,
-            "ult_result_num":30,
-            "ult_use_mp":15,
+            "ult_result_num":18,
+            "ult_use_mp":14,
             "ult_name":"クレディアス"
+        },
+        {
+            "id": 6,
+            "ult_type": 1,
+            "ult_result_num":7,
+            "ult_use_mp": 5,
+            "ult_name": "ファイア"
+        },
+        {
+            "id": 7,
+            "ult_type": 1,
+            "ult_result_num": 15,
+            "ult_use_mp": 10,
+            "ult_name": "風破斬"
+        },
+        {
+            "id": 8,
+            "ult_type": 1,
+            "ult_result_num": 15,
+            "ult_use_mp": 10,
+            "ult_name": "重破斬"
+        },
+        {
+            "id": 9,
+            "ult_type": 1,
+            "ult_result_num": 15,
+            "ult_use_mp": 10,
+            "ult_name": "海破斬"
+        },
+        {
+            "id": 10,
+            "ult_type": 0,
+            "ult_result_num": 3,
+            "ult_use_mp": 10,
+            "ult_name": "ストレングス"
+        },
+        {
+            "id": 11,
+            "ult_type": 0,
+            "ult_result_num": 30,
+            "ult_use_mp": 10,
+            "ult_name": "魔力回復"
+        },
+        {
+            "id": 12,
+            "ult_type": 0,
+            "ult_result_num": 60,
+            "ult_use_mp": 13,
+            "ult_name": "メガヒール"
         }
     ]
 }
