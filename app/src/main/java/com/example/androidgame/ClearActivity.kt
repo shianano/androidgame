@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.View
 import com.example.androidgame.databinding.ActivityClearBinding
 
 class ClearActivity : AppCompatActivity() {
@@ -35,8 +36,8 @@ class ClearActivity : AppCompatActivity() {
             binding.maouComment.text = comment_list[cnt]
             cnt++
         }
-        else if(cnt>=2){
-            binding.BackTop.visibility
+        if(cnt>=2){
+            binding.BackTop.setVisibility(View.INVISIBLE)
         }
     }
 }

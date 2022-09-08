@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     var mp = 0
     var level = 1
     var exp_all = 0
-    var my_skil = "0,1,2,3"
+    var my_skil = "0,2,3,4"
     var my_ult_set: Array<Int> = arrayOf()
     var my_ult_set_atk: Array<Int> = arrayOf()
     var my_ult_atk_name: Array<String> = arrayOf()
@@ -815,37 +815,7 @@ class MainActivity : AppCompatActivity() {
         var i = human_ult[no]
         human_ult_set = i.split(",").map(String::toInt).toTypedArray()
     }
-    //マス、相手のステータス、技などを作る
-    /*
-    fun create_array() {
-        //masu
-        var height = 0
-        var weight = 0
-        var enemy = 0
-        var re_daisu = 4
-        //
-        height = 0
-        enemy = 0
-        System.out.println(masu_event.size)
-        System.out.println(masu_result_num.size)
-        while (height < max_height) {
-            val m_type = (Math.random() * 3).toInt()
-            //0->なし　1->戦闘　2->アイテム　masu[][1]
-            if (m_type == 1 && enemy < 5) {
-                masu_event[height] = m_type
-                masu_result_num[height] = enemy
-                enemy++
-            } else if (m_type == 1 && enemy >= 5) {
-                masu_event[height] = m_type
-                masu_result_num[height] = (Math.random() * 7).toInt()
-            } else {
-                masu_event[height] = m_type
-                masu_result_num[height] = (Math.random() * 2).toInt() + 1
-            }
-            height++
-        }
-    }
-     */
+
     //経験値レベルアップ判定
     fun exp_check(){
         level = Integer.parseInt(binding.levelMain.text.toString())
