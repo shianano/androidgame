@@ -785,7 +785,9 @@ class MainActivity : AppCompatActivity() {
                 enemy_mp = enemy_mp + ult_result_num[human_ult_set[use_ult]]
                 binding.mpnum.text = enemy_mp.toString()
             }
-            in_out_action(4)
+            runOnUiThread {
+                in_out_action(4)
+            }
             text1 = "相手のMP回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
             text2 = ult_result_num[human_ult_set[use_ult]].toString() + " MPが回復した"
         }
