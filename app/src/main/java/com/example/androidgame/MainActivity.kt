@@ -752,6 +752,8 @@ class MainActivity : AppCompatActivity() {
                     enemy_atk = enemy_atk + ult_result_num[human_ult_set[use_ult]]
                     binding.atknum.text = enemy_atk.toString()
                 }
+                text1 = "相手の攻撃強化スキル[" + ult_name[human_ult_set[use_ult]] + "]"
+                text2 = ult_result_num[human_ult_set[use_ult]].toString() + " 攻撃力強化された"
             }
             else {
                 human_atk_dmg = human_daisu * human_atk - def
@@ -766,6 +768,15 @@ class MainActivity : AppCompatActivity() {
                     binding.hp.text = hp.toString()
                 }
             }
+        }
+        //MP回復スキル
+        else if(ult_type[human_ult_set[use_ult]]==3){
+            runOnUiThread {
+                enemy_mp = enemy_mp + ult_result_num[human_ult_set[use_ult]]
+                binding.mpnum.text = enemy_mp.toString()
+            }
+            text1 = "相手のMP回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
+            text2 = ult_result_num[human_ult_set[use_ult]].toString() + " MPが回復した"
         }
         comment_in(text1, text2)
     }
