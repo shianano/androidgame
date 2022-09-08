@@ -512,6 +512,6 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/enemyImage"
-        app:srcCompat="@drawable/attackeffect" />
+        app:srcCompat="@drawable/effect0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

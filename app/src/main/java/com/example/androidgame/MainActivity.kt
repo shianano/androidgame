@@ -407,6 +407,13 @@ class MainActivity : AppCompatActivity() {
         val resId = resources.getIdentifier(text_image, "drawable", packageName)
         binding.daisuimage.setImageResource(resId)
     }
+    //エフェクトイメージセット
+    fun effect_image(no: Int){
+        //0->通常攻撃 1->攻撃スキル 2->攻撃強化スキル 3->回復スキル 4->MP回復スキル
+        var text_image = "efect" + no.toString()
+        val resId = resources.getIdentifier(text_image,"drawable",packageName)
+        binding.attackefect.setImageResource(resId)
+    }
     //敵
     fun enemy_set_daisu_image(no: Int){
         var text_image = "daisu" + no.toString()
@@ -457,7 +464,7 @@ class MainActivity : AppCompatActivity() {
         text2 = "相手に" + me_atk_dmg.toString() + "ダメージ"
         comment_in(text1, text2)
         runOnUiThread {
-            in_out_action()
+            in_out_action(0)
         }
         var result_human_hp = human_hp - me_atk_dmg
         thread {
@@ -635,6 +642,7 @@ class MainActivity : AppCompatActivity() {
                     if((me_atk_dmg-human_def)>0){
                         var me_atk = me_atk_dmg-human_def
                         human_hp = human_hp - me_atk
+                        effect_image(1)
                         text1 = "自身の攻撃スキル[" + ult_name[my_ult_set_atk[select_no]] + "]"
                         text2 = "相手に" + me_atk + "ダメージ"
                         if(human_hp<=0){
@@ -724,6 +732,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
                     binding.hpnum.text = human_hp.toString()
+                    effect_image(3)
                 }
                 var heal = ult_result_num[human_ult_set[use_ult]]
                 text1 = "相手の回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
@@ -751,6 +760,7 @@ class MainActivity : AppCompatActivity() {
                     binding.mpnum.text = enemy_mp.toString()
                     enemy_atk = enemy_atk + ult_result_num[human_ult_set[use_ult]]
                     binding.atknum.text = enemy_atk.toString()
+                    effect_image(2)
                 }
                 text1 = "相手の攻撃強化スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = ult_result_num[human_ult_set[use_ult]].toString() + " 攻撃力強化された"
@@ -973,9 +983,9 @@ class MainActivity : AppCompatActivity() {
         // animationが終わったそのまま表示にする
         alphaFadeIn.fillAfter = true
         binding.attackefect.animation = alphaFadeIn
-        System.out.println("animation OK")
     }
-    fun in_out_action(){
+    fun in_out_action(no: Int){
+        effect_image(no)
         binding.attackefect.setVisibility(View.VISIBLE)
         fadein()
         fadeout()
@@ -1006,7 +1016,6 @@ class MainActivity : AppCompatActivity() {
             mp0.start()
             load_status()
             weapon_status_plus()
-            System.out.println("weapon_status_plus")
         }
     }
 
