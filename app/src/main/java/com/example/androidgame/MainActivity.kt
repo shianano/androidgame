@@ -507,6 +507,7 @@ class MainActivity : AppCompatActivity() {
                     runOnUiThread {
                         enemy_set_daisu_image(human_daisu)
                         binding.hpnum.text = result_human_hp.toString()
+                        in_out_damage()
                     }
                     text1 = "相手の通常攻撃"
                     text2 = human_atk_dmg.toString() + "ダメージ"
@@ -705,6 +706,7 @@ class MainActivity : AppCompatActivity() {
                 text1 = "相手の攻撃スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = human_atk_dmg.toString() + "ダメージ"
                 runOnUiThread {
+                    in_out_damage()
                     binding.hp.text = hp.toString()
                 }
             }
@@ -717,6 +719,7 @@ class MainActivity : AppCompatActivity() {
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
                 runOnUiThread {
+                    in_out_damage()
                     enemy_set_daisu_image(human_daisu)
                     binding.hp.text = hp.toString()
                 }
@@ -987,12 +990,36 @@ class MainActivity : AppCompatActivity() {
         alphaFadeIn.fillAfter = true
         binding.attackefect.animation = alphaFadeIn
     }
+    fun fadeout_damage() {
+        // 透明度を1から0に変化
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)
+        // animation時間 msec
+        alphaFadeout.duration = 500
+        // animationが終わったそのまま表示にする
+        alphaFadeout.fillAfter = true
+        binding.damageColor.animation = alphaFadeout
+    }
+    fun fadein_damage() {
+        // 透明度を0から1に変化
+        val alphaFadeIn = AlphaAnimation(0.0f, 1.0f)
+        // animation時間 msec
+        alphaFadeIn.duration = 500
+        // animationが終わったそのまま表示にする
+        alphaFadeIn.fillAfter = true
+        binding.damageColor.animation = alphaFadeIn
+    }
     fun in_out_action(no: Int){
         effect_image(no)
         binding.attackefect.setVisibility(View.VISIBLE)
         fadein()
         fadeout()
         binding.attackefect.setVisibility(View.INVISIBLE)
+    }
+    fun in_out_damage(){
+        binding.damageColor.setVisibility(View.VISIBLE)
+        fadein_damage()
+        fadeout_damage()
+        binding.damageColor.setVisibility(View.VISIBLE)
     }
 
     //
