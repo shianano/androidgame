@@ -72,16 +72,16 @@
         },
         {
             "id": 10,
-            "ult_type": 0,
+            "ult_type": 2,
             "ult_result_num": 3,
             "ult_use_mp": 10,
             "ult_name": "ストレングス"
         },
         {
             "id": 11,
-            "ult_type": 0,
+            "ult_type": 3,
             "ult_result_num": 30,
-            "ult_use_mp": 10,
+            "ult_use_mp": 0,
             "ult_name": "魔力回復"
         },
         {
