@@ -1,6 +1,8 @@
 package com.example.androidgame
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.media.SoundPool
@@ -393,6 +395,17 @@ class MainActivity : AppCompatActivity() {
         }
         else if(all_masu>=max_height/2&&all_masu<=max_height){
             binding.imageView3.setImageResource(R.drawable.backimagelast)
+            binding.textView7.setTextColor(Color.BLACK)
+            binding.masucount.setTextColor(Color.BLACK)
+            binding.masuNum2.setTextColor(Color.BLACK)
+            binding.hptext.setTextColor(Color.BLACK)
+            binding.mptext.setTextColor(Color.BLACK)
+            binding.deftext.setTextColor(Color.BLACK)
+            binding.atktext.setTextColor(Color.BLACK)
+            binding.hpnum.setTextColor(Color.BLACK)
+            binding.mpnum.setTextColor(Color.BLACK)
+            binding.defnum.setTextColor(Color.BLACK)
+            binding.atknum.setTextColor(Color.BLACK)
         }
     }
     //イメージセット
@@ -463,9 +476,7 @@ class MainActivity : AppCompatActivity() {
         text1 = "通常攻撃"
         text2 = "相手に" + me_atk_dmg.toString() + "ダメージ"
         comment_in(text1, text2)
-        runOnUiThread {
-            in_out_action(0)
-        }
+        in_out_action(0)
         var result_human_hp = human_hp - me_atk_dmg
         thread {
             Thread.sleep(1500L)
@@ -507,8 +518,8 @@ class MainActivity : AppCompatActivity() {
                     runOnUiThread {
                         enemy_set_daisu_image(human_daisu)
                         binding.hpnum.text = result_human_hp.toString()
-                        in_out_damage()
                     }
+                    in_out_damage()
                     text1 = "相手の通常攻撃"
                     text2 = human_atk_dmg.toString() + "ダメージ"
                     //
@@ -706,9 +717,9 @@ class MainActivity : AppCompatActivity() {
                 text1 = "相手の攻撃スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = human_atk_dmg.toString() + "ダメージ"
                 runOnUiThread {
-                    in_out_damage()
                     binding.hp.text = hp.toString()
                 }
+                in_out_damage()
             }
             else{
                 human_atk_dmg = human_daisu * human_atk - def
@@ -719,10 +730,10 @@ class MainActivity : AppCompatActivity() {
                 text1 = "相手の通常攻撃"
                 text2 = "相手から" + human_atk_dmg + "ダメージ"
                 runOnUiThread {
-                    in_out_damage()
                     enemy_set_daisu_image(human_daisu)
                     binding.hp.text = hp.toString()
                 }
+                in_out_damage()
             }
         }//回復スキル
         else if(ult_type[human_ult_set[use_ult]]==0){
@@ -735,8 +746,8 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
                     binding.hpnum.text = human_hp.toString()
-                    in_out_action(3)
                 }
+                in_out_action(3)
                 var heal = ult_result_num[human_ult_set[use_ult]]
                 text1 = "相手の回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = heal.toString() + "回復"
@@ -763,8 +774,8 @@ class MainActivity : AppCompatActivity() {
                     binding.mpnum.text = enemy_mp.toString()
                     enemy_atk = enemy_atk + ult_result_num[human_ult_set[use_ult]]
                     binding.atknum.text = enemy_atk.toString()
-                    in_out_action(2)
                 }
+                in_out_action(2)
                 text1 = "相手の攻撃強化スキル[" + ult_name[human_ult_set[use_ult]] + "]"
                 text2 = ult_result_num[human_ult_set[use_ult]].toString() + " 攻撃力強化された"
             }
@@ -788,9 +799,7 @@ class MainActivity : AppCompatActivity() {
                 enemy_mp = enemy_mp + ult_result_num[human_ult_set[use_ult]]
                 binding.mpnum.text = enemy_mp.toString()
             }
-            runOnUiThread {
-                in_out_action(4)
-            }
+            in_out_action(4)
             text1 = "相手のMP回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
             text2 = ult_result_num[human_ult_set[use_ult]].toString() + " MPが回復した"
         }
@@ -1010,16 +1019,20 @@ class MainActivity : AppCompatActivity() {
     }
     fun in_out_action(no: Int){
         effect_image(no)
-        binding.attackefect.setVisibility(View.VISIBLE)
-        fadein()
-        fadeout()
-        binding.attackefect.setVisibility(View.INVISIBLE)
+        runOnUiThread {
+            binding.attackefect.setVisibility(View.VISIBLE)
+            fadein()
+            fadeout()
+            binding.attackefect.setVisibility(View.INVISIBLE)
+        }
     }
     fun in_out_damage(){
-        binding.damageColor.setVisibility(View.VISIBLE)
-        fadein_damage()
-        fadeout_damage()
-        binding.damageColor.setVisibility(View.VISIBLE)
+        runOnUiThread {
+            binding.damageColor.setVisibility(View.VISIBLE)
+            fadein_damage()
+            fadeout_damage()
+            binding.damageColor.setVisibility(View.VISIBLE)
+        }
     }
 
     //
