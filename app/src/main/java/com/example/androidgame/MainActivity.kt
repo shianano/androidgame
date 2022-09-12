@@ -267,6 +267,7 @@ class MainActivity : AppCompatActivity() {
             putString("pl_head_weapon_list", "2")
             putInt("pl_chest_weapon", 3)
             putString("pl_chest_weapon_list", "3")
+            putString("pl_ult_list",my_skil)
         }
         hp=pref.getInt("pl_hp", 0)
         max_hp=pref.getInt("pl_max_hp", 0)
@@ -331,6 +332,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_max_hp", (Integer.parseInt(binding.levelMain.text.toString()) - 1) * 10 + 100)
             putInt("pl_now_daisu", devil_daisu)
             putInt("pl_check", 1)
+            putString("pl_ult_list",my_skil)
         }
         max_hp = pref.getInt("pl_max_hp", 100)
     }

@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,34 +45,13 @@ class statusFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_status, container, false)
     }
 
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment statusFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                statusFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-    }
-
     // Viewの生成が完了した後に呼ばれる
     // UIパーツの設定などを行う
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val pref = PreferenceManager.getDefaultSharedPreferences(activity)
-        var txt3 = pref.getInt("pl_hppl_max_hp",0).toString()
+        var txt3 = ""
 
         //テキスト更新
         lateinit var txt: TextView
@@ -116,17 +98,60 @@ class statusFragment : Fragment() {
         txt.text= "100"
 
         txt = view.findViewById<TextView>(R.id.Weapon)
-        txt.text= "剣"
+        txt.text= id_search_json_weapondate(pref.getInt("pl_atk_weapon",0))
         txt = view.findViewById<TextView>(R.id.Shield)
-        txt.text= "盾"
+        txt.text= id_search_json_weapondate(pref.getInt("pl_shield_weapon",1))
         txt = view.findViewById<TextView>(R.id.Head)
-        txt.text= "頭"
+        txt.text= id_search_json_weapondate(pref.getInt("pl_head_weapon",2))
         txt = view.findViewById<TextView>(R.id.Body)
-        txt.text= "鎧"
+        txt.text= id_search_json_weapondate(pref.getInt("pl_chest_weapon",3))
 
-        txt3 = pref.getInt("pl_level",0).toString()
+        var txt4 = pref.getInt("pl_level",0)
         txt = view.findViewById<TextView>(R.id.Level)
-        txt.text= txt3
+        txt.text= txt4.toString()
 
+        txt3 = (txt4*100-pref.getInt("pl_exp",0)).toString()
+        txt = view.findViewById<TextView>(R.id.NextLevel)
+        txt.text = txt3
+
+        var date = pref.getString("pl_ult_list","0,1,3,4").toString()
+        var list:Array<Int> = date.split(",").map(String::toInt).toTypedArray()
+        var i=0
+        var ult_list_text = ""
+        while(i<list.size){
+            ult_list_text = ult_list_text + id_search_json_ult(list[i]) + "\n"
+            i++
+        }
+        txt = view.findViewById<TextView>(R.id.ult_text)
+        txt.text = ult_list_text
+    }
+
+    fun id_search_json_weapondate(no:Int):String{
+        var name = ""
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
+        val jsonData = jsonArray_weapon.getJSONObject(no)
+        name = jsonData.getString("weapon_name")
+        inputStream.close()
+        bufferedReader.close()
+        return name
+    }
+    fun id_search_json_ult(no:Int):String{
+        var name = ""
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("ult_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("ult")
+        val jsonData = jsonArray_weapon.getJSONObject(no)
+        name = jsonData.getString("ult_name")
+        inputStream.close()
+        bufferedReader.close()
+        return name
     }
 }

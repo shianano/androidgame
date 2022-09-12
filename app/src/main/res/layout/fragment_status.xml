@@ -9,36 +9,21 @@
     tools:context=".statusFragment">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/soubi_imagebutton"
-        android:src="@android:drawable/divider_horizontal_dim_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.4" />
-
-    <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="180dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/soubi_imagebutton"
         android:src="@android:drawable/divider_horizontal_dim_dark"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.3"
-        app:layout_constraintHorizontal_bias="0.869"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494"
+        app:layout_constraintVertical_bias="0.531"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.4" />
 
@@ -52,10 +37,10 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView6"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintHorizontal_bias="0.617"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.526"
+        app:layout_constraintVertical_bias="0.389"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.4" />
 
@@ -393,16 +378,12 @@
         android:id="@+id/imageView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/maou"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.094"
-        app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.42" />
 
     <TextView
@@ -423,17 +404,24 @@
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/soubi_imagebutton"
         android:src="@android:drawable/divider_horizontal_dim_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHeight_default="percent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintHorizontal_bias="0.882"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="@+id/imageView7"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.4" />
+
+    <TextView
+        android:id="@+id/ult_text"
+        android:layout_width="134dp"
+        android:layout_height="208dp"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
