@@ -279,8 +279,8 @@
             "masu_result_num": 2
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 1,
+            "masu_result_num": 4
         },
         {
             "masu_event": 0,
@@ -327,16 +327,16 @@
             "masu_result_num": 1
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 1,
+            "masu_result_num": 3
         },
         {
             "masu_event": 0,
             "masu_result_num": 0
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 1,
+            "masu_result_num": 3
         },
         {
             "masu_event": 1,
@@ -351,8 +351,8 @@
             "masu_result_num": 0
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 1,
+            "masu_result_num": 3
         },
         {
             "masu_event": 1,
@@ -371,8 +371,8 @@
             "masu_result_num": 0
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 1,
+            "masu_result_num": 3
         },
         {
             "masu_event": 1,
@@ -552,7 +552,7 @@
         },
         {
             "masu_event": 1,
-            "masu_result_num": 0
+            "masu_result_num": 7
         }
 
     ]
