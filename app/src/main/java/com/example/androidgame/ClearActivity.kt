@@ -37,7 +37,7 @@ class ClearActivity : AppCompatActivity() {
             cnt++
         }
         if(cnt>=2){
-            binding.BackTop.setVisibility(View.INVISIBLE)
+            binding.BackTop.setVisibility(View.VISIBLE)
         }
     }
 }

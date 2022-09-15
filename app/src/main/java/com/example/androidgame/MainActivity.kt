@@ -35,10 +35,10 @@ class MainActivity : AppCompatActivity() {
     var skl_heal = 0
     var skl_soud = 0
     var drunk_po = 0
-    var bossbgm = 0
     //MediaPlayer
     lateinit var mp0:MediaPlayer //start
     lateinit var btl_sound:MediaPlayer//buttle
+    lateinit var bossbgm:MediaPlayer//buttle
 
     //自分ステータス
     var hp = 0
@@ -159,6 +159,8 @@ class MainActivity : AppCompatActivity() {
         mp0.isLooping = true
         btl_sound = MediaPlayer.create(this, R.raw.normalbattlebgm)
         btl_sound.isLooping = true
+        bossbgm = MediaPlayer.create(this, R.raw.lastboss)
+        bossbgm.isLooping = true
         //
         soundPool = SoundPool.Builder().run {
             val audioAttributes = AudioAttributes.Builder().run {
@@ -174,7 +176,6 @@ class MainActivity : AppCompatActivity() {
         skl_heal = soundPool.load(this, R.raw.sklheal, 0)
         skl_soud = soundPool.load(this, R.raw.sklsoud, 0)
         drunk_po = soundPool.load(this, R.raw.drunks, 0)
-        bossbgm = soundPool.load(this, R.raw.bossbgm, 0)
         //
         binding.daisu.setOnClickListener {
             if (type==1){
@@ -225,10 +226,8 @@ class MainActivity : AppCompatActivity() {
             devil_daisu = (Math.random()*6).toInt()+1
         }
         if(all_masu >= max_height && type == 0){
-            mp0.stop()
-            btl_sound.stop()
-            val intent = Intent(this, ClearActivity::class.java)
-            startActivity(intent)
+            all_masu = max_height - 1
+            masu_checker(all_masu)
         }
         else if(type==0){
             binding.masucount.text = (Integer.parseInt(binding.masucount.text.toString())-devil_daisu).toString()
@@ -340,9 +339,10 @@ class MainActivity : AppCompatActivity() {
     //
     //ボスマス移動
     fun move(){
-        //val intent = Intent(this,res2::class.java)
-        //startActivity(intent)
-        binding.result.text="到達!!"
+        mp0.stop()
+        bossbgm.stop()
+        val intent = Intent(this, ClearActivity::class.java)
+        startActivity(intent)
     }
     //ゲームオーバー移動
     fun game_over(){
@@ -362,6 +362,17 @@ class MainActivity : AppCompatActivity() {
     fun masu_checker(num: Int){
         if(num==0){
             //説明欄
+        }
+        else if(num==max_height-1&&masu_event[num]==1){
+            btl_sound.stop()
+            bossbgm.start()
+            binding.result.text = "戦闘！！"
+            binding.no.text = masu_result_num[num].toString()
+            enemy_no = Integer.parseInt(binding.no.text.toString())
+            set_enemy(enemy_no)
+            open_enemy_status(enemy_no)
+            type = 1
+            mp0.pause()
         }
         else if(masu_event[num]==1){
             //戦闘
@@ -487,6 +498,9 @@ class MainActivity : AppCompatActivity() {
                 //soundPool.stop(dark_bgm)
                 text1 = "倒した！"
                 text2 = ""
+                if(all_masu==max_height - 1) {
+                    move()
+                }
                 runOnUiThread{
                     comment_in(text1, text2)
                     binding.enemyImage.setImageResource(R.drawable.taosita)
@@ -872,11 +886,18 @@ class MainActivity : AppCompatActivity() {
 
     //経験値レベルアップ判定
     fun exp_check(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
         level = Integer.parseInt(binding.levelMain.text.toString())
         exp_all += 100
         if(exp_all>=level*100){
             runOnUiThread{
                 binding.levelMain.text = (level+1).toString()
+                mp = mp + 5
+                binding.mp.text = mp.toString()
+                pref.edit(){
+                    putInt("pl_level", Integer.parseInt(binding.levelMain.text.toString()))
+                    putInt("pl_mp",mp)
+                }
             }
             exp_all = 0
         }
@@ -1050,12 +1071,16 @@ class MainActivity : AppCompatActivity() {
         soundPool.release()
         mp0.release()
         btl_sound.release()
+        bossbgm.release()
     }
 
     override fun onResume() {
         super.onResume()
         if(type==1){
             btl_sound.start()
+            bossbgm.start()
+        }
+        else if(all_masu==max_height-1&&type==1){
         }
         else if(type==0){
             mp0.start()
@@ -1068,6 +1093,7 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         if(type==1){
             btl_sound.pause()
+            bossbgm.pause()
         }
         else if(type==0){
             mp0.pause()
