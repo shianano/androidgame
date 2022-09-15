@@ -34,8 +34,8 @@ class SettingFragment : Fragment() {
 
         binding.titleButton.setOnClickListener{
             AlertDialog.Builder(requireContext())
-                    .setTitle("title")
-                    .setMessage("message")
+                    .setTitle("タイトルに戻ります。")
+                    .setMessage("よろしいですか？")
                     .setPositiveButton("いいえ", { dialog, which ->
                     })
                     .setNegativeButton("はい", { dialog, which ->
