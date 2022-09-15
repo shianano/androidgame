@@ -36,15 +36,13 @@ class SettingFragment : Fragment() {
             AlertDialog.Builder(requireContext())
                     .setTitle("title")
                     .setMessage("message")
-                    .setPositiveButton("YES", {
-                        dialog, which ->
+                    .setPositiveButton("いいえ", { dialog, which ->
                     })
-                    .setNegativeButton("No", {
-                        dialog, which ->
+                    .setNegativeButton("はい", { dialog, which ->
+                        val intent = Intent(activity, StaActivity::class.java)
+                        startActivity(intent)
                     })
                     .show()
-            val intent = Intent(activity, StaActivity::class.java)
-            startActivity(intent)
         }
         binding.ringVolSeekBarr.setOnSeekBarChangeListener(
                 object : SeekBar.OnSeekBarChangeListener {
