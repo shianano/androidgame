@@ -73,23 +73,30 @@
         {
             "id": 10,
             "ult_type": 2,
-            "ult_result_num": 3,
+            "ult_result_num": 1,
             "ult_use_mp": 10,
             "ult_name": "ストレングス"
         },
         {
             "id": 11,
             "ult_type": 3,
-            "ult_result_num": 30,
+            "ult_result_num": 20,
             "ult_use_mp": 0,
             "ult_name": "魔力回復"
         },
         {
             "id": 12,
             "ult_type": 0,
-            "ult_result_num": 60,
+            "ult_result_num": 50,
             "ult_use_mp": 13,
             "ult_name": "メガヒール"
+        },
+        {
+            "id": 13,
+            "ult_type": 1,
+            "ult_result_num": 50,
+            "ult_use_mp": 100,
+            "ult_name": "エクスカリバー"
         }
     ]
 }
