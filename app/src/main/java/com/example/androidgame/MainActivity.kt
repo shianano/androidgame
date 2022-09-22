@@ -701,11 +701,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 comment_in(text1, text2)
             }
-            save()
         }
         else{
             text1 = "error"
         }
+        save()
     }
     //敵のスキル
     fun enemy_skl(){
