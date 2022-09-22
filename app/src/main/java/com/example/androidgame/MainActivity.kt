@@ -700,8 +700,8 @@ class MainActivity : AppCompatActivity() {
                     text1 = "mpがたりない"
                 }
                 comment_in(text1, text2)
-                save()
             }
+            save()
         }
         else{
             text1 = "error"
