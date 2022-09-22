@@ -1085,9 +1085,9 @@ class MainActivity : AppCompatActivity() {
         }
         else if(type==0){
             mp0.start()
-            load_status()
-            weapon_status_plus()
         }
+        load_status()
+        weapon_status_plus()
     }
 
     override fun onStop() {
