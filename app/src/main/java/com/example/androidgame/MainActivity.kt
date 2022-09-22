@@ -1077,6 +1077,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        save()
         if(type==1){
             btl_sound.start()
             bossbgm.start()
