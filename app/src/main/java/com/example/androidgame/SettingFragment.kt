@@ -1,6 +1,7 @@
 package com.example.androidgame
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.media.AudioManager
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.androidgame.databinding.FragmentSettingBinding
 import java.util.*
@@ -31,8 +33,16 @@ class SettingFragment : Fragment() {
         binding.pervolume.text = 0.toString() + "%"
 
         binding.titleButton.setOnClickListener{
-            val intent = Intent(activity, StaActivity::class.java)
-            startActivity(intent)
+            AlertDialog.Builder(requireContext())
+                    .setTitle("タイトルに戻ります。")
+                    .setMessage("よろしいですか？")
+                    .setPositiveButton("いいえ", { dialog, which ->
+                    })
+                    .setNegativeButton("はい", { dialog, which ->
+                        val intent = Intent(activity, StaActivity::class.java)
+                        startActivity(intent)
+                    })
+                    .show()
         }
         binding.ringVolSeekBarr.setOnSeekBarChangeListener(
                 object : SeekBar.OnSeekBarChangeListener {

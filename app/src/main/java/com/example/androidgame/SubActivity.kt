@@ -28,7 +28,7 @@ class SubActivity : AppCompatActivity() {
         //アイテムボタン
         binding.aitemButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, Fragment())
+                replace(R.id.container, itemFragment())
                 addToBackStack(null)
                 commit()
             }

@@ -267,6 +267,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_chest_weapon", 3)
             putString("pl_chest_weapon_list", "3")
             putString("pl_ult_list",my_skil)
+            putString("item_list","0.2,1.1")
         }
         hp=pref.getInt("pl_hp", 0)
         max_hp=pref.getInt("pl_max_hp", 0)
@@ -411,14 +412,14 @@ class MainActivity : AppCompatActivity() {
             binding.textView7.setTextColor(Color.BLACK)
             binding.masucount.setTextColor(Color.BLACK)
             binding.masuNum2.setTextColor(Color.BLACK)
-            binding.hptext.setTextColor(Color.BLACK)
-            binding.mptext.setTextColor(Color.BLACK)
-            binding.deftext.setTextColor(Color.BLACK)
-            binding.atktext.setTextColor(Color.BLACK)
-            binding.hpnum.setTextColor(Color.BLACK)
-            binding.mpnum.setTextColor(Color.BLACK)
-            binding.defnum.setTextColor(Color.BLACK)
-            binding.atknum.setTextColor(Color.BLACK)
+            //binding.hptext.setTextColor(Color.BLACK)
+            //binding.mptext.setTextColor(Color.BLACK)
+            //binding.deftext.setTextColor(Color.BLACK)
+            //binding.atktext.setTextColor(Color.BLACK)
+            //binding.hpnum.setTextColor(Color.BLACK)
+            //binding.mpnum.setTextColor(Color.BLACK)
+            //binding.defnum.setTextColor(Color.BLACK)
+            //binding.atknum.setTextColor(Color.BLACK)
         }
     }
     //イメージセット
@@ -699,12 +700,12 @@ class MainActivity : AppCompatActivity() {
                     text1 = "mpがたりない"
                 }
                 comment_in(text1, text2)
-                save()
             }
         }
         else{
             text1 = "error"
         }
+        save()
     }
     //敵のスキル
     fun enemy_skl(){
@@ -1076,6 +1077,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        save()
         if(type==1){
             btl_sound.start()
             bossbgm.start()
@@ -1084,9 +1086,8 @@ class MainActivity : AppCompatActivity() {
         }
         else if(type==0){
             mp0.start()
-            load_status()
-            weapon_status_plus()
         }
+        load_status()
     }
 
     override fun onStop() {
