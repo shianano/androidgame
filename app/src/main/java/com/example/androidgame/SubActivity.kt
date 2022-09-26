@@ -44,7 +44,7 @@ class SubActivity : AppCompatActivity() {
         //装備ボタン
         binding.soubiButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, Fragment())
+                replace(R.id.container, soubiFragment())
                 addToBackStack(null)
                 commit()
             }
