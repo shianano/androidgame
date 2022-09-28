@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
     var my_head_weapon = 2
     var my_chest_weapon = 3
     //
+    var weapon_atk = 0
+    var weapon_def = 0
     //
 
     //マス定義
@@ -964,17 +966,25 @@ class MainActivity : AppCompatActivity() {
         val jsonObject = JSONObject(str)
         val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
-        atk = atk + atk_date.getInt("plus_atk")
-        def = def + atk_date.getInt("plus_def")
+        weapon_atk = atk_date.getInt("plus_atk")
+        atk = atk + weapon_atk
+        weapon_def = atk_date.getInt("plus_def")
+        def = def + weapon_def
         val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
         atk = atk + shield_date.getInt("plus_atk")
+        weapon_atk = weapon_atk + shield_date.getInt("plus_atk")
         def = def + shield_date.getInt("plus_def")
+        weapon_def = weapon_def + shield_date.getInt("plus_def")
         val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
         atk = atk + head_date.getInt("plus_atk")
+        weapon_atk = weapon_atk + head_date.getInt("plus_atk")
         def = def + head_date.getInt("plus_def")
+        weapon_def = weapon_def + head_date.getInt("plus_def")
         val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
         atk = atk + chest_date.getInt("plus_atk")
+        weapon_atk = weapon_atk + chest_date.getInt("plus_atk")
         def = def + chest_date.getInt("plus_def")
+        weapon_def = weapon_def + chest_date.getInt("plus_def")
         inputStream.close()
         bufferedReader.close()
     }
@@ -1059,10 +1069,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun weapon_status_reset(){
+        //pl_atk,pl_def
+        var i = binding.atk.text
+        binding.atk.text = (Integer.parseInt(i.toString())-weapon_atk).toString()
+        i = binding.def.text
+        binding.def.text = (Integer.parseInt(i.toString())-weapon_def).toString()
+    }
+
     //
     override fun onPause() {
         super.onPause()
         soundPool.release()
+        weapon_status_reset()
+        save()
     }
 
     override fun onDestroy() {
@@ -1077,7 +1097,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        save()
         if(type==1){
             btl_sound.start()
             bossbgm.start()
