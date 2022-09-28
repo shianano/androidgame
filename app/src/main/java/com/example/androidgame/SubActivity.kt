@@ -22,6 +22,11 @@ class SubActivity : AppCompatActivity() {
 
         menubgm = MediaPlayer.create(this, R.raw.menubgm)
         menubgm.start()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container, statusFragment())
+            addToBackStack(null)
+            commit()
+        }
         //ステータスボタン
         binding.suteButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
