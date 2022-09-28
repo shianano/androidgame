@@ -5,60 +5,334 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="12dp"
     android:background="@drawable/status_background"
-    tools:context=".soubiFragment" >
+    tools:context=".soubiFragment">
+
+    <Spinner
+        android:id="@+id/yoroi_list"
+        android:layout_width="203dp"
+        android:layout_height="54dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/yoroi_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/yoroi_button" />
+
+    <Spinner
+        android:id="@+id/atama_list"
+        android:layout_width="203dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/kabuto_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/kabuto_button" />
+
+    <Spinner
+        android:id="@+id/tate_list"
+        android:layout_width="203dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/tate_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tate_button" />
 
     <TextView
-        android:id="@+id/textView42"
+        android:id="@+id/magicPowerPointS"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:textAlignment="viewEnd"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/defensePointS"
+        app:layout_constraintTop_toTopOf="@+id/textView32S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/defensePointS"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:textAlignment="viewEnd"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/attackPointS"
+        app:layout_constraintTop_toTopOf="@+id/textView31S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/attackPointS"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:textAlignment="viewEnd"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/MPBar2S"
+        app:layout_constraintTop_toTopOf="@+id/textView30S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView32S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/MagicPower"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView16S"
+        app:layout_constraintStart_toStartOf="@+id/textView31S"
+        app:layout_constraintTop_toBottomOf="@+id/textView31S" />
+
+    <TextView
+        android:id="@+id/textView31S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/defense"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView16S"
+        app:layout_constraintStart_toStartOf="@+id/textView30S"
+        app:layout_constraintTop_toBottomOf="@+id/textView30S"
+        app:layout_constraintVertical_bias="0.22000003" />
+
+    <TextView
+        android:id="@+id/textView30S"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="@string/attack"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView16S"
+        app:layout_constraintStart_toStartOf="@+id/MPBar2S"
+        app:layout_constraintTop_toBottomOf="@+id/MPBar2S"
+        app:layout_constraintVertical_bias="0.16000003" />
+
+    <TextView
+        android:id="@+id/MP2S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2S"
+        app:layout_constraintEnd_toStartOf="@+id/textView27S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView27S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2S"
+        app:layout_constraintEnd_toStartOf="@+id/maxMPS" />
+
+    <TextView
+        android:id="@+id/maxMPS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2S"
+        app:layout_constraintEnd_toEndOf="@+id/MPBar2S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView26S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/MagicPoint"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/MPBar2S"
+        app:layout_constraintStart_toStartOf="@+id/MPBar2S" />
+
+    <ProgressBar
+        android:id="@+id/MPBar2S"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView16S"
+        app:layout_constraintEnd_toEndOf="@+id/HPBar2S"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.02"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/HPBar2S"
+        app:layout_constraintTop_toBottomOf="@+id/HPBar2S"
+        app:layout_constraintVertical_bias="0.22000003"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.35" />
+
+    <TextView
+        android:id="@+id/HP2S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2S"
+        app:layout_constraintEnd_toStartOf="@+id/textView20S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/maxHPS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2S"
+        app:layout_constraintEnd_toEndOf="@+id/HPBar2S"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/textView20S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2S"
+        app:layout_constraintEnd_toStartOf="@+id/maxHPS" />
+
+    <ProgressBar
+        android:id="@+id/HPBar2S"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView16S"
+        app:layout_constraintEnd_toEndOf="@+id/imageView16S"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.02"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="@+id/imageView16S"
+        app:layout_constraintTop_toBottomOf="@+id/textView42S"
+        app:layout_constraintVertical_bias="0.16000003"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.35" />
+
+    <TextView
+        android:id="@+id/textView13S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/HitPoint"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/HPBar2S"
+        app:layout_constraintStart_toStartOf="@+id/HPBar2S" />
+
+    <TextView
+        android:id="@+id/textView22S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/karada"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/yoroi_button"
+        app:layout_constraintTop_toBottomOf="@+id/kabuto_button" />
+
+    <TextView
+        android:id="@+id/shieldS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tate_button"
+        app:layout_constraintEnd_toEndOf="@+id/tate_button"
+        tools:text="たて" />
+
+    <TextView
+        android:id="@+id/headS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/kabuto_button"
+        app:layout_constraintEnd_toEndOf="@+id/kabuto_button"
+        tools:text="かぶと" />
+
+    <TextView
+        android:id="@+id/textView21S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/atama"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/kabuto_button"
+        app:layout_constraintTop_toBottomOf="@+id/tate_button" />
+
+    <TextView
+        android:id="@+id/textView19S"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/tate"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/tate_button"
+        app:layout_constraintTop_toBottomOf="@+id/buki_button" />
+
+    <TextView
+        android:id="@+id/weaponS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/buki_button"
+        app:layout_constraintTop_toTopOf="@+id/textView18S"
+        tools:text="剣" />
+
+    <TextView
+        android:id="@+id/textView18S"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/buki"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/buki_button"
+        app:layout_constraintTop_toTopOf="@+id/imageView17S" />
+
+    <TextView
+        android:id="@+id/textView42S"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/level99"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/level2"
-        app:layout_constraintTop_toTopOf="@+id/level2" />
+        app:layout_constraintStart_toEndOf="@+id/level2S"
+        app:layout_constraintTop_toTopOf="@+id/level2S" />
 
     <TextView
-        android:id="@+id/level2"
+        android:id="@+id/level2S"
         android:layout_width="33dp"
         android:layout_height="24dp"
         android:textAlignment="viewEnd"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView41"
-        app:layout_constraintStart_toEndOf="@+id/textView41"
+        app:layout_constraintBottom_toBottomOf="@+id/textView41S"
+        app:layout_constraintStart_toEndOf="@+id/textView41S"
         app:layout_constraintTop_toTopOf="@+id/textView9"
         tools:text="0" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/textView41S"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/Level"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView39"
-        app:layout_constraintTop_toBottomOf="@+id/textView39"
+        app:layout_constraintStart_toStartOf="@+id/textView39S"
+        app:layout_constraintTop_toBottomOf="@+id/textView39S"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView39"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/textView39S"
+        android:layout_width="128dp"
+        android:layout_height="32dp"
         android:text="@string/status"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView16"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.03"
-        app:layout_constraintStart_toStartOf="@+id/imageView16"
-        app:layout_constraintTop_toTopOf="@+id/imageView16"
+        app:layout_constraintStart_toStartOf="@+id/HPBar2S"
+        app:layout_constraintTop_toTopOf="@+id/imageView16S"
         app:layout_constraintVertical_bias="0.023"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.3" />
 
     <ImageView
-        android:id="@+id/imageView16"
+        android:id="@+id/imageView16S"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/soubi_imagebutton"
@@ -67,15 +341,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView17"
-        app:layout_constraintVertical_bias="0.381"
+        app:layout_constraintTop_toBottomOf="@+id/imageView17S"
+        app:layout_constraintVertical_bias="0.55"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.4" />
 
     <ImageView
-        android:id="@+id/imageView17"
+        android:id="@+id/imageView17S"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/maou"
@@ -89,4 +363,84 @@
         app:layout_constraintVertical_bias="0.094"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.42" />
+
+    <ImageButton
+        android:id="@+id/tate_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/tate"
+        app:layout_constraintEnd_toEndOf="@+id/buki_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintTop_toBottomOf="@+id/textView19S"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <ImageButton
+        android:id="@+id/kabuto_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/atama"
+        app:layout_constraintEnd_toEndOf="@+id/tate_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintTop_toBottomOf="@+id/textView21S"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <ImageButton
+        android:id="@+id/yoroi_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/karada"
+        app:layout_constraintEnd_toEndOf="@+id/kabuto_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintTop_toBottomOf="@+id/textView22S"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <TextView
+        android:id="@+id/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/yoroi_button"
+        app:layout_constraintEnd_toEndOf="@+id/yoroi_button"
+        tools:text="よろい" />
+
+    <Spinner
+        android:id="@+id/buki_list"
+        android:layout_width="203dp"
+        android:layout_height="54dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:elevation="2dp"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/buki_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buki_button" />
+
+    <ImageButton
+        android:id="@+id/buki_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_imagebutton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/buki"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintStart_toEndOf="@+id/imageView17S"
+        app:layout_constraintTop_toBottomOf="@+id/textView18S"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
