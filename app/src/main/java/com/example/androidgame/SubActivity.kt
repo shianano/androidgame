@@ -1,5 +1,6 @@
 package com.example.androidgame
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.TextUtils.replace
 import android.widget.Button
@@ -10,13 +11,17 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.androidgame.databinding.ActivitySubBinding
 
 class SubActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySubBinding
+    lateinit var menubgm: MediaPlayer//buttle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySubBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        menubgm = MediaPlayer.create(this, R.raw.menubgm)
+        menubgm.start()
         //ステータスボタン
         binding.suteButton.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
@@ -55,5 +60,20 @@ class SubActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        menubgm.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        menubgm.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        menubgm.release()
     }
 }

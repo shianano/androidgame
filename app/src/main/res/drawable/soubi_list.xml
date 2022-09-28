@@ -5,9 +5,8 @@
     <item android:drawable="@android:color/transparent" />
     -->
 
-    <stroke
-        android:color="#000000"
-        android:backgroundcolor="000000"
-    android:width="2dp" />
+    <solid android:color="#999999"/>
+    <stroke android:color="#000000"
+        android:width="2dp" />
     <corners android:radius="10dp" />
 </shape>
