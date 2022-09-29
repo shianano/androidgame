@@ -95,8 +95,6 @@ class itemFragment : Fragment() {
         bufferedReader.close()
     }
     fun select_item(num:Int){
-        val spinner = binding.itemlist
-        //spinner.selectedItem
         var item_name = visible_text[num]
         //System.out.println(visible_text[num])
         var list_no_name = item_name.split(".")
