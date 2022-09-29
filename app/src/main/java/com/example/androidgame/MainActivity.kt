@@ -229,7 +229,7 @@ class MainActivity : AppCompatActivity() {
         }
         if(all_masu >= max_height && type == 0){
             all_masu = max_height - 1
-            binding.masucount.text = "0"
+            binding.masucount.text = "1"
             masu_checker(all_masu)
         }
         else if(type==0){
