@@ -229,6 +229,7 @@ class MainActivity : AppCompatActivity() {
         }
         if(all_masu >= max_height && type == 0){
             all_masu = max_height - 1
+            binding.masucount.text = "0"
             masu_checker(all_masu)
         }
         else if(type==0){
@@ -240,6 +241,7 @@ class MainActivity : AppCompatActivity() {
             set_daisu_image(devil_daisu)
             btl()
         }
+        weapon_status_reset()
         save()
     }
 
@@ -368,6 +370,8 @@ class MainActivity : AppCompatActivity() {
         }
         //ボス対戦
         else if(num==max_height-1&&masu_event[num]==1){
+            weapon_status_reset()
+            save()
             runOnUiThread {
                 binding.textView7.setVisibility(View.INVISIBLE)
                 binding.masucount.setVisibility(View.INVISIBLE)
