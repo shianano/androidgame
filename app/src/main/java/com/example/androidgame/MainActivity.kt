@@ -241,8 +241,6 @@ class MainActivity : AppCompatActivity() {
             set_daisu_image(devil_daisu)
             btl()
         }
-        weapon_status_reset()
-        save()
     }
 
     //初回ステータス保存
