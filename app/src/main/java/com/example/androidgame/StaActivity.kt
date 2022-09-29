@@ -15,6 +15,8 @@ class StaActivity : AppCompatActivity() {
         setContentView(binding.root)
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         binding.startbtn.setOnClickListener { game_start() }
+
+        binding.tyuubtn.setOnClickListener { game_tyuu() }
         //
         binding.resetbtn.setOnClickListener {
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
@@ -32,6 +34,11 @@ class StaActivity : AppCompatActivity() {
     }
     fun game_start(){
         val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun game_tyuu(){
+        val intent = Intent(this,TutorialActivity::class.java)
         startActivity(intent)
     }
 }
