@@ -24,7 +24,7 @@
         {
             "id":3,
             "ult_type":1,
-            "ult_result_num":14,
+            "ult_result_num":16,
             "ult_use_mp":10,
             "ult_name":"斬鉄"
         },
@@ -74,7 +74,7 @@
             "id": 10,
             "ult_type": 2,
             "ult_result_num": 1,
-            "ult_use_mp": 10,
+            "ult_use_mp": 15,
             "ult_name": "ストレングス"
         },
         {

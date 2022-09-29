@@ -67,28 +67,28 @@
         {
             "id":9,
             "weapon_name":"優秀な魔導書",
-            "weapon_type":1,
+            "weapon_type":0,
             "plus_atk":3,
             "plus_def":1
         },
         {
             "id":10,
             "weapon_name":"優秀な盾",
-            "weapon_type":0,
+            "weapon_type":1,
             "plus_atk":0,
             "plus_def":3
         },
         {
             "id":11,
             "weapon_name":"優秀な王冠",
-            "weapon_type":0,
+            "weapon_type":2,
             "plus_atk":2,
             "plus_def":2
         },
         {
             "id":12,
             "weapon_name":"優秀な織物",
-            "weapon_type":0,
+            "weapon_type":3,
             "plus_atk":1,
             "plus_def":2
         }
