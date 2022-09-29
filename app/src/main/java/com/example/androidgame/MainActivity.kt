@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_chest_weapon", 3)
             putString("pl_chest_weapon_list", "3")
             putString("pl_ult_list",my_skil)
-            putString("item_list","0.2,1.1")
+            putString("item_list","0.2")
         }
         hp=pref.getInt("pl_hp", 0)
         max_hp=pref.getInt("pl_max_hp", 0)
@@ -366,7 +366,13 @@ class MainActivity : AppCompatActivity() {
         if(num==0){
             //説明欄
         }
+        //ボス対戦
         else if(num==max_height-1&&masu_event[num]==1){
+            runOnUiThread {
+                binding.textView7.setVisibility(View.INVISIBLE)
+                binding.masucount.setVisibility(View.INVISIBLE)
+                binding.masuNum2.setVisibility(View.INVISIBLE)
+            }
             btl_sound.stop()
             bossbgm.start()
             binding.result.text = "戦闘！！"
@@ -377,6 +383,7 @@ class MainActivity : AppCompatActivity() {
             type = 1
             mp0.pause()
         }
+        //その他の対戦
         else if(masu_event[num]==1){
             //戦闘
             binding.result.text = "戦闘！！"
