@@ -677,6 +677,7 @@ class MainActivity : AppCompatActivity() {
                 //
                 if(ult_use_mp[my_ult_set_atk[select_no]]<=mp){
                     var rnd_num = (Math.random()*6).toInt()+1
+                    set_daisu_image(rnd_num)
                     me_atk_dmg = ult_result_num[my_ult_set_atk[select_no]]*rnd_num
                     soundPool.play(skl_soud, 1.0f, 100f, 0, 0, 0.8f)
                     if((me_atk_dmg-human_def)>0){
