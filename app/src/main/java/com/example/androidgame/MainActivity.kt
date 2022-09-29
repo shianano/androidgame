@@ -684,6 +684,9 @@ class MainActivity : AppCompatActivity() {
                         text1 = "自身の攻撃スキル[" + ult_name[my_ult_set_atk[select_no]] + "]"
                         text2 = "相手に" + me_atk + "ダメージ"
                         if(human_hp<=0){
+                            if(all_masu==max_height - 1) {
+                                move()
+                            }
                             soud_ch = 0
                             //soundPool.stop(dark_bgm)
                             text1 = "倒した！"
