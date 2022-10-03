@@ -9,47 +9,6 @@
     android:background="@drawable/status_background"
     tools:context=".soubiFragment">
 
-    <Spinner
-        android:id="@+id/yoroi_list"
-        android:layout_width="203dp"
-        android:layout_height="54dp"
-        android:background="@drawable/soubi_list"
-        android:elevation="2dp"
-        android:spinnerMode="dialog"
-        android:textAlignment="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/yoroi_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/yoroi_button" />
-
-    <Spinner
-        android:id="@+id/atama_list"
-        android:layout_width="203dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/soubi_list"
-        android:elevation="2dp"
-        android:spinnerMode="dialog"
-        android:textAlignment="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/kabuto_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/kabuto_button" />
-
-    <Spinner
-        android:id="@+id/tate_list"
-        android:layout_width="203dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/soubi_list"
-        android:elevation="2dp"
-        android:spinnerMode="dialog"
-        android:textAlignment="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/tate_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tate_button" />
-
     <TextView
         android:id="@+id/magicPowerPointS"
         android:layout_width="48dp"
@@ -406,28 +365,6 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.3" />
 
-    <TextView
-        android:id="@+id/body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/yoroi_button"
-        app:layout_constraintEnd_toEndOf="@+id/yoroi_button"
-        tools:text="よろい" />
-
-    <Spinner
-        android:id="@+id/buki_list"
-        android:layout_width="203dp"
-        android:layout_height="54dp"
-        android:background="@drawable/soubi_list"
-        android:elevation="2dp"
-        android:spinnerMode="dialog"
-        android:textAlignment="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/buki_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buki_button" />
-
     <ImageButton
         android:id="@+id/buki_button"
         android:layout_width="0dp"
@@ -442,5 +379,64 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18S"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.3" />
+
+    <TextView
+        android:id="@+id/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/yoroi_button"
+        app:layout_constraintEnd_toEndOf="@+id/yoroi_button"
+        tools:text="よろい" />
+
+    <ListView
+        android:id="@+id/buki_list"
+        android:layout_width="213dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="44dp"
+        android:background="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/buki_button"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/tate_list"
+        android:layout_width="212dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/tate_button"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buki_list" />
+
+    <ListView
+        android:id="@+id/atama_list"
+        android:layout_width="213dp"
+        android:layout_height="149dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/kabuto_button"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tate_list" />
+
+    <ListView
+        android:id="@+id/yoroi_list"
+        android:layout_width="213dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="12dp"
+        android:background="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/yoroi_button"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/atama_list"
+        app:layout_constraintVertical_bias="0.03" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
