@@ -3,7 +3,6 @@ package com.example.androidgame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.androidgame.databinding.ActivityStartBinding
 import com.example.androidgame.databinding.ActivityTutorialBinding
 
 class TutorialActivity : AppCompatActivity() {
