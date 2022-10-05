@@ -109,16 +109,17 @@ class soubiFragment : Fragment() {
         my_weapon_set(2)
         my_weapon_set(3)
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, my_soubi_buki_name)
+        //android.R.layout.simple_list_item_1,
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, my_soubi_buki_name)
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.bukiList.adapter = adapter
-        val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, my_soubi_tate_name)
+        val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, my_soubi_tate_name)
         //adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.tateList.adapter = adapter2
-        val adapter3 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, my_soubi_atama_name)
+        val adapter3 = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, my_soubi_atama_name)
         //adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.atamaList.adapter = adapter3
-        val adapter4 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, my_soubi_yoroi_name)
+        val adapter4 = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, my_soubi_yoroi_name)
         //adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.yoroiList.adapter = adapter4
 
@@ -175,15 +176,19 @@ class soubiFragment : Fragment() {
         //イベント
         binding.bukiList.setOnItemClickListener { parent, view, position, id ->
             System.out.println(my_soubi_buki_name[position])
+            select_buki(id.toInt())
         }
         binding.tateList.setOnItemClickListener { parent, view, position, id ->
             System.out.println(my_soubi_tate_name[position])
+            select_tate(id.toInt())
         }
         binding.atamaList.setOnItemClickListener { parent, view, position, id ->
             System.out.println(my_soubi_atama_name[position])
+            select_atama(id.toInt())
         }
         binding.yoroiList.setOnItemClickListener { parent, view, position, id ->
             System.out.println(my_soubi_yoroi_name[position])
+            select_yoroi(id.toInt())
         }
 
         return binding.root
@@ -271,5 +276,47 @@ class soubiFragment : Fragment() {
         var sta3 = 0
         var sta4 = 0
         var sta5 = 0
+    }
+
+    fun select_buki(num:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        var i = binding.attackPointS.text
+
+        pref.edit{
+            putInt("pl_atk_weapon", my_soubi_buki_id[num])
+        }
+        binding.weaponS.text = id_search_json_weapondate(pref.getInt("pl_atk_weapon", 0))
+        binding.bukiList.setVisibility(View.INVISIBLE)
+    }
+
+    fun select_tate(num:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        pref.edit{
+            putInt("pl_shield_weapon", my_soubi_tate_id[num])
+        }
+        binding.shieldS.text = id_search_json_weapondate(pref.getInt("pl_shield_weapon", 1))
+        binding.tateList.setVisibility(View.INVISIBLE)
+    }
+
+    fun select_atama(num:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        pref.edit{
+            putInt("pl_head_weapon", my_soubi_atama_id[num])
+        }
+        binding.headS.text = id_search_json_weapondate(pref.getInt("pl_head_weapon", 2))
+        binding.atamaList.setVisibility(View.INVISIBLE)
+    }
+
+    fun select_yoroi(num:Int){
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        pref.edit{
+            putInt("pl_chest_weapon", my_soubi_yoroi_id[num])
+        }
+        binding.body.text = id_search_json_weapondate(pref.getInt("pl_chest_weapon", 3))
+        binding.yoroiList.setVisibility(View.INVISIBLE)
     }
 }

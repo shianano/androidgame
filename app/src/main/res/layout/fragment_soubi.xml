@@ -391,52 +391,63 @@
 
     <ListView
         android:id="@+id/buki_list"
-        android:layout_width="213dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="44dp"
-        android:background="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_list"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/buki_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.17"
         app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/buki_button"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.43" />
 
     <ListView
         android:id="@+id/tate_list"
-        android:layout_width="212dp"
-        android:layout_height="144dp"
-        android:layout_marginTop="8dp"
-        android:background="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_list"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/tate_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.17"
         app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buki_list" />
+        app:layout_constraintTop_toTopOf="@+id/tate_button"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.43" />
 
     <ListView
         android:id="@+id/atama_list"
-        android:layout_width="213dp"
-        android:layout_height="149dp"
-        android:layout_marginTop="12dp"
-        android:background="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_list"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/kabuto_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.17"
         app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tate_list" />
+        app:layout_constraintTop_toTopOf="@+id/kabuto_button"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.43" />
 
     <ListView
         android:id="@+id/yoroi_list"
-        android:layout_width="213dp"
-        android:layout_height="141dp"
-        android:layout_marginTop="12dp"
-        android:background="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/soubi_list"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/yoroi_button"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.17"
         app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/atama_list"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintTop_toTopOf="@+id/yoroi_button"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.43" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
