@@ -16,7 +16,7 @@ class StaActivity : AppCompatActivity() {
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         binding.startbtn.setOnClickListener { game_start() }
 
-        //binding.tyu.setOnClickListener { game_tyuu() }
+        binding.tyuubtn.setOnClickListener { game_tyuu() }
         //
         binding.resetbtn.setOnClickListener {
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
