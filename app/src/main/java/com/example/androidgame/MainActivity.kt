@@ -933,42 +933,119 @@ class MainActivity : AppCompatActivity() {
         var weapon_list_txt = ""
         //武器
         if(weapon_type==0){
-            weapon_list_txt = pref.getString("pl_atk_weapon_list", "0") + "," + no.toString()
-            pref.edit(){
-                putString("pl_atk_weapon_list", weapon_list_txt)
+            if(weapon_have_check(no,0)){
+                weapon_list_txt = pref.getString("pl_atk_weapon_list", "0") + "," + no.toString()
+                pref.edit(){
+                    putString("pl_atk_weapon_list", weapon_list_txt)
+                }
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.buki)
             }
-            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            binding.enemyImage.setImageResource(R.drawable.buki)
+            else{
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.buki)
+            }
         }
         //盾
         else if(weapon_type==1){
-            weapon_list_txt = pref.getString("pl_shield_weapon_list", "1") + "," + no.toString()
-            pref.edit(){
-                putString("pl_shield_weapon_list", weapon_list_txt)
+            if(weapon_have_check(no,1)){
+                weapon_list_txt = pref.getString("pl_shield_weapon_list", "1") + "," + no.toString()
+                pref.edit(){
+                    putString("pl_shield_weapon_list", weapon_list_txt)
+                }
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.tate)
             }
-            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            binding.enemyImage.setImageResource(R.drawable.tate)
+            else{
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.tate)
+            }
         }
         //頭
         else if(weapon_type==2){
-            weapon_list_txt = pref.getString("pl_head_weapon_list", "2") + "," + no.toString()
-            pref.edit(){
-                putString("pl_head_weapon_list", weapon_list_txt)
+            if(weapon_have_check(no,2)){
+                weapon_list_txt = pref.getString("pl_head_weapon_list", "2") + "," + no.toString()
+                pref.edit(){
+                    putString("pl_head_weapon_list", weapon_list_txt)
+                }
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.atama)
             }
-            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            binding.enemyImage.setImageResource(R.drawable.atama)
+            else{
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.atama)
+            }
         }
         //胸
         else if(weapon_type==3){
-            weapon_list_txt = pref.getString("pl_chest_weapon_list", "3") + "," + no.toString()
-            pref.edit(){
-                putString("pl_chest_weapon_list", weapon_list_txt)
+            if(weapon_have_check(no,3)){
+                weapon_list_txt = pref.getString("pl_chest_weapon_list", "3") + "," + no.toString()
+                pref.edit(){
+                    putString("pl_chest_weapon_list", weapon_list_txt)
+                }
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.karada)
             }
-            binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
-            binding.enemyImage.setImageResource(R.drawable.karada)
+            else{
+                binding.result.text = "「" + weapon_name + "」" + "を手に入れた！"
+                binding.enemyImage.setImageResource(R.drawable.karada)
+            }
         }
         inputStream.close()
         bufferedReader.close()
+    }
+    //装備確認処理
+    fun weapon_have_check(no:Int,type_weapon:Int):Boolean{
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        if(type_weapon==0){
+            var weapon_list_txt = pref.getString("pl_atk_weapon_list", "0").toString()
+            var list = weapon_list_txt.split(",").map(String::toInt).toTypedArray()
+            var i = 0
+            while (i<list.size){
+                if(list[i]==no){
+                    return false
+                }
+                i++
+            }
+            return true
+        }
+        else if(type_weapon==1){
+            var weapon_list_txt = pref.getString("pl_shield_weapon_list", "0").toString()
+            var list = weapon_list_txt.split(",").map(String::toInt).toTypedArray()
+            var i = 0
+            while (i<list.size){
+                if(list[i]==no){
+                    return false
+                }
+                i++
+            }
+            return true
+        }
+        else if(type_weapon==2){
+            var weapon_list_txt = pref.getString("pl_head_weapon_list", "0").toString()
+            var list = weapon_list_txt.split(",").map(String::toInt).toTypedArray()
+            var i = 0
+            while (i<list.size){
+                if(list[i]==no){
+                    return false
+                }
+                i++
+            }
+            return true
+        }
+        else if(type_weapon==3){
+            var weapon_list_txt = pref.getString("pl_chest_weapon_list", "0").toString()
+            var list = weapon_list_txt.split(",").map(String::toInt).toTypedArray()
+            var i = 0
+            while (i<list.size){
+                if(list[i]==no){
+                    return false
+                }
+                i++
+            }
+            return true
+        }
+        return false
     }
     //装備ステータス反映
     fun weapon_status_plus() {
