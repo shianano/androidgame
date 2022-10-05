@@ -51,7 +51,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="72dp"
-        android:text="あああああああああ"
+        android:text="魔王双六"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="36sp"
