@@ -27,7 +27,8 @@ class tutorial : Fragment() {
 
         }
         binding.nextbtn.setOnClickListener{
-
+            val intent = Intent(activity, NextFragment::class.java)
+            startActivity(intent)
         }
 
         binding.titlebtn2.setOnClickListener{

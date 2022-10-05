@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.637" />
+        app:layout_constraintVertical_bias="0.585" />
 
     <Button
         android:id="@+id/resetbtn"
@@ -61,4 +61,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.401" />
+
+    <Button
+        android:id="@+id/tyuubtn"
+        android:layout_width="253dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="40dp"
+        android:text="チュートリアル"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startbtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

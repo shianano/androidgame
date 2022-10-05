@@ -26,4 +26,5 @@
     <string name="Exp">Exp</string>
     <string name="waza">技：</string>
     <string name="Laval0">%1$d</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
 </resources>
