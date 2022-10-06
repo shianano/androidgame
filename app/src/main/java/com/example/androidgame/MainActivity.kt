@@ -556,7 +556,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 if(hp<=0){
                     btl_sound.pause()
-                    game_over()
+                    runOnUiThread {
+                        game_over()
+                    }
                 }
             }
         }
