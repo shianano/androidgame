@@ -242,6 +242,7 @@ class itemFragment : Fragment() {
                         .setTitle("使用")
                         .setMessage("MPが最大なので使用できません！")
                         .setPositiveButton("OK", { dialog, which ->
+                            item_num[no] = item_num[no] + 1
                         })
                         .show()
             }
