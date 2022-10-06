@@ -219,8 +219,8 @@ class MainActivity : AppCompatActivity() {
     //
     fun daisu_start(){
         if (type==0){
-            //devil_daisu = (Math.random()*6).toInt()+1
-            devil_daisu=100
+            devil_daisu = (Math.random()*6).toInt()+1
+            //devil_daisu=100
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
