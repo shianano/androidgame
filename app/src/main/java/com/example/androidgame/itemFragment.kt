@@ -29,6 +29,7 @@ class itemFragment : Fragment() {
     var visible_text:Array<String> = arrayOf()
     var item_effect_num = 0
     var item_size = 0
+    var max_mp = 0
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,7 @@ class itemFragment : Fragment() {
         _binding = FragmentItemBinding.inflate(inflater, container, false)
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
         var item_text = pref.getString("item_list","0.1").toString()
+        max_mp = pref.getInt("pl_max_mp",20)
         if(item_text==""){
             //なし
         }
@@ -233,9 +235,30 @@ class itemFragment : Fragment() {
         if(type==0){
             //回復
             val pref = PreferenceManager.getDefaultSharedPreferences(context)
-            var num = pref.getInt("pl_mp",0) + item_effect_num
-            pref.edit {
-                putInt("pl_mp",num)
+            var num = pref.getInt("pl_mp",0)
+            if(num==max_mp){
+                //最大値ｍｐ　ー＞　使えない
+                AlertDialog.Builder(requireContext())
+                        .setTitle("使用")
+                        .setMessage("MPが最大なので使用できません！")
+                        .setPositiveButton("OK", { dialog, which ->
+                        })
+                        .show()
+            }
+            else{
+                //一応は減っている
+                if(num+item_effect_num>=max_mp){
+                    //最大値をこえる　ー＞　ｍｐを最大値にする
+                    pref.edit {
+                        putInt("pl_mp",max_mp)
+                    }
+                }
+                else if(num+item_effect_num<max_mp){
+                    //飲んでもｍｐの最大値に届かない
+                    pref.edit {
+                        putInt("pl_mp",num+item_effect_num)
+                    }
+                }
             }
         }
         else if(type==1){

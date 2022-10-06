@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     var def = 0
     var po = 0
     var mp = 0
+    var max_mp = 0
     var level = 1
     var exp_all = 0
     var my_skil = "0,1,3,4"
@@ -294,6 +295,7 @@ class MainActivity : AppCompatActivity() {
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
         mp=pref.getInt("pl_mp", 0)
+        max_mp=pref.getInt("pl_max_mp",0)
         all_masu=pref.getInt("pl_all_masu", 0)
         level=pref.getInt("pl_level", 0)
         exp_all=pref.getInt("pl_exp", 0)
@@ -319,6 +321,7 @@ class MainActivity : AppCompatActivity() {
         def=pref.getInt("pl_def", 0)
         po=pref.getInt("pl_po", 0)
         mp=pref.getInt("pl_mp", 0)
+        max_mp=pref.getInt("pl_max_mp",0)
         level=pref.getInt("pl_level", 0)
         all_masu=pref.getInt("pl_all_masu", 0)
         devil_daisu=pref.getInt("pl_now_daisu", 0)
@@ -343,6 +346,7 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_atk", Integer.parseInt(binding.atk.text.toString()))
             putInt("pl_def", Integer.parseInt(binding.def.text.toString()))
             putInt("pl_mp", Integer.parseInt(binding.mp.text.toString()))
+            putInt("pl_max_mp",max_mp)
             putInt("pl_level", Integer.parseInt(binding.levelMain.text.toString()))
             putInt("pl_exp", exp_all)
             putInt("pl_po", Integer.parseInt(binding.portionNum.text.toString()))
@@ -931,10 +935,12 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread{
                 binding.levelMain.text = (level+1).toString()
                 mp = mp + 5
+                max_mp = max_mp + 5
                 binding.mp.text = mp.toString()
                 pref.edit(){
                     putInt("pl_level", Integer.parseInt(binding.levelMain.text.toString()))
                     putInt("pl_mp",mp)
+                    putInt("pl_max_mp",max_mp)
                 }
             }
             exp_all = 0
