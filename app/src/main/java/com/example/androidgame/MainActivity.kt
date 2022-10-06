@@ -1217,8 +1217,8 @@ class MainActivity : AppCompatActivity() {
         else if(type==0){
             mp0.start()
         }
-        enemy_status_load()
         load_status()
+        enemy_status_load()
     }
 
     override fun onStop() {
