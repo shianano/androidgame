@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
     //test input
     var masu_event: Array<Int> = arrayOf()//var masu_event = IntArray(max_height)
     var masu_result_num: Array<Int> = arrayOf()//var masu_result_num = arrayof()
+    var masu_ev_num = 0//倒したら何もないマスに変える
 
     //人間ステータス定義
     //var human_type_height = 6
@@ -164,6 +165,16 @@ class MainActivity : AppCompatActivity() {
         bossbgm = MediaPlayer.create(this, R.raw.lastboss)
         bossbgm.isLooping = true
         //
+        val audioAttributes = AudioAttributes.Builder()
+                // USAGE_MEDIA
+                // USAGE_GAME
+                .setUsage(AudioAttributes.USAGE_GAME)
+                // CONTENT_TYPE_MUSIC
+                // CONTENT_TYPE_SPEECH, etc.
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build()
+        //
+        /*
         soundPool = SoundPool.Builder().run {
             val audioAttributes = AudioAttributes.Builder().run {
                 setUsage(AudioAttributes.USAGE_MEDIA)
@@ -173,6 +184,12 @@ class MainActivity : AppCompatActivity() {
             setAudioAttributes(audioAttributes)
             build()
         }
+         */
+        soundPool = SoundPool.Builder()
+                .setAudioAttributes(audioAttributes)
+                // ストリーム数に応じて
+                .setMaxStreams(2)
+                .build()
         atk_sound = soundPool.load(this, R.raw.sordattack2, 1)
         daisu_sound = soundPool.load(this, R.raw.daisu, 2)
         skl_heal = soundPool.load(this, R.raw.sklheal, 0)
@@ -368,6 +385,7 @@ class MainActivity : AppCompatActivity() {
         }
         //ボス対戦
         else if(num==max_height-1&&masu_event[num]==1){
+            masu_ev_num = num
             wepaon_status_reset_active_save()
             runOnUiThread {
                 binding.textView7.setVisibility(View.INVISIBLE)
@@ -387,6 +405,7 @@ class MainActivity : AppCompatActivity() {
         //その他の対戦
         else if(masu_event[num]==1){
             //戦闘
+            masu_ev_num = num
             binding.result.text = "戦闘！！"
             binding.no.text = masu_result_num[num].toString()
             enemy_no = Integer.parseInt(binding.no.text.toString())
@@ -511,6 +530,8 @@ class MainActivity : AppCompatActivity() {
                 //soundPool.stop(dark_bgm)
                 text1 = "倒した！"
                 text2 = ""
+                masu_event[masu_ev_num] = 0
+                masu_result_num[masu_ev_num] = 0
                 if(all_masu==max_height - 1) {
                     move()
                 }
