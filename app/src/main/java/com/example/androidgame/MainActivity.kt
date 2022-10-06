@@ -368,8 +368,7 @@ class MainActivity : AppCompatActivity() {
         }
         //ボス対戦
         else if(num==max_height-1&&masu_event[num]==1){
-            weapon_status_reset()
-            save()
+            wepaon_status_reset_active_save()
             runOnUiThread {
                 binding.textView7.setVisibility(View.INVISIBLE)
                 binding.masucount.setVisibility(View.INVISIBLE)
@@ -480,7 +479,7 @@ class MainActivity : AppCompatActivity() {
             binding.portionNum.text = po.toString()
         }
         hp = Integer.parseInt(binding.hp.text.toString())
-        save()
+        wepaon_status_reset_active_save()
     }
     //戦闘モード
     fun btl(){
@@ -720,7 +719,7 @@ class MainActivity : AppCompatActivity() {
         else{
             text1 = "error"
         }
-        save()
+        wepaon_status_reset_active_save()
     }
     //敵のスキル
     fun enemy_skl(){
@@ -835,6 +834,7 @@ class MainActivity : AppCompatActivity() {
             text1 = "相手のMP回復スキル[" + ult_name[human_ult_set[use_ult]] + "]"
             text2 = ult_result_num[human_ult_set[use_ult]].toString() + " MPが回復した"
         }
+        wepaon_status_reset_active_save()
         comment_in(text1, text2)
     }
 
@@ -1165,6 +1165,14 @@ class MainActivity : AppCompatActivity() {
         binding.atk.text = (Integer.parseInt(i.toString())-weapon_atk).toString()
         i = binding.def.text
         binding.def.text = (Integer.parseInt(i.toString())-weapon_def).toString()
+    }
+    fun wepaon_status_reset_active_save(){
+        save()
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        pref.edit {
+            putInt("pl_atk",Integer.parseInt(binding.atk.text.toString())-weapon_atk)
+            putInt("pl_def",Integer.parseInt(binding.def.text.toString())-weapon_def)
+        }
     }
 
     //
