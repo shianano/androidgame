@@ -219,8 +219,8 @@ class MainActivity : AppCompatActivity() {
     //
     fun daisu_start(){
         if (type==0){
-            devil_daisu = (Math.random()*6).toInt()+1
-            //devil_daisu=1
+            //devil_daisu = (Math.random()*6).toInt()+1
+            devil_daisu=100
             //val pref = PreferenceManager.getDefaultSharedPreferences(this)
             all_masu = all_masu + devil_daisu
         }
@@ -374,7 +374,7 @@ class MainActivity : AppCompatActivity() {
                 binding.masucount.setVisibility(View.INVISIBLE)
                 binding.masuNum2.setVisibility(View.INVISIBLE)
             }
-            btl_sound.stop()
+            btl_sound.pause()
             bossbgm.start()
             binding.result.text = "戦闘！！"
             binding.no.text = masu_result_num[num].toString()
