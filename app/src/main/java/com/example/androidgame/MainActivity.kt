@@ -405,6 +405,8 @@ class MainActivity : AppCompatActivity() {
             binding.enemyImage.setImageResource(R.drawable.po)
             po = po + masu_result_num[num]
             binding.portionNum.text = po.toString()
+            masu_event[num] = 0
+            masu_result_num[num] = 0
         }
         else if(masu_event[num]==3){
             weapon_get(masu_result_num[num])
