@@ -734,11 +734,11 @@ class MainActivity : AppCompatActivity() {
         if(ult_type[human_ult_set[use_ult]]==1){
             if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]){
                 enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
+                human_atk_dmg = human_daisu * ult_result_num[human_ult_set[use_ult]] - def
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
+                    enemy_set_daisu_image(human_daisu)
                 }
-                human_atk_dmg = human_daisu * ult_result_num[human_ult_set[use_ult]] - def
-                enemy_set_daisu_image(human_daisu)
                 if (human_atk_dmg <= 0) {
                     human_atk_dmg = 0
                 }
