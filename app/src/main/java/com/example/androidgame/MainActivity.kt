@@ -524,10 +524,11 @@ class MainActivity : AppCompatActivity() {
                 mp0.start()
             }
             else{
+                enemy_daisu()
                 runOnUiThread {
+                    enemy_set_daisu_image(human_daisu)
                     binding.hpnum.text = result_human_hp.toString()
                 }
-                enemy_daisu()
                 var ult_check = (Math.random()*100).toInt()
                 //
                 if(ult_check<=80){
@@ -542,10 +543,6 @@ class MainActivity : AppCompatActivity() {
                         human_atk_dmg = 0
                     }
                     hp = hp - human_atk_dmg
-                    runOnUiThread {
-                        enemy_set_daisu_image(human_daisu)
-                        binding.hpnum.text = result_human_hp.toString()
-                    }
                     in_out_damage()
                     text1 = "相手の通常攻撃"
                     text2 = human_atk_dmg.toString() + "ダメージ"
@@ -563,6 +560,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        //
         round++
     }
     //自身のスキルセット
@@ -639,6 +637,7 @@ class MainActivity : AppCompatActivity() {
         if(typ==0){
             if(type==1) {
                 //
+                hp = Integer.parseInt(binding.hp.text.toString())
                 var select_no = get_select_skil(0)
                 System.out.println(select_no.toString())
                 //
@@ -646,7 +645,7 @@ class MainActivity : AppCompatActivity() {
                     //var rnd_num = (Math.random()*6).toInt()+1
                     me_heal = ult_result_num[my_ult_set_heal[select_no]]
                     soundPool.play(skl_heal, 1.0f, 100f, 0, 0, 1.0f)
-                    if(me_heal+hp>max_hp){
+                    if(me_heal+hp>=max_hp){
                         text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = "全回復"
                         hp = max_hp
@@ -655,7 +654,6 @@ class MainActivity : AppCompatActivity() {
                     else{
                         text1 = "自身の回復スキル[" + ult_name[my_ult_set_heal[select_no]] + "]"
                         text2 = me_heal.toString() + "回復"
-                        hp = Integer.parseInt(binding.hp.text.toString())
                         binding.hp.text = (hp + me_heal).toString()
                     }
                     mp = mp - ult_use_mp[my_ult_set_heal[select_no]]
@@ -753,6 +751,7 @@ class MainActivity : AppCompatActivity() {
                 in_out_damage()
             }
             else{
+                enemy_daisu()
                 human_atk_dmg = human_daisu * human_atk - def
                 if (human_atk_dmg <= 0) {
                     human_atk_dmg = 0
@@ -770,9 +769,6 @@ class MainActivity : AppCompatActivity() {
         else if(ult_type[human_ult_set[use_ult]]==0){
             if(enemy_mp>=ult_use_mp[human_ult_set[use_ult]]) {
                 enemy_mp = enemy_mp - ult_use_mp[human_ult_set[use_ult]]
-                runOnUiThread {
-                    binding.mpnum.text = enemy_mp.toString()
-                }
                 human_hp = human_hp + ult_result_num[human_ult_set[use_ult]]
                 runOnUiThread {
                     binding.mpnum.text = enemy_mp.toString()
@@ -784,6 +780,7 @@ class MainActivity : AppCompatActivity() {
                 text2 = heal.toString() + "回復"
             }
             else{
+                enemy_daisu()
                 human_atk_dmg = human_daisu * human_atk - def
                 if (human_atk_dmg <= 0) {
                     human_atk_dmg = 0
