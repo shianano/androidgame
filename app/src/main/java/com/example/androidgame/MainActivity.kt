@@ -1171,11 +1171,27 @@ class MainActivity : AppCompatActivity() {
             putInt("pl_def",Integer.parseInt(binding.def.text.toString())-weapon_def)
         }
     }
+    fun enemy_status_save(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        pref.edit {
+            putInt("enemy_hp",Integer.parseInt(binding.hpnum.text.toString()))
+            putInt("enemy_atk",Integer.parseInt(binding.atknum.text.toString()))
+            putInt("enemy_def",Integer.parseInt(binding.defnum.text.toString()))
+            putInt("enemy_mp",Integer.parseInt(binding.mpnum.text.toString()))
+        }
+    }fun enemy_status_load(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        binding.hpnum.text = pref.getInt("enemy_hp",50).toString()
+        binding.atknum.text = pref.getInt("enemy_atk",50).toString()
+        binding.defnum.text = pref.getInt("enemy_def",50).toString()
+        binding.mpnum.text = pref.getInt("enemy_mp",50).toString()
+    }
 
     //
     override fun onPause() {
         super.onPause()
         soundPool.release()
+        enemy_status_save()
         weapon_status_reset()
         save()
     }
@@ -1192,15 +1208,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(type==1){
+        if(type==1&&all_masu!=max_height-1){
             btl_sound.start()
-            bossbgm.start()
         }
         else if(all_masu==max_height-1&&type==1){
+            bossbgm.start()
         }
         else if(type==0){
             mp0.start()
         }
+        enemy_status_load()
         load_status()
     }
 
