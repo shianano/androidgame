@@ -18,11 +18,6 @@ class soubiFragment : Fragment() {
     private var _binding: FragmentSoubiBinding? = null
     private val binding get() = _binding!!
 
-    var plus_atk: Array<Int> = arrayOf()
-    var plus_def: Array<Int> = arrayOf()
-    var soubi_name: Array<String> = arrayOf()
-    var soubi_type: Array<Int> = arrayOf()
-    var my_soubi_set: Array<Int> = arrayOf()
     var my_soubi_set_buki: Array<Int> = arrayOf()
     var my_soubi_buki_name: Array<String> = arrayOf()
     var my_soubi_set_tate: Array<Int> = arrayOf()
@@ -31,26 +26,50 @@ class soubiFragment : Fragment() {
     var my_soubi_atama_name: Array<String> = arrayOf()
     var my_soubi_set_yoroi: Array<Int> = arrayOf()
     var my_soubi_yoroi_name: Array<String> = arrayOf()
-    var weapon_list:Array<String> = arrayOf()
-    var visible_text:Array<String> = arrayOf()
 
     var my_soubi_buki_id: Array<Int> = arrayOf()
     var my_soubi_tate_id: Array<Int> = arrayOf()
     var my_soubi_atama_id: Array<Int> = arrayOf()
     var my_soubi_yoroi_id: Array<Int> = arrayOf()
 
-    var select_weapon_name = ""
+    var my_atk_weapon = 0
+    var my_shield_weapon = 1
+    var my_head_weapon = 2
+    var my_chest_weapon = 3
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSoubiBinding.inflate(inflater, container, false)
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
+
         val pref = PreferenceManager.getDefaultSharedPreferences(activity)
         var txt3 = pref.getInt("pl_hppl_max_hp", 0).toString()
 
         //テキスト更新
         lateinit var txt: TextView
+
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+
+        var txt1 = pref.getInt("pl_atk", 0)+atk_date.getInt("plus_atk")+shield_date.getInt("plus_atk")+head_date.getInt("plus_atk")+chest_date.getInt("plus_atk")
+        binding.attackPointS.text = txt1.toString()
+        txt1 = pref.getInt("pl_def", 0)+atk_date.getInt("plus_def")+shield_date.getInt("plus_def")+head_date.getInt("plus_def")+chest_date.getInt("plus_def")
+        binding.defensePointS.text = txt1.toString()
+
 
         lateinit var ber: ProgressBar
         txt3 = pref.getInt("pl_max_hp", 0).toString()
@@ -66,7 +85,6 @@ class soubiFragment : Fragment() {
         binding.HPBar2S.progress = b
 
 
-
         txt3 = pref.getInt("pl_max_mp", 0).toString()
         binding.maxMPS.text = txt3
 
@@ -78,12 +96,6 @@ class soubiFragment : Fragment() {
 
         val d: Int = txt3.toInt()
         binding.MPBar2S.progress = d
-
-        txt3 = pref.getInt("pl_atk", 0).toString()
-        binding.attackPointS.text = txt3
-
-        txt3 = pref.getInt("pl_def", 0).toString()
-        binding.defensePointS.text = txt3
 
         binding.magicPowerPointS.text = "100"
 
@@ -279,18 +291,44 @@ class soubiFragment : Fragment() {
     }
 
     fun select_buki(num:Int){
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
-        var i = binding.attackPointS.text
+        //var i = binding.attackPointS.text
 
         pref.edit{
             putInt("pl_atk_weapon", my_soubi_buki_id[num])
         }
         binding.weaponS.text = id_search_json_weapondate(pref.getInt("pl_atk_weapon", 0))
         binding.bukiList.setVisibility(View.INVISIBLE)
+
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+
+        var txt1 = pref.getInt("pl_atk", 0)+atk_date.getInt("plus_atk")+shield_date.getInt("plus_atk")+head_date.getInt("plus_atk")+chest_date.getInt("plus_atk")
+        binding.attackPointS.text = txt1.toString()
+        txt1 = pref.getInt("pl_def", 0)+atk_date.getInt("plus_def")+shield_date.getInt("plus_def")+head_date.getInt("plus_def")+chest_date.getInt("plus_def")
+        binding.defensePointS.text = txt1.toString()
     }
 
     fun select_tate(num:Int){
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         pref.edit{
@@ -298,9 +336,29 @@ class soubiFragment : Fragment() {
         }
         binding.shieldS.text = id_search_json_weapondate(pref.getInt("pl_shield_weapon", 1))
         binding.tateList.setVisibility(View.INVISIBLE)
+
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+
+        var txt1 = pref.getInt("pl_atk", 0)+atk_date.getInt("plus_atk")+shield_date.getInt("plus_atk")+head_date.getInt("plus_atk")+chest_date.getInt("plus_atk")
+        binding.attackPointS.text = txt1.toString()
+        txt1 = pref.getInt("pl_def", 0)+atk_date.getInt("plus_def")+shield_date.getInt("plus_def")+head_date.getInt("plus_def")+chest_date.getInt("plus_def")
+        binding.defensePointS.text = txt1.toString()
     }
 
     fun select_atama(num:Int){
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         pref.edit{
@@ -308,9 +366,29 @@ class soubiFragment : Fragment() {
         }
         binding.headS.text = id_search_json_weapondate(pref.getInt("pl_head_weapon", 2))
         binding.atamaList.setVisibility(View.INVISIBLE)
+
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+
+        var txt1 = pref.getInt("pl_atk", 0)+atk_date.getInt("plus_atk")+shield_date.getInt("plus_atk")+head_date.getInt("plus_atk")+chest_date.getInt("plus_atk")
+        binding.attackPointS.text = txt1.toString()
+        txt1 = pref.getInt("pl_def", 0)+atk_date.getInt("plus_def")+shield_date.getInt("plus_def")+head_date.getInt("plus_def")+chest_date.getInt("plus_def")
+        binding.defensePointS.text = txt1.toString()
     }
 
     fun select_yoroi(num:Int){
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         pref.edit{
@@ -318,5 +396,19 @@ class soubiFragment : Fragment() {
         }
         binding.body.text = id_search_json_weapondate(pref.getInt("pl_chest_weapon", 3))
         binding.yoroiList.setVisibility(View.INVISIBLE)
+
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+
+        var txt1 = pref.getInt("pl_atk", 0)+atk_date.getInt("plus_atk")+shield_date.getInt("plus_atk")+head_date.getInt("plus_atk")+chest_date.getInt("plus_atk")
+        binding.attackPointS.text = txt1.toString()
+        txt1 = pref.getInt("pl_def", 0)+atk_date.getInt("plus_def")+shield_date.getInt("plus_def")+head_date.getInt("plus_def")+chest_date.getInt("plus_def")
+        binding.defensePointS.text = txt1.toString()
     }
 }

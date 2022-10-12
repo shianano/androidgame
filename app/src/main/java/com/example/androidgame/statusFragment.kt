@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.example.androidgame.databinding.FragmentSoubiBinding
+import com.example.androidgame.databinding.FragmentStatusBinding
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -24,7 +27,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class statusFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
+    private var _binding: FragmentStatusBinding? = null
+    private val binding get() = _binding!!
 
     private var param1: String? = null
     private var param2: String? = null
@@ -39,14 +44,49 @@ class statusFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_status, container, false)
-    }
 
+
+    var my_atk_weapon = 0
+    var my_shield_weapon = 1
+    var my_head_weapon = 2
+    var my_chest_weapon = 3
     // Viewの生成が完了した後に呼ばれる
     // UIパーツの設定などを行う
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentStatusBinding.inflate(inflater, container, false)
+        val assetManager = resources.assets
+        val inputStream = assetManager.open("weapon_list.json")
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val str: String = bufferedReader.readText()
+        val jsonObject = JSONObject(str)
+        val jsonArray_weapon = jsonObject.getJSONArray("weapon")
+
+        val pref = PreferenceManager.getDefaultSharedPreferences(activity)
+        var txt3 = pref.getInt("pl_hppl_max_hp", 0).toString()
+
+        //テキスト更新
+        lateinit var txt: TextView
+
+        my_atk_weapon=pref.getInt("pl_atk_weapon", 0)
+        my_shield_weapon=pref.getInt("pl_shield_weapon", 1)
+        my_head_weapon=pref.getInt("pl_head_weapon", 2)
+        my_chest_weapon=pref.getInt("pl_chest_weapon", 3)
+        val atk_date = jsonArray_weapon.getJSONObject(my_atk_weapon)
+        val shield_date = jsonArray_weapon.getJSONObject(my_shield_weapon)
+        val head_date = jsonArray_weapon.getJSONObject(my_head_weapon)
+        val chest_date = jsonArray_weapon.getJSONObject(my_chest_weapon)
+
+        var txt1 = pref.getInt("pl_atk", 0)+atk_date.getInt("plus_atk")+shield_date.getInt("plus_atk")+head_date.getInt("plus_atk")+chest_date.getInt("plus_atk")
+        binding.AttackPoint.text = txt1.toString()
+        txt1 = pref.getInt("pl_def", 0)+atk_date.getInt("plus_def")+shield_date.getInt("plus_def")+head_date.getInt("plus_def")+chest_date.getInt("plus_def")
+        binding.DefensePoint.text = txt1.toString()
+
+
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,13 +126,6 @@ class statusFragment : Fragment() {
         val d: Int = txt3.toInt()
         ber.progress=d
 
-        txt3 = pref.getInt("pl_atk",0).toString()
-        txt = view.findViewById<TextView>(R.id.AttackPoint)
-        txt.text= txt3
-
-        txt3 = pref.getInt("pl_def",0).toString()
-        txt = view.findViewById<TextView>(R.id.DefensePoint)
-        txt.text= txt3
 
         txt = view.findViewById<TextView>(R.id.MagicPowerPoint)
         txt.text= "100"
@@ -119,7 +152,7 @@ class statusFragment : Fragment() {
         var i=0
         var ult_list_text = ""
         while(i<list.size){
-            ult_list_text = ult_list_text + id_search_json_ult(list[i]) + "\n"
+            ult_list_text = ult_list_text + id_search_json_ult(list[i]) + "\n"+"\n"
             i++
         }
         txt = view.findViewById<TextView>(R.id.ult_text)
