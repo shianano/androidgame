@@ -99,12 +99,12 @@
             "masu_result_num": 0
         },
         {
-            "masu_event": 1,
-            "masu_result_num": 6
-        },
-        {
             "masu_event": 0,
             "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 6
         },
         {
             "masu_event": 2,
@@ -259,8 +259,8 @@
             "masu_result_num": 1
         },
         {
-            "masu_event": 3,
-            "masu_result_num": 10
+            "masu_event": 0,
+            "masu_result_num": 0
         },
         {
             "masu_event": 0,
@@ -291,8 +291,8 @@
             "masu_result_num": 3
         },
         {
-            "masu_event": 3,
-            "masu_result_num": 11
+            "masu_event": 0,
+            "masu_result_num": 0
         },
         {
             "masu_event": 1,
@@ -347,8 +347,8 @@
             "masu_result_num": 1
         },
         {
-            "masu_event": 0,
-            "masu_result_num": 0
+            "masu_event": 3,
+            "masu_result_num": 10
         },
         {
             "masu_event": 1,
@@ -417,38 +417,38 @@
         {
             "masu_event": 1,
             "masu_result_num": 2
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 3
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
-        },
-        {
-            "masu_event": 0,
-            "masu_result_num": 0
-        },
-        {
-            "masu_event": 1,
-            "masu_result_num": 2
-        },
-        {
-            "masu_event": 2,
-            "masu_result_num": 1
         },
         {
             "masu_event": 3,
-            "masu_result_num": 8
+            "masu_result_num": 11
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 3
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 0,
+            "masu_result_num": 0
+        },
+        {
+            "masu_event": 1,
+            "masu_result_num": 2
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
+        },
+        {
+            "masu_event": 2,
+            "masu_result_num": 1
         },
         {
             "masu_event": 0,
