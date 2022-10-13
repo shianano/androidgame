@@ -237,7 +237,7 @@ class itemFragment : Fragment() {
             val pref = PreferenceManager.getDefaultSharedPreferences(context)
             var num = pref.getInt("pl_mp",0)
             if(num==max_mp){
-                //最大値ｍｐ　ー＞　使えない
+                //最大値ｍｐ　->　使えない
                 AlertDialog.Builder(requireContext())
                         .setTitle("使用")
                         .setMessage("MPが最大なので使用できません！")
@@ -249,7 +249,7 @@ class itemFragment : Fragment() {
             else{
                 //一応は減っている
                 if(num+item_effect_num>=max_mp){
-                    //最大値をこえる　ー＞　ｍｐを最大値にする
+                    //最大値をこえる　->　ｍｐを最大値にする
                     pref.edit {
                         putInt("pl_mp",max_mp)
                     }
